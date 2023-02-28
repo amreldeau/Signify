@@ -40,7 +40,6 @@
                         android:textColor="@color/black"
                         android:layout_height="wrap_content"
                         android:layout_margin="4dp"
-                        android:fontFamily="@font/robotomonoregular"
                         android:textSize="16dp"
                         android:text="Almaty">
                     </TextView>
