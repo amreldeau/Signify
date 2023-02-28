@@ -4,7 +4,7 @@
     <item
         android:id="@+id/basket"
 
-        android:icon="@drawable/basket_svgrepo_com"
+        android:icon="@drawable/cart_vector"
         android:title="basket"
         app:showAsAction="ifRoom" />
 </menu>
