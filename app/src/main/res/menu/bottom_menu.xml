@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/category"
-        android:icon="@drawable/menu_selector"
+        android:icon="@drawable/menu_vector"
         android:title="Review" />
     <item
         android:id="@+id/cart"
