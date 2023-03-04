@@ -74,19 +74,52 @@
 
             <include layout="@layout/bottom_sheet_persistent" android:id="@+id/test1"  />
 
-            <com.google.android.material.bottomnavigation.BottomNavigationView
-                android:id="@+id/bottom_app_bar"
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:gravity="center"
-                app:itemTextColor="@color/bottom_nav_color"
-                app:itemIconTint="@color/bottom_nav_color"
-                app:labelVisibilityMode="labeled"
-                app:menu="@menu/bottom_menu"
-                >
+                app:layout_anchor="@+id/map_fragment"
+                android:background="#FAFAFA"
+                app:layout_anchorGravity="bottom|center">
 
-            </com.google.android.material.bottomnavigation.BottomNavigationView>
+                <ImageView
+                    android:id="@+id/leftDrawable"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="16dp"
+                    android:padding="8dp"
+                    android:background="@drawable/circle_shape"
+                    android:src="@drawable/cart_vector"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/rightDrawable1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/filled_circle_shape"
+                    android:layout_marginLeft="16dp"
+                    android:src="@drawable/category_vector"
+                    android:padding="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/rightDrawable2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:padding="8dp"
+                    android:src="@drawable/bookmark_vector"
+                    android:background="@drawable/circle_shape"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/leftDrawable"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

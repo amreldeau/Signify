@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:id="@+id/category"
-        android:icon="@drawable/menu_vector"
-        android:title="Review" />
+
     <item
         android:id="@+id/cart"
         android:icon="@drawable/cart_vector"
-        android:title="Cart" />
+        android:title="Cart"
+        app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/bookmarks"
         android:icon="@drawable/bookmark_vector"
-        android:title="Bookmarks" />
+        android:title="Bookmarks"
+        app:showAsAction="ifRoom"/>
 
 </menu>
