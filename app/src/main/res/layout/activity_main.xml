@@ -72,62 +72,106 @@
 
 
 
-            <include layout="@layout/bottom_sheet_persistent" android:id="@+id/test1"  />
+
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout2"
-                android:layout_width="match_parent"
+                android:id="@+id/activity_main"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="#FAFAFA"
                 app:layout_anchor="@+id/map_fragment"
-                app:layout_anchorGravity="bottom|center">
+                app:layout_anchorGravity="end|bottom">
 
-                <ImageView
-                    android:id="@+id/leftDrawable"
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fabMain"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/circle_shape"
-                    android:padding="8dp"
-                    android:layout_margin="8dp"
-
-
-                    android:src="@drawable/dots_vertical_svgrepo_com"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/rightDrawable2"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-
-                <ImageView
-                    android:id="@+id/rightDrawable2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:background="@drawable/circle_shape"
-                    android:padding="8dp"
-
-
-                    android:src="@drawable/cart_vector"
+                    android:layout_gravity="bottom|end"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:backgroundTint="#347FBA"
+                    android:clickable="true"
+                    app:borderWidth="0dp"
+                    app:fabSize="normal"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
+                    app:srcCompat="@drawable/dots_vertical_svgrepo_com"
+                    app:tint="@color/white" />
 
+
+                <TextView
+                    android:id="@+id/fab1text"
                     android:layout_width="wrap_content"
-
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:background="@drawable/filled_circle_shape"
-                    android:padding="8dp"
-                    android:src="@drawable/filter_vector"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/rightDrawable2"
-                    app:layout_constraintTop_toTopOf="parent" />
+
+                    android:text="Filter"
+
+                    android:textColor="@color/black"
+                    android:typeface="normal"
+                    android:visibility="invisible"
+
+                    app:layout_constraintBottom_toTopOf="@+id/fabMain"
+                    app:layout_constraintEnd_toStartOf="@+id/fab1"
+                    app:layout_constraintTop_toBottomOf="@+id/fab2" />
+
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#347FBA"
+                    android:clickable="true"
+                    android:layout_marginBottom="16dp"
+                    android:visibility="invisible"
+                    app:borderWidth="0dp"
+                    app:fabSize="mini"
+
+                    app:layout_constraintBottom_toTopOf="@+id/fab1"
+
+                    app:layout_constraintEnd_toEndOf="@+id/fabMain"
+                    app:layout_constraintStart_toStartOf="@+id/fabMain"
+                    app:srcCompat="@drawable/cart_vector"
+                    app:tint="@color/white"
+                    tools:ignore="ContentDescription" />
+
+
+                <TextView
+                    android:id="@+id/fab2text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible"
+
+                    android:text="Cart"
+                    android:textColor="@color/black"
+                    android:typeface="normal"
+                    app:layout_constraintBottom_toBottomOf="@+id/fab2"
+                    app:layout_constraintEnd_toStartOf="@+id/fab1"
+                    app:layout_constraintTop_toTopOf="@+id/fab2" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible"
+                    android:backgroundTint="#347FBA"
+                    android:clickable="true"
+                    android:layout_marginBottom="16dp"
+                    app:borderWidth="0dp"
+                    app:fabSize="mini"
+
+
+                    app:layout_constraintBottom_toTopOf="@+id/fabMain"
+                    app:layout_constraintEnd_toEndOf="@+id/fabMain"
+                    app:layout_constraintStart_toStartOf="@+id/fabMain"
+                    app:srcCompat="@drawable/filter_vector"
+                    app:tint="@color/white"
+                    tools:ignore="ContentDescription" />
+
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
+            <include layout="@layout/bottom_sheet_persistent" android:id="@+id/test1"  />
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

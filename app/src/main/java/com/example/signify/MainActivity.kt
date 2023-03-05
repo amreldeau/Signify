@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.view.View.OnFocusChangeListener
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -25,6 +27,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var toggle: ActionBarDrawerToggle
     val almaty = LatLng(43.24, 76.88)
+    var clicked = false
+    private val fromBottom: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.from_bottom_anim) }
+    private val toBottom: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.to_bottom_anim) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +48,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        binding.fabMain.setOnClickListener {
+      onButtonClicked()
+        }
 
 
 
@@ -82,6 +90,38 @@ class MainActivity : AppCompatActivity() {
             bottomSheetBehavior.state = state
         }
     }
+    private fun onButtonClicked() {
+        setVisiblity(clicked)
+        setAnimaton(clicked)
+        clicked = !clicked
+    }
+    private fun setVisiblity(clicked: Boolean) {
+        if(!clicked){
+            binding.fab1.visibility = View.VISIBLE
+            binding.fab2.visibility = View.VISIBLE
+            binding.fab1text.visibility = View.VISIBLE
+            binding.fab2text.visibility = View.VISIBLE
+        }
+        else{
+            binding.fab1.visibility = View.INVISIBLE
+            binding.fab2.visibility = View.INVISIBLE
+            binding.fab1text.visibility = View.INVISIBLE
+            binding.fab2text.visibility = View.INVISIBLE
+        }
+    }
+    private fun setAnimaton(clicked: Boolean) {
+        if(!clicked){
+            binding.fab1.startAnimation(fromBottom)
+            binding.fab2.startAnimation(fromBottom)
+            binding.fab1text.startAnimation(fromBottom)
+            binding.fab2text.startAnimation(fromBottom)
+        }
+        else{
+            binding.fab1text.startAnimation(toBottom)
+            binding.fab2text.startAnimation(toBottom)
+        }
+    }
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if(toggle.onOptionsItemSelected(item)){
