@@ -76,46 +76,54 @@
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_anchor="@+id/map_fragment"
                 android:background="#FAFAFA"
+                app:layout_anchor="@+id/map_fragment"
                 app:layout_anchorGravity="bottom|center">
 
                 <ImageView
                     android:id="@+id/leftDrawable"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="16dp"
-                    android:padding="8dp"
                     android:background="@drawable/circle_shape"
-                    android:src="@drawable/cart_vector"
+                    android:padding="8dp"
+                    android:layout_margin="8dp"
+
+
+                    android:src="@drawable/dots_vertical_svgrepo_com"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/rightDrawable2"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:id="@+id/rightDrawable1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/filled_circle_shape"
-                    android:layout_marginLeft="16dp"
-                    android:src="@drawable/category_vector"
-                    android:padding="8dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/rightDrawable2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
-                    android:padding="8dp"
-                    android:src="@drawable/bookmark_vector"
                     android:background="@drawable/circle_shape"
+                    android:padding="8dp"
+
+
+                    android:src="@drawable/cart_vector"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/leftDrawable"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+
+                    android:layout_width="wrap_content"
+
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/filled_circle_shape"
+                    android:padding="8dp"
+                    android:src="@drawable/filter_vector"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/rightDrawable2"
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>

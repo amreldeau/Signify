@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        binding.bottomAppBar.selectedItemId = -1
+
         setSupportActionBar(binding.myToolbar)
         supportActionBar?.title = "";
         toggle = ActionBarDrawerToggle(this, binding.drawerLayout, binding.myToolbar, R.string.app_name, R.string.app_name)
