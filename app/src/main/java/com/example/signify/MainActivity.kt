@@ -1,14 +1,16 @@
 package com.example.signify
 
+
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.view.View.OnFocusChangeListener
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import com.example.signify.databinding.ActivityMainBinding
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -55,6 +57,10 @@ class MainActivity : AppCompatActivity() {
 
 
         setSupportActionBar(binding.myToolbar)
+        supportActionBar?.setHomeButtonEnabled(true);
+        supportActionBar?.setDisplayHomeAsUpEnabled(true);
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.menu_vector)
+
         supportActionBar?.title = "";
         toggle = ActionBarDrawerToggle(this, binding.drawerLayout, binding.myToolbar, R.string.app_name, R.string.app_name)
         binding.drawerLayout.addDrawerListener(toggle)
@@ -122,13 +128,21 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.swap_menu, menu)
+        return true
+    }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(toggle.onOptionsItemSelected(item)){
-            return true
+        when (item.itemId) {
+            android.R.id.home -> {
+                binding.drawerLayout.openDrawer(GravityCompat.START)
+                return true
+            }
         }
         return super.onOptionsItemSelected(item)
     }
+
     /**
      * Adds marker representations of the places list on the provided GoogleMap object
      */
@@ -141,3 +155,5 @@ class MainActivity : AppCompatActivity() {
         )
     }
 }
+
+
