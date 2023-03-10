@@ -7,25 +7,51 @@
         android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#E7E7E7"
             tools:context=".MainActivity">
 
-
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/map_fragment"
+                class="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/my_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="#00FFFFFF"
-
-                app:navigationIcon="@drawable/baseline_menu_24"
+                android:background="#00000000"
+                app:menu="@menu/swap_menu"
+                app:navigationIcon="@drawable/menu_vector"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                />
+                app:layout_constraintTop_toTopOf="parent">
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:textColor="@color/black"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:textSize="16dp"
+                        android:text="Almaty">
+                    </TextView>
+                    <ImageView
+                        android:layout_width="12dp"
+                        android:layout_margin="4dp"
+                        android:background="@drawable/down_arrow_vector"
+                        android:layout_height="12dp">
+
+                    </ImageView>
+                </LinearLayout>
+            </com.google.android.material.appbar.MaterialToolbar>
 
             <LinearLayout
                 android:layout_marginTop="100dp"
@@ -33,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/buttonBottomSheetPersistent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -43,16 +69,118 @@
 
             </LinearLayout>
 
+
+
+
+
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/activity_main"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_anchor="@+id/map_fragment"
+                app:layout_anchorGravity="end|bottom">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fabMain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:backgroundTint="#347FBA"
+                    android:clickable="true"
+                    app:borderWidth="0dp"
+                    app:fabSize="normal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+
+                    app:srcCompat="@drawable/dots_vertical_svgrepo_com"
+                    app:tint="@color/white"
+                    android:contentDescription="TODO" />
+
+
+                <TextView
+                    android:id="@+id/fab1text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="Filter"
+
+                    android:textColor="@color/black"
+                    android:typeface="normal"
+                    android:visibility="invisible"
+
+                    app:layout_constraintBottom_toTopOf="@+id/fabMain"
+                    app:layout_constraintEnd_toStartOf="@+id/fab1"
+                    app:layout_constraintTop_toBottomOf="@+id/fab2" />
+
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#347FBA"
+                    android:clickable="true"
+                    android:layout_marginBottom="16dp"
+                    android:visibility="invisible"
+                    app:borderWidth="0dp"
+                    app:fabSize="mini"
+
+                    app:layout_constraintBottom_toTopOf="@+id/fab1"
+
+                    app:layout_constraintEnd_toEndOf="@+id/fabMain"
+                    app:layout_constraintStart_toStartOf="@+id/fabMain"
+                    app:srcCompat="@drawable/cart_vector"
+                    app:tint="@color/white"
+                    tools:ignore="ContentDescription" />
+
+
+                <TextView
+                    android:id="@+id/fab2text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible"
+
+                    android:text="Cart"
+                    android:textColor="@color/black"
+                    android:typeface="normal"
+                    app:layout_constraintBottom_toBottomOf="@+id/fab2"
+                    app:layout_constraintEnd_toStartOf="@+id/fab1"
+                    app:layout_constraintTop_toTopOf="@+id/fab2" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible"
+                    android:backgroundTint="#347FBA"
+                    android:clickable="true"
+                    android:layout_marginBottom="16dp"
+                    app:borderWidth="0dp"
+                    app:fabSize="mini"
+
+
+                    app:layout_constraintBottom_toTopOf="@+id/fabMain"
+                    app:layout_constraintEnd_toEndOf="@+id/fabMain"
+                    app:layout_constraintStart_toStartOf="@+id/fabMain"
+                    app:srcCompat="@drawable/pin_vector"
+                    app:tint="@color/white"
+                    tools:ignore="ContentDescription" />
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
             <include layout="@layout/bottom_sheet_persistent" android:id="@+id/test1"  />
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
         <com.google.android.material.navigation.NavigationView
-            android:id="@+id/navView"
+            android:id="@+id/bottom_bar"
             app:headerLayout="@layout/drawer_header"
             android:layout_width="wrap_content"
             app:menu="@menu/drawer_menu"
-
             android:layout_height="match_parent"
             android:layout_gravity="start" />
 
