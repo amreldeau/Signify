@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Signify</string>
+    <string name="signify">SIGNIFY</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="don_t_have_an_account_sign_up">Don\'t have an account? Sign Up</string>
+    <string name="log_in">Log In</string>
+    <string name="enter_password">enter password</string>
 </resources>
