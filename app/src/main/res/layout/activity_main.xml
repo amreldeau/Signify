@@ -27,7 +27,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/signify"
-            android:textSize="32sp"
+            android:textAlignment="center"
+            android:textSize="47sp"
             android:textColor="@color/black"
             android:textStyle="bold"/>
 
@@ -35,53 +36,50 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/login"
-            android:textSize="23sp"/>
+            android:textAlignment="center"
+            android:textSize="33sp"/>
     </LinearLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
+
+    <EditText
+        android:id="@+id/login_email"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/center_line"
+        android:layout_height="55dp"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:id="@+id/email">
+        android:paddingStart="20dp"
+        android:layout_above="@id/center_line"
+        android:hint="@string/email"
+        android:backgroundTint="@color/material_dynamic_neutral_variant95"
+        android:background="@drawable/rounded_edittext"
+        android:inputType="textEmailAddress"/>
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/login_email"
-            android:hint="@string/email"
-            android:inputType="textEmailAddress"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
+    <EditText
+        android:id="@+id/login_password"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/center_line"
+        android:layout_height="55dp"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:id="@+id/password"
-        app:passwordToggleEnabled="true">
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/login_password"
-            android:hint="@string/password"
-            android:inputType="textPassword"/>
-    </com.google.android.material.textfield.TextInputLayout>
+        android:paddingStart="20dp"
+        android:layout_below="@id/center_line"
+        android:hint="@string/password"
+        android:backgroundTint="@color/material_dynamic_neutral_variant95"
+        android:background="@drawable/rounded_edittext"
+        android:inputType="textPassword"
+        app:passwordToggleEnabled="true"/>
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="55dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:id="@+id/login"
         android:text="@string/log_in"
-        android:layout_below="@id/password"/>
+        android:background="@drawable/rounded_edittext"
+        android:layout_below="@id/login_password"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -93,6 +91,4 @@
         android:textAlignment="center"
         android:text="@string/don_t_have_an_account_sign_up"
         android:textColor="@color/black"/>
-
-
 </RelativeLayout>
