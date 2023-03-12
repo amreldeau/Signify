@@ -5,6 +5,8 @@
     <string name="password">Password</string>
     <string name="email">Email</string>
     <string name="don_t_have_an_account_sign_up">Don\'t have an account? Sign Up</string>
+    <string name="back_to_login_text">Already have an account? Log In</string>
     <string name="log_in">Log In</string>
     <string name="enter_password">enter password</string>
+    <string name="sign_up">Sign Up</string>
 </resources>
