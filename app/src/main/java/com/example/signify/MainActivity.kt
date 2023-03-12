@@ -38,16 +38,21 @@ class MainActivity : AppCompatActivity() {
     private lateinit var billboardRef: DatabaseReference
     private lateinit var map: GoogleMap
 
+    // Define the fragments
+    private lateinit var mapFragment: SupportMapFragment
+    private lateinit var otherFragment: BillboardListFragment
+
+    // Keep track of the current fragment
+    private var isMapFragmentVisible = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Inflate the content view (replacing `setContentView`)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         database = FirebaseDatabase.getInstance()
         billboardRef = database.getReference("billboards")
-        val mapFragment = supportFragmentManager.findFragmentById(
-            R.id.map_fragment
-        ) as? SupportMapFragment
-        mapFragment?.getMapAsync { googleMap ->
+        mapFragment = supportFragmentManager.findFragmentById(R.id.map_fragment) as SupportMapFragment
+        otherFragment = BillboardListFragment()
+        mapFragment.getMapAsync  { googleMap ->
             onMapReady(googleMap)
             googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(applicationContext, R.raw.map_style));
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(almaty, 12f))
@@ -58,7 +63,39 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.fabMain.setOnClickListener {
-      onButtonClicked()
+            onButtonClicked()
+        }
+        binding.swaper.setOnClickListener {
+            // Switch between the fragments based on the current fragment
+            if (isMapFragmentVisible) {
+                supportFragmentManager.beginTransaction().replace(R.id.map_fragment, otherFragment).commit()
+                binding.swaper.setImageResource(R.drawable.map_vector)
+            } else {
+                supportFragmentManager.beginTransaction().replace(R.id.map_fragment, mapFragment).commit()
+                binding.swaper.setImageResource(R.drawable.list_pointers_svgrepo_com)
+                mapFragment.getMapAsync  { googleMap ->
+                    onMapReady(googleMap)
+                    googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(applicationContext, R.raw.map_style));
+                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(almaty, 12f))
+                    googleMap.setOnCameraMoveListener {
+                        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+                    }
+                    setupMap()
+                }
+            }
+            // Update the flag
+            isMapFragmentVisible = !isMapFragmentVisible
+        }
+        binding.billboardDescription.selectMonth.setOnClickListener{
+            binding.billboardSelectMonth.billboardName.text = binding.billboardDescription.billboardName.text
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+            bottomSheetBehavior = BottomSheetBehavior.from(binding.billboardSelectMonth.bottomSheet)
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+        }
+        binding.billboardSelectMonth.description.setOnClickListener{
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+            bottomSheetBehavior = BottomSheetBehavior.from(binding.billboardDescription.bottomSheet)
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
 
 
@@ -133,8 +170,9 @@ class MainActivity : AppCompatActivity() {
         map.setOnMarkerClickListener { marker ->
             val billboard = marker.tag as Billboard
             Toast.makeText(this, billboard.name, Toast.LENGTH_SHORT).show()
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
             showBillboardDetails(billboard)
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
             true
         }
     }
@@ -190,7 +228,7 @@ class MainActivity : AppCompatActivity() {
                         MarkerOptions()
                             .position(LatLng(billboard.latitude, billboard.longitude))
                             .title(billboard.name)
-                            .icon(BitmapFromVector(applicationContext, R.drawable.map_marker))
+                            .icon(BitmapFromVector(applicationContext, R.drawable.billboard_marker))
                     )
                     marker.tag = billboard
                 }
@@ -206,19 +244,12 @@ class MainActivity : AppCompatActivity() {
 
     }
     private fun showBillboardDetails(billboard: Billboard) {
-
+        binding.billboardDescription.location.text = billboard.name
+        binding.billboardDescription.billboardName.text = billboard.name
         // Set the BottomSheetBehavior for the new bottom sheet
-        bottomSheetBehavior = BottomSheetBehavior.from(binding.test2.bottomSheet)
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+        bottomSheetBehavior = BottomSheetBehavior.from(binding.billboardDescription.bottomSheet)
+
     }
-    private fun showFilter() {
-
-        // Set the BottomSheetBehavior for the new bottom sheet
-        bottomSheetBehavior = BottomSheetBehavior.from(binding.test3.bottomSheet)
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-    }
-
-
 }
 
 

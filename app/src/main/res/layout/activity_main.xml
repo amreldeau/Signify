@@ -24,7 +24,7 @@
                 android:id="@+id/my_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="#00000000"
+                android:background="#FFFFFF"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -174,9 +174,10 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+
             <include layout="@layout/bottom_sheet_persistent" android:id="@+id/test1"/>
-            <include layout="@layout/bottom_sheet_billboard_details" android:id="@+id/test2"/>
-            <include layout="@layout/bottom_sheet_filter" android:id="@+id/test3"/>
+            <include layout="@layout/bottom_sheet_billboard_details" android:id="@+id/billboard_description"/>
+            <include layout="@layout/bottom_sheet_select_month" android:id="@+id/billboard_select_month"/>
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
