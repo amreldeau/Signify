@@ -81,14 +81,29 @@
         android:background="@drawable/rounded_edittext"
         android:layout_below="@id/signup_password"/>
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="15dp"
         android:textAlignment="center"
-        android:text="@string/back_to_login_text"
-        android:textColor="@color/black"/>
+        android:paddingBottom="20dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/back_to_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/back_to_login_text"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/log_in_entry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:text="@string/log_in"
+            android:textColor="@color/purple_700"
+            android:textStyle="bold"/>
+    </LinearLayout>
 </RelativeLayout>
