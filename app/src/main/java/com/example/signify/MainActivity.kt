@@ -4,7 +4,10 @@ package com.example.signify
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.Rect
 import android.os.Bundle
+import android.util.DisplayMetrics
+import android.util.TypedValue
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -14,6 +17,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
 import com.example.signify.databinding.ActivityMainBinding
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -33,6 +38,7 @@ class MainActivity : AppCompatActivity() {
     var clicked = false
     private val fromBottom: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.from_bottom_anim) }
     private val toBottom: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.to_bottom_anim) }
+
 
     private lateinit var database: FirebaseDatabase
     private lateinit var billboardRef: DatabaseReference
@@ -90,12 +96,13 @@ class MainActivity : AppCompatActivity() {
             binding.billboardSelectMonth.billboardName.text = binding.billboardDescription.billboardName.text
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
             bottomSheetBehavior = BottomSheetBehavior.from(binding.billboardSelectMonth.bottomSheet)
+
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
         binding.billboardSelectMonth.description.setOnClickListener{
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
             bottomSheetBehavior = BottomSheetBehavior.from(binding.billboardDescription.bottomSheet)
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
         }
 
 
@@ -109,8 +116,10 @@ class MainActivity : AppCompatActivity() {
         toggle.syncState()
 
         //#2 Initializing the BottomSheetBehavior
+
         bottomSheetBehavior = BottomSheetBehavior.from(binding.test1.bottomSheet)
         bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+
 
         //#3 Listening to State Changes of BottomSheet
         bottomSheetBehavior.addBottomSheetCallback(object :
@@ -122,6 +131,8 @@ class MainActivity : AppCompatActivity() {
 
             }
         })
+        binding.billboardDescription.viewPager.adapter = PagerAdapter(supportFragmentManager)
+        binding.billboardDescription.tabLayout.setupWithViewPager(binding.billboardDescription.viewPager)
 
 
         //#4 Changing the BottomSheet State on ButtonClick
@@ -172,7 +183,7 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, billboard.name, Toast.LENGTH_SHORT).show()
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
             showBillboardDetails(billboard)
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
             true
         }
     }
@@ -244,12 +255,33 @@ class MainActivity : AppCompatActivity() {
 
     }
     private fun showBillboardDetails(billboard: Billboard) {
-        binding.billboardDescription.location.text = billboard.name
         binding.billboardDescription.billboardName.text = billboard.name
         // Set the BottomSheetBehavior for the new bottom sheet
+        // Get the root view of the activity
         bottomSheetBehavior = BottomSheetBehavior.from(binding.billboardDescription.bottomSheet)
+
 
     }
 }
 
+class PagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
+    private val fragments = listOf(
+        BillboardParametersFragment(),
+        BillboardListFragment(),
+        BillboardListFragment()
+    )
+
+    override fun getCount() = fragments.size
+
+    override fun getItem(position: Int) = fragments[position]
+
+    override fun getPageTitle(position: Int): CharSequence {
+        return when (position) {
+            0 -> "Parameters"
+            1 -> "Images"
+            2 -> "Reviews"
+            else -> ""
+        }
+    }
+}
