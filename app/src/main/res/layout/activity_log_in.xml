@@ -4,15 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignUpActivity">
+    tools:context=".MainActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/center_line2"
-        android:layout_centerInParent="true">
-
-    </RelativeLayout>
+        android:id="@+id/center_line"
+        android:layout_centerInParent="true"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,7 +18,7 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginBottom="150dp"
-        android:layout_above="@id/center_line2"
+        android:layout_above="@id/center_line"
         android:orientation="vertical">
 
         <TextView
@@ -35,35 +33,35 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/sign_up"
+            android:text="@string/login"
             android:textAlignment="center"
             android:textSize="33sp"/>
     </LinearLayout>
 
 
     <EditText
-        android:id="@+id/signup_email"
+        android:id="@+id/login_email"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:paddingStart="20dp"
-        android:layout_above="@id/center_line2"
+        android:layout_above="@id/center_line"
         android:hint="@string/email"
         android:backgroundTint="@color/material_dynamic_neutral_variant95"
         android:background="@drawable/rounded_edittext"
         android:inputType="textEmailAddress"/>
 
     <EditText
-        android:id="@+id/signup_password"
+        android:id="@+id/login_password"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:paddingStart="20dp"
-        android:layout_below="@id/center_line2"
+        android:layout_below="@id/center_line"
         android:hint="@string/password"
         android:backgroundTint="@color/material_dynamic_neutral_variant95"
         android:background="@drawable/rounded_edittext"
@@ -76,10 +74,10 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginTop="20dp"
-        android:id="@+id/signup"
-        android:text="@string/sign_up"
+        android:id="@+id/login"
+        android:text="@string/log_in"
         android:background="@drawable/rounded_edittext"
-        android:layout_below="@id/signup_password"/>
+        android:layout_below="@id/login_password"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -91,18 +89,18 @@
         android:gravity="center">
 
         <TextView
-            android:id="@+id/back_to_login"
+            android:id="@+id/back_to_signup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/back_to_login_text"
+            android:text="@string/back_to_sign_up_text"
             android:textColor="@color/black"/>
 
         <TextView
-            android:id="@+id/log_in_entry"
+            android:id="@+id/sign_up_entry"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="5dp"
-            android:text="@string/log_in"
+            android:text="@string/sign_up"
             android:textColor="@color/purple_700"
             android:textStyle="bold"/>
     </LinearLayout>
