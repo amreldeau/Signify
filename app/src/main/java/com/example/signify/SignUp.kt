@@ -16,12 +16,12 @@ class SignUp : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
 
-        //START:[Enter Sign Up page] This code sets an OnClickListener on the TextView, so when it is clicked, it will start the SignUp
+        //START:[Enter MainActivity] This code sets an OnClickListener on the TextView, so when it is clicked, it will start the SignUp
         val logInEntry = findViewById<TextView>(R.id.log_in_entry)
         logInEntry.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
-        //END: Enter MainActivity
+        //END:[Enter MainActivity]
     }
 }
