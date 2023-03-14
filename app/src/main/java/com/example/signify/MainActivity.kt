@@ -93,13 +93,13 @@ class MainActivity : AppCompatActivity() {
             isMapFragmentVisible = !isMapFragmentVisible
         }
         binding.billboardDescription.selectMonth.setOnClickListener{
-            binding.billboardSelectMonth.billboardName.text = binding.billboardDescription.billboardName.text
+            binding.billboardSelectMonth.billboardLocation.text = binding.billboardDescription.billboardLocation.text
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
             bottomSheetBehavior = BottomSheetBehavior.from(binding.billboardSelectMonth.bottomSheet)
 
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
-        binding.billboardSelectMonth.description.setOnClickListener{
+        binding.billboardSelectMonth.back.setOnClickListener{
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
             bottomSheetBehavior = BottomSheetBehavior.from(binding.billboardDescription.bottomSheet)
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
@@ -111,10 +111,15 @@ class MainActivity : AppCompatActivity() {
 
 
         supportActionBar?.title = "";
-        toggle = ActionBarDrawerToggle(this, binding.drawerLayout, binding.myToolbar, R.string.app_name, R.string.app_name)
-        binding.drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
 
+        toggle = ActionBarDrawerToggle(this, binding.drawerLayout, binding.myToolbar, R.string.app_name, R.string.app_name)
+        toggle.setHomeAsUpIndicator(R.drawable.billboard_marker)
+
+        toggle.syncState()
+        getSupportActionBar()?.setHomeButtonEnabled(true);
+        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true);
+
+        getSupportActionBar()?.setHomeAsUpIndicator(R.drawable.menu_1_svgrepo_com);
         //#2 Initializing the BottomSheetBehavior
 
         bottomSheetBehavior = BottomSheetBehavior.from(binding.test1.bottomSheet)
@@ -255,7 +260,7 @@ class MainActivity : AppCompatActivity() {
 
     }
     private fun showBillboardDetails(billboard: Billboard) {
-        binding.billboardDescription.billboardName.text = billboard.name
+        binding.billboardDescription.billboardLocation.text = billboard.name
         // Set the BottomSheetBehavior for the new bottom sheet
         // Get the root view of the activity
         bottomSheetBehavior = BottomSheetBehavior.from(binding.billboardDescription.bottomSheet)
@@ -278,7 +283,7 @@ class PagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     override fun getPageTitle(position: Int): CharSequence {
         return when (position) {
-            0 -> "Parameters"
+            0 -> "Info"
             1 -> "Images"
             2 -> "Reviews"
             else -> ""

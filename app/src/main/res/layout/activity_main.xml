@@ -24,31 +24,11 @@
                 android:id="@+id/my_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="#FFFFFF"
+                android:background="#F3F3F3"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
-                <LinearLayout
-                    android:gravity="center"
-                    android:layout_gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:textColor="@color/black"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="4dp"
-                        android:textSize="16dp"
-                        android:text="Almaty">
-                    </TextView>
-                    <ImageView
-                        android:layout_width="12dp"
-                        android:layout_margin="4dp"
-                        android:background="@drawable/down_arrow_vector"
-                        android:layout_height="12dp">
 
-                    </ImageView>
-                </LinearLayout>
             </com.google.android.material.appbar.MaterialToolbar>
 
 
@@ -87,9 +67,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|end"
-                    android:backgroundTint="#EFEFEF"
+                    android:backgroundTint="#F3F3F3"
                     android:clickable="true"
-
                     android:layout_marginBottom="16dp"
                     android:contentDescription="TODO"
                     app:borderWidth="0dp"

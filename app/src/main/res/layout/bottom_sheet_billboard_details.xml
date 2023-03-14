@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         app:behavior_hideable="true"
         android:clickable="true"
-
+        android:background="@drawable/bottom_sheet_background"
         app:behavior_peekHeight="0dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
         android:focusable="true">
@@ -21,7 +21,7 @@
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
+
 
 
             app:layout_constraintEnd_toEndOf="parent"
@@ -32,33 +32,79 @@
                 android:id="@+id/imageView2"
                 android:layout_width="100dp"
                 android:layout_height="2dp"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="4dp"
                 android:background="@drawable/line"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"></ImageView>
 
             <TextView
-                android:id="@+id/billboard_name"
+                android:id="@+id/billboard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:fontFamily="@font/poppinsregular"
-                android:text="BillboardName"
-                android:textColor="@color/black"
+                android:fontFamily="@font/poppinsbold"
+                android:text="Billboard"
+
                 android:textSize="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"></TextView>
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/location_svgrepo_com"
+                app:layout_constraintStart_toStartOf="@+id/billboard"
+                app:layout_constraintTop_toBottomOf="@+id/billboard">
+
+            </ImageView>
+
+            <TextView
+                android:id="@+id/billboard_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppinsregular"
+                android:text="location"
+
+                android:textSize="16dp"
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toBottomOf="@+id/billboard"></TextView>
+
+            <TextView
+                android:id="@+id/billboard_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppinsbold"
+                android:text="256$"
+                android:textSize="32dp"
+                app:layout_constraintBottom_toBottomOf="@+id/select_month"
+                app:layout_constraintStart_toStartOf="@+id/billboard"
+                app:layout_constraintTop_toTopOf="@+id/select_month"></TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="USD"
+                android:textColor="#D5D5D5"
+                android:textSize="32dp"
+                app:layout_constraintBottom_toBottomOf="@+id/select_month"
+                app:layout_constraintStart_toEndOf="@+id/billboard_price"
+                app:layout_constraintTop_toTopOf="@+id/select_month">
+
+            </TextView>
 
             <LinearLayout
                 android:id="@+id/select_month"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/select_background"
+                android:layout_margin="16dp"
+                android:background="@drawable/background_rounded_blue"
                 android:gravity="center"
                 android:padding="16dp"
-                app:layout_constraintStart_toStartOf="@+id/billboard_name"
-                app:layout_constraintTop_toBottomOf="@+id/billboard_name">
+                app:layout_constraintEnd_toEndOf="parent"
+
+                app:layout_constraintTop_toBottomOf="@+id/billboard_location">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -67,20 +113,21 @@
 
                 </ImageView>
 
-                <TextView
 
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:layout_marginLeft="8dp"
-                    android:text="Select month"></TextView>
             </LinearLayout>
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/bottom_sheet_background"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:tabIndicatorFullWidth="false"
+                app:tabPaddingStart="25dp"
+                android:layout_marginTop="16dp"
+                app:tabPaddingEnd="25dp"
+                app:tabSelectedTextColor="#262626"
+                app:tabIndicatorColor="#262626"
                 app:layout_constraintStart_toStartOf="parent"
                 android:contentDescription="TODO"
                 app:layout_constraintTop_toBottomOf="@+id/select_month"
