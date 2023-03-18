@@ -119,7 +119,7 @@ class MainActivity : AppCompatActivity() {
         getSupportActionBar()?.setHomeButtonEnabled(true);
         getSupportActionBar()?.setDisplayHomeAsUpEnabled(true);
 
-        getSupportActionBar()?.setHomeAsUpIndicator(R.drawable.menu_1_svgrepo_com);
+        getSupportActionBar()?.setHomeAsUpIndicator(R.drawable.dots_9_svgrepo_com);
         //#2 Initializing the BottomSheetBehavior
 
         bottomSheetBehavior = BottomSheetBehavior.from(binding.test1.bottomSheet)

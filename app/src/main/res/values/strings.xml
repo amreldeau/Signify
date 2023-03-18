@@ -1,5 +1,12 @@
 <resources>
     <string name="app_name">Signify</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="signify">SIGNIFY</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="back_to_sign_up_text">Don\'t have an account?</string>
+    <string name="back_to_login_text">Already have an account?</string>
+    <string name="log_in">Log In</string>
+    <string name="enter_password">enter password</string>
+    <string name="sign_up">Sign Up</string>
 </resources>
