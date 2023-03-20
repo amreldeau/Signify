@@ -1,31 +1,35 @@
 package com.example.signify
 
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.graphics.Rect
+import android.graphics.Color
 import android.os.Bundle
-import android.util.DisplayMetrics
-import android.util.TypedValue
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import android.widget.Toast
+import androidx.annotation.ColorInt
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
 import com.example.signify.databinding.ActivityMainBinding
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.database.*
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 class MainActivity : AppCompatActivity() {
@@ -34,33 +38,20 @@ class MainActivity : AppCompatActivity() {
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
     private lateinit var binding: ActivityMainBinding
     private lateinit var toggle: ActionBarDrawerToggle
-    val almaty = LatLng(43.24, 76.88)
-    var clicked = false
-    private val fromBottom: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.from_bottom_anim) }
-    private val toBottom: Animation by lazy { AnimationUtils.loadAnimation(this, R.anim.to_bottom_anim) }
-
-
-    private lateinit var database: FirebaseDatabase
-    private lateinit var billboardRef: DatabaseReference
+    private val almaty = LatLng(43.24, 76.88)
     private lateinit var map: GoogleMap
 
     // Define the fragments
     private lateinit var mapFragment: SupportMapFragment
-    private lateinit var otherFragment: BillboardListFragment
 
-    // Keep track of the current fragment
-    private var isMapFragmentVisible = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Inflate the content view (replacing `setContentView`)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        database = FirebaseDatabase.getInstance()
-        billboardRef = database.getReference("billboards")
         mapFragment = supportFragmentManager.findFragmentById(R.id.map_fragment) as SupportMapFragment
-        otherFragment = BillboardListFragment()
         mapFragment.getMapAsync  { googleMap ->
             onMapReady(googleMap)
-            googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(applicationContext, R.raw.map_style));
+            googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(applicationContext, R.raw.map_style))
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(almaty, 12f))
             googleMap.setOnCameraMoveListener {
                 bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
@@ -68,30 +59,6 @@ class MainActivity : AppCompatActivity() {
             setupMap()
         }
 
-        binding.fabMain.setOnClickListener {
-            onButtonClicked()
-        }
-        binding.swaper.setOnClickListener {
-            // Switch between the fragments based on the current fragment
-            if (isMapFragmentVisible) {
-                supportFragmentManager.beginTransaction().replace(R.id.map_fragment, otherFragment).commit()
-                binding.swaper.setImageResource(R.drawable.map_vector)
-            } else {
-                supportFragmentManager.beginTransaction().replace(R.id.map_fragment, mapFragment).commit()
-                binding.swaper.setImageResource(R.drawable.list_pointers_svgrepo_com)
-                mapFragment.getMapAsync  { googleMap ->
-                    onMapReady(googleMap)
-                    googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(applicationContext, R.raw.map_style));
-                    googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(almaty, 12f))
-                    googleMap.setOnCameraMoveListener {
-                        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-                    }
-                    setupMap()
-                }
-            }
-            // Update the flag
-            isMapFragmentVisible = !isMapFragmentVisible
-        }
         binding.billboardDescription.selectMonth.setOnClickListener{
             binding.billboardSelectMonth.billboardLocation.text = binding.billboardDescription.billboardLocation.text
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
@@ -104,22 +71,24 @@ class MainActivity : AppCompatActivity() {
             bottomSheetBehavior = BottomSheetBehavior.from(binding.billboardDescription.bottomSheet)
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
         }
-
-
+        val navigationView = findViewById<NavigationView>(R.id.nav)
+        navigationView.itemIconTintList = null
+        val menuItemPosition = 1
+        val menuItem = navigationView.menu.getItem(menuItemPosition)
+        changeMenuItemColor(menuItem, Color.parseColor("#c62928"))
 
         setSupportActionBar(binding.myToolbar)
 
 
-        supportActionBar?.title = "";
+        supportActionBar?.title = ""
 
         toggle = ActionBarDrawerToggle(this, binding.drawerLayout, binding.myToolbar, R.string.app_name, R.string.app_name)
         toggle.setHomeAsUpIndicator(R.drawable.billboard_marker)
-
         toggle.syncState()
-        getSupportActionBar()?.setHomeButtonEnabled(true);
-        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true);
 
-        getSupportActionBar()?.setHomeAsUpIndicator(R.drawable.dots_9_svgrepo_com);
+        supportActionBar?.setHomeButtonEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.menu_lines_svgrepo_com)
         //#2 Initializing the BottomSheetBehavior
 
         bottomSheetBehavior = BottomSheetBehavior.from(binding.test1.bottomSheet)
@@ -136,44 +105,13 @@ class MainActivity : AppCompatActivity() {
 
             }
         })
-        binding.billboardDescription.viewPager.adapter = PagerAdapter(supportFragmentManager)
-        binding.billboardDescription.tabLayout.setupWithViewPager(binding.billboardDescription.viewPager)
+
 
 
         //#4 Changing the BottomSheet State on ButtonClick
 
     }
-    private fun onButtonClicked() {
-        setVisiblity(clicked)
-        setAnimaton(clicked)
-        clicked = !clicked
-    }
-    private fun setVisiblity(clicked: Boolean) {
-        if(!clicked){
-            binding.fab1.visibility = View.VISIBLE
-            binding.fab2.visibility = View.VISIBLE
-            binding.fab1text.visibility = View.VISIBLE
-            binding.fab2text.visibility = View.VISIBLE
-        }
-        else{
-            binding.fab1.visibility = View.INVISIBLE
-            binding.fab2.visibility = View.INVISIBLE
-            binding.fab1text.visibility = View.INVISIBLE
-            binding.fab2text.visibility = View.INVISIBLE
-        }
-    }
-    private fun setAnimaton(clicked: Boolean) {
-        if(!clicked){
-            binding.fab1.startAnimation(fromBottom)
-            binding.fab2.startAnimation(fromBottom)
-            binding.fab1text.startAnimation(fromBottom)
-            binding.fab2text.startAnimation(fromBottom)
-        }
-        else{
-            binding.fab1text.startAnimation(toBottom)
-            binding.fab2text.startAnimation(toBottom)
-        }
-    }
+
 
 
 
@@ -185,15 +123,15 @@ class MainActivity : AppCompatActivity() {
 
         map.setOnMarkerClickListener { marker ->
             val billboard = marker.tag as Billboard
-            Toast.makeText(this, billboard.name, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, billboard.location, Toast.LENGTH_SHORT).show()
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
             showBillboardDetails(billboard)
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
             true
         }
     }
 
-    private fun BitmapFromVector(context: Context, vectorResId: Int): BitmapDescriptor? {
+    private fun bitmapFromVector(context: Context, vectorResId: Int): BitmapDescriptor? {
         // below line is use to generate a drawable.
         val vectorDrawable = ContextCompat.getDrawable(context, vectorResId)
 
@@ -224,69 +162,95 @@ class MainActivity : AppCompatActivity() {
         return BitmapDescriptorFactory.fromBitmap(bitmap)
     }
     private fun setupMap() {
-        // Retrieve billboards from Firebase Realtime Database
-        billboardRef.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
+        // Get the Firestore instance
+        val db = FirebaseFirestore.getInstance()
+
+        // Get a reference to the "billboards" collection
+        val billboardsCollection = db.collection("billboards")
+
+        // Retrieve billboards from Firebase Firestore
+        billboardsCollection.addSnapshotListener { snapshot, error ->
+            if (error != null) {
+                return@addSnapshotListener
+            }
+
+            if (snapshot != null) {
                 // Clear existing markers
                 map.clear()
 
-                // Loop through each billboard in the snapshot
-                for (billboardSnapshot in snapshot.children) {
-                    // Get the latitude, longitude, and name of the billboard
+                // Loop through each billboard document in the snapshot
+                for (document in snapshot.documents) {
+                    // Get the GeoPoint and other fields of the billboard
+                    val geoPoint = document.getGeoPoint("geopoint")
+                    val id = document.getString("id") ?: ""
+                    val price = document.getDouble("price") ?: 0.0
+                    val location = document.getString("location") ?: ""
+                    val size = document.getString("size") ?: ""
+                    val surface = document.getString("surface") ?: ""
+                    val type = document.getString("type") ?: ""
 
-                    val latitude = billboardSnapshot.child("latitude").getValue(Double::class.java) ?: 0.0
-                    val longitude = billboardSnapshot.child("longitude").getValue(Double::class.java) ?: 0.0
-                    val name = billboardSnapshot.child("name").getValue(String::class.java) ?: ""
-                    val billboard = Billboard(latitude, longitude, name)
-                    // Create a marker and add it to the map
+                    // Retrieve the "available months" field from the document and get a reference to the corresponding "months" document
+                    val availableMonthsReference = document.get("availablemonths") as DocumentReference
+                    availableMonthsReference.get().addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            val availableMonthsDocument = task.result
 
-                    val marker = map.addMarker(
-                        MarkerOptions()
-                            .position(LatLng(billboard.latitude, billboard.longitude))
-                            .title(billboard.name)
-                            .icon(BitmapFromVector(applicationContext, R.drawable.billboard_marker))
-                    )
-                    marker.tag = billboard
+                            // Create a HashMap to store the availability of each month
+                            val availableMonths = HashMap<Int, Boolean>()
+                            availableMonthsDocument?.let { months ->
+                                for (i in 1..12) {
+                                    val available = months.getBoolean(i.toString()) ?: false
+                                    availableMonths[i] = available
+                                }
+                            }
+
+                            // Create a new Billboard object and set the available months HashMap
+                            val billboard = Billboard(geoPoint, id, price, location, size, surface, type, availableMonths)
+
+                            // Create a marker and add it to the map
+                            val marker = map.addMarker(
+                                MarkerOptions().position(LatLng(billboard.geoPoint!!.latitude, billboard.geoPoint.longitude))
+                                    .title(billboard.location)
+                                    .icon(bitmapFromVector(applicationContext, R.drawable.billboard_marker)
+                                    )
+                            )
+
+                            // Associate the Billboard object with the marker
+                            marker.tag = billboard
+                        } else {
+                            Log.e(
+                                TAG,
+                                "Error retrieving available months document: ",
+                                task.exception
+                            )
+                        }
+                    }
                 }
             }
+        }
+    }
 
 
-            override fun onCancelled(error: DatabaseError) {
-
-            }
-        })
-
-        // Set up marker click listener
-
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.account_menu, menu)
+        return true
     }
     private fun showBillboardDetails(billboard: Billboard) {
-        binding.billboardDescription.billboardLocation.text = billboard.name
+        binding.billboardDescription.billboardLocation.text = billboard.location
         // Set the BottomSheetBehavior for the new bottom sheet
         // Get the root view of the activity
         bottomSheetBehavior = BottomSheetBehavior.from(binding.billboardDescription.bottomSheet)
 
-
+    }
+    private fun changeMenuItemColor(menuItem: MenuItem, @ColorInt color: Int) {
+        val coloredMenuItemTitle = SpannableString(menuItem.title)
+        coloredMenuItemTitle.setSpan(
+            ForegroundColorSpan(color),
+            0,
+            coloredMenuItemTitle.length,
+            0
+        )
+        menuItem.title = coloredMenuItemTitle
     }
 }
 
-class PagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
-
-    private val fragments = listOf(
-        BillboardParametersFragment(),
-        BillboardListFragment(),
-        BillboardListFragment()
-    )
-
-    override fun getCount() = fragments.size
-
-    override fun getItem(position: Int) = fragments[position]
-
-    override fun getPageTitle(position: Int): CharSequence {
-        return when (position) {
-            0 -> "Info"
-            1 -> "Images"
-            2 -> "Reviews"
-            else -> ""
-        }
-    }
-}

@@ -4,7 +4,7 @@
     <item
         android:id="@+id/basket"
 
-        android:icon="@drawable/map_vector"
+        android:icon="@drawable/user"
         android:title="basket"
         app:showAsAction="always" />
 </menu>

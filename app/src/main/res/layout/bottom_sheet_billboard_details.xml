@@ -6,10 +6,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bottomSheet"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:behavior_hideable="true"
         android:clickable="true"
-        android:elevation="16dp"
+        android:elevation="32dp"
         android:background="@drawable/bottom_sheet_background"
         app:behavior_peekHeight="0dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
@@ -21,7 +21,7 @@
 
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
 
 
 
@@ -47,19 +47,10 @@
                 android:fontFamily="@font/poppinsbold"
                 android:text="Billboard"
 
-                android:textSize="16dp"
+
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"></TextView>
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/location_svgrepo_com"
-                app:layout_constraintStart_toStartOf="@+id/billboard"
-                app:layout_constraintTop_toBottomOf="@+id/billboard">
-
-            </ImageView>
 
             <TextView
                 android:id="@+id/billboard_location"
@@ -68,8 +59,8 @@
                 android:fontFamily="@font/poppinsregular"
                 android:text="location"
 
-                android:textSize="16dp"
-                app:layout_constraintStart_toEndOf="@+id/imageView"
+                android:textSize="20dp"
+                app:layout_constraintStart_toStartOf="@+id/billboard"
                 app:layout_constraintTop_toBottomOf="@+id/billboard"></TextView>
 
             <TextView
@@ -84,6 +75,7 @@
                 app:layout_constraintTop_toTopOf="@+id/select_month"></TextView>
 
             <TextView
+                android:id="@+id/textView10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="USD"
@@ -100,6 +92,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
+                android:backgroundTint="#009688"
                 android:background="@drawable/background_rounded_blue"
                 android:gravity="center"
                 android:padding="16dp"
@@ -117,34 +110,78 @@
 
             </LinearLayout>
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tab_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bottom_sheet_background"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:tabIndicatorFullWidth="false"
-                app:tabPaddingStart="25dp"
-                android:layout_marginTop="16dp"
-                app:tabPaddingEnd="25dp"
-                app:tabSelectedTextColor="#262626"
-                app:tabIndicatorColor="#262626"
-                app:layout_constraintStart_toStartOf="parent"
-                android:contentDescription="TODO"
-                app:layout_constraintTop_toBottomOf="@+id/select_month"
-                app:tabGravity="fill"
-                app:tabMode="fixed" />
 
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/view_pager"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
+            <androidx.constraintlayout.helper.widget.Flow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                app:constraint_referenced_ids="item_1,item_2,item_3,item_5"
+                app:flow_horizontalGap="8dp"
+                app:flow_horizontalStyle="packed"
+                app:flow_verticalGap="8dp"
+                app:flow_wrapMode="chain"
+
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tab_layout" />
+                app:layout_constraintTop_toBottomOf="@+id/billboard_price"
+                tools:ignore="MissingConstraints" />
+            <TextView
+                android:id="@+id/item_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#F2F3F4"
+                android:background="@drawable/background_rounded_blue"
+                android:paddingLeft="16dp"
+                android:paddingTop="8dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="8dp"
+                android:text="Type of displau2-sided"
+                android:textColor="#454545"/>
+
+            <TextView
+                android:layout_marginLeft="16dp"
+                android:id="@+id/item_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#F2F3F4"
+                android:background="@drawable/background_rounded_blue"
+                android:paddingLeft="16dp"
+                android:paddingTop="8dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="8dp"
+                android:text="Type of displau2-sided"
+                android:textColor="#454545"
+            />
+            <TextView
+                android:id="@+id/item_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#F2F3F4"
+                android:background="@drawable/background_rounded_blue"
+                android:paddingLeft="16dp"
+                android:paddingTop="8dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="8dp"
+                android:text="Size: 500x400"
+                android:textColor="#454545"/>
+            <TextView
+                android:id="@+id/item_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#F2F3F4"
+                android:background="@drawable/background_rounded_blue"
+                android:paddingLeft="16dp"
+                android:paddingTop="8dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="8dp"
+                android:text="Surface: LED"
+                android:textColor="#454545"/>
+
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

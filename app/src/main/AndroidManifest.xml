@@ -15,7 +15,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="${GOOGLE_MAPS_API_KEY}" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,7 +27,7 @@
         <activity android:name=".ManagerActivity" />
 
         <!-- Declare the MainActivity -->
-        <activity android:name=".MainActivity" />
+        <activity android:name=".LoginActivity" />
 
     </application>
 

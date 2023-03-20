@@ -14,105 +14,103 @@
         android:padding="16dp"
         tools:context=".BillboardParametersFragment">
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
+
+
+        <TextView
+
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+
+            android:text="Billboard ID: "
+            android:textColor="#6E6E6E"
+            android:textSize="16dp"
+            app:layout_constraintStart_toStartOf="@+id/textView9"
+            app:layout_constraintTop_toBottomOf="@+id/textView9"></TextView>
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:fontFamily="@font/poppinsbold"
+            android:text="greergerrtgtggg"
+            android:textSize="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView9"></TextView>
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:text="Billboard ID: "
+            android:textColor="#6E6E6E"
+            android:textSize="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></TextView>
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:fontFamily="@font/poppinsbold"
+            android:text="greetgtrgergg"
+            android:textSize="16dp"
+            app:layout_constraintStart_toStartOf="@+id/textView13"
+            app:layout_constraintTop_toBottomOf="@+id/textView13"></TextView>
+
+
+        <TextView
+
+            android:id="@+id/textView16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:text="Billbotyhyard ID: "
+            android:textColor="#6E6E6E"
+            android:textSize="16dp"
+            app:layout_constraintStart_toStartOf="@+id/textView14"
+            app:layout_constraintTop_toBottomOf="@+id/textView14"></TextView>
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:fontFamily="@font/poppinsbold"
+            android:text="greergergg"
+            android:textSize="16dp"
+            app:layout_constraintStart_toStartOf="@+id/textView15"
+            app:layout_constraintTop_toBottomOf="@+id/textView15"></TextView>
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:text="Billbotyhyard ID: "
+            android:textColor="#6E6E6E"
+            android:textSize="16dp"
+            app:layout_constraintStart_toStartOf="@+id/textView16"
+            app:layout_constraintTop_toBottomOf="@+id/textView16"></TextView>
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">\
+            android:layout_gravity="right"
+            android:fontFamily="@font/poppinsbold"
+            android:text="greergergg"
+            android:textSize="16dp"
+            app:layout_constraintStart_toStartOf="@+id/textView17"
+            app:layout_constraintTop_toBottomOf="@+id/textView17"></TextView>
 
-            <TextView
-                android:textColor="#6E6E6E"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Billboard ID: "
-                android:textSize="16dp"></TextView>
 
-            <TextView
-                android:fontFamily="@font/poppinsbold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="greergergg"
-                android:textSize="16dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"></TextView>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">\
-
-            <TextView
-                android:textColor="#6E6E6E"
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Type of billboard: "
-                android:textSize="16dp"></TextView>
-
-            <TextView
-                android:fontFamily="@font/poppinsbold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="greergergg"
-                android:textSize="16dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"></TextView>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout">\
-
-            <TextView
-                android:textColor="#6E6E6E"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Size: "
-                android:textSize="16dp"></TextView>
-
-            <TextView
-                android:fontFamily="@font/poppinsbold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="greergergg"
-                android:textSize="16dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"></TextView>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout3">\
-
-            <TextView
-                android:textColor="#6E6E6E"
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Panel position: "
-                android:textSize="16dp"></TextView>
-
-            <TextView
-                android:fontFamily="@font/poppinsbold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="greergergg"
-                android:textSize="16dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"></TextView>
-        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

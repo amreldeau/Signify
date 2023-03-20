@@ -24,147 +24,23 @@
                 android:id="@+id/my_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="#00F3F3F3"
+                android:background="#FFFFFF"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
             </com.google.android.material.appbar.MaterialToolbar>
 
-
-
-
-
-
-
-
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/activity_main"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_anchor="@+id/map_fragment"
-                app:layout_anchorGravity="end|bottom">
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/swaper"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-                    android:layout_margin="16dp"
-                    android:backgroundTint="#2196F3"
-                    app:tint="@color/white"
-                    app:borderWidth="0dp"
-                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlayExtended"
-                    android:src="@drawable/list_pointers_svgrepo_com"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:contentDescription="TODO">
-
-                </com.google.android.material.floatingactionbutton.FloatingActionButton>
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/fabMain"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|end"
-                    android:backgroundTint="#F3F3F3"
-                    android:clickable="true"
-                    android:layout_marginBottom="16dp"
-                    android:contentDescription="TODO"
-                    app:borderWidth="0dp"
-
-
-                    app:fabSize="normal"
-                    app:layout_constraintBottom_toTopOf="@+id/swaper"
-                    app:layout_constraintEnd_toEndOf="@+id/swaper"
-                    app:srcCompat="@drawable/dots_vertical_svgrepo_com"
-                    app:tint="@color/black" />
-
-
-                <TextView
-                    android:id="@+id/fab1text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:text="Filter"
-
-                    android:textColor="@color/black"
-                    android:typeface="normal"
-                    android:visibility="invisible"
-
-                    app:layout_constraintBottom_toTopOf="@+id/fabMain"
-                    app:layout_constraintEnd_toStartOf="@+id/fab1"
-                    app:layout_constraintTop_toBottomOf="@+id/fab2" />
-
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/fab2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="#EFEFEF"
-                    android:clickable="true"
-                    android:layout_marginBottom="16dp"
-                    android:visibility="invisible"
-                    app:borderWidth="0dp"
-                    app:fabSize="mini"
-
-                    app:layout_constraintBottom_toTopOf="@+id/fab1"
-
-                    app:layout_constraintEnd_toEndOf="@+id/fabMain"
-                    app:layout_constraintStart_toStartOf="@+id/fabMain"
-                    app:srcCompat="@drawable/cart_vector"
-                    app:tint="@color/black"
-                    tools:ignore="ContentDescription" />
-
-
-                <TextView
-                    android:id="@+id/fab2text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="invisible"
-
-                    android:text="Cart"
-                    android:textColor="@color/black"
-                    android:typeface="normal"
-                    app:layout_constraintBottom_toBottomOf="@+id/fab2"
-                    app:layout_constraintEnd_toStartOf="@+id/fab1"
-                    app:layout_constraintTop_toTopOf="@+id/fab2" />
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/fab1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="invisible"
-                    android:backgroundTint="#EFEFEF"
-                    android:clickable="true"
-                    android:layout_marginBottom="16dp"
-                    app:borderWidth="0dp"
-                    app:fabSize="mini"
-
-
-                    app:layout_constraintBottom_toTopOf="@+id/fabMain"
-                    app:layout_constraintEnd_toEndOf="@+id/fabMain"
-                    app:layout_constraintStart_toStartOf="@+id/fabMain"
-                    app:srcCompat="@drawable/pin_vector"
-                    app:tint="@color/black"
-                    tools:ignore="ContentDescription" />
-
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    android:layout_width="match_parent"
-    android:layout_marginTop="54dp"
-    android:layout_height="match_parent">
             <include layout="@layout/bottom_sheet_persistent" android:id="@+id/test1" />
             <include layout="@layout/bottom_sheet_billboard_details" android:id="@+id/billboard_description"/>
             <include layout="@layout/bottom_sheet_select_month" android:id="@+id/billboard_select_month"/>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
         <com.google.android.material.navigation.NavigationView
-            android:id="@+id/bottom_bar"
+
+            android:id="@+id/nav"
             app:headerLayout="@layout/drawer_header"
             android:layout_width="wrap_content"
             app:menu="@menu/drawer_menu"

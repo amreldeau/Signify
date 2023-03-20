@@ -8,7 +8,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="#F6F6F6"
+        android:background="#FFFFFF"
         android:layout_width="match_parent"
         android:padding="32dp"
         android:layout_height="match_parent"
