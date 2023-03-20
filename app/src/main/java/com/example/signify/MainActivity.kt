@@ -35,7 +35,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 class MainActivity : AppCompatActivity() {
 
     //#1 Defining a BottomSheetBehavior instance
-    private lateinit var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<View>
     private lateinit var binding: ActivityMainBinding
     private lateinit var toggle: ActionBarDrawerToggle
     private val almaty = LatLng(43.24, 76.88)
@@ -43,6 +43,9 @@ class MainActivity : AppCompatActivity() {
 
     // Define the fragments
     private lateinit var mapFragment: SupportMapFragment
+
+    private val billboardDescriptionBottomSheetCreator = BillboardDescriptionBottomSheetCreator()
+    private val billboardSelectMonthBottomSheetCreator = BillboardSelectMonthBottomSheetCreator()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,17 +63,18 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.billboardDescription.selectMonth.setOnClickListener{
-            binding.billboardSelectMonth.billboardLocation.text = binding.billboardDescription.billboardLocation.text
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-            bottomSheetBehavior = BottomSheetBehavior.from(binding.billboardSelectMonth.bottomSheet)
-
+            val billboardSelectMonthBottomSheet = billboardSelectMonthBottomSheetCreator.createBottomSheet(binding.billboardSelectMonth.bottomSheet)
+            bottomSheetBehavior = billboardSelectMonthBottomSheet
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
         binding.billboardSelectMonth.back.setOnClickListener{
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-            bottomSheetBehavior = BottomSheetBehavior.from(binding.billboardDescription.bottomSheet)
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+            val billboardDescriptionBottomSheet = billboardDescriptionBottomSheetCreator.createBottomSheet(binding.billboardDescription.bottomSheet)
+            bottomSheetBehavior = billboardDescriptionBottomSheet
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
+
         val navigationView = findViewById<NavigationView>(R.id.nav)
         navigationView.itemIconTintList = null
         val menuItemPosition = 1
@@ -88,12 +92,10 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.menu_lines_svgrepo_com)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.menu_burger_horizontal_svgrepo_com__2_)
+
         //#2 Initializing the BottomSheetBehavior
-
         bottomSheetBehavior = BottomSheetBehavior.from(binding.test1.bottomSheet)
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-
 
         //#3 Listening to State Changes of BottomSheet
         bottomSheetBehavior.addBottomSheetCallback(object :
@@ -237,10 +239,8 @@ class MainActivity : AppCompatActivity() {
     }
     private fun showBillboardDetails(billboard: Billboard) {
         binding.billboardDescription.billboardLocation.text = billboard.location
-        // Set the BottomSheetBehavior for the new bottom sheet
-        // Get the root view of the activity
-        bottomSheetBehavior = BottomSheetBehavior.from(binding.billboardDescription.bottomSheet)
-
+        val billboardDescriptionBottomSheet = billboardDescriptionBottomSheetCreator.createBottomSheet(binding.billboardDescription.bottomSheet)
+        bottomSheetBehavior = billboardDescriptionBottomSheet
     }
     private fun changeMenuItemColor(menuItem: MenuItem, @ColorInt color: Int) {
         val coloredMenuItemTitle = SpannableString(menuItem.title)
