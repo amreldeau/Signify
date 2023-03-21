@@ -6,34 +6,42 @@
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
+
         android:layout_height="match_parent">
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#E7E7E7"
+            android:background="#00E7E7E7"
+
             tools:context=".MainActivity">
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/map_fragment"
+
                 class="com.google.android.gms.maps.SupportMapFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/my_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@drawable/background_toolbar"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
 
-            </com.google.android.material.appbar.MaterialToolbar>
+android:background="@color/white"
+
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </com.google.android.material.appbar.MaterialToolbar>
 
             <include layout="@layout/bottom_sheet_persistent" android:id="@+id/test1" />
             <include layout="@layout/bottom_sheet_billboard_details" android:id="@+id/billboard_description"/>
             <include layout="@layout/bottom_sheet_select_month" android:id="@+id/billboard_select_month"/>
+
 
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>

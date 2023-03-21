@@ -1,10 +1,6 @@
 package com.example.signify
 
-
 import android.content.ContentValues.TAG
-import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.Canvas
 import android.graphics.Color
 import android.os.Bundle
 import android.text.SpannableString
@@ -17,8 +13,6 @@ import android.widget.Toast
 import androidx.annotation.ColorInt
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.example.signify.databinding.ActivityMainBinding
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -27,10 +21,8 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.navigation.NavigationView
-import com.google.firebase.database.*
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
-
 
 class MainActivity : AppCompatActivity() {
 
@@ -59,7 +51,6 @@ class MainActivity : AppCompatActivity() {
             googleMap.setOnCameraMoveListener {
                 bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
             }
-            setupMap()
         }
 
         binding.billboardDescription.selectMonth.setOnClickListener{
@@ -122,54 +113,11 @@ class MainActivity : AppCompatActivity() {
      */
     private fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
-
-        map.setOnMarkerClickListener { marker ->
-            val billboard = marker.tag as Billboard
-            Toast.makeText(this, billboard.location, Toast.LENGTH_SHORT).show()
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-            showBillboardDetails(billboard)
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-            true
-        }
-    }
-
-    private fun bitmapFromVector(context: Context, vectorResId: Int): BitmapDescriptor? {
-        // below line is use to generate a drawable.
-        val vectorDrawable = ContextCompat.getDrawable(context, vectorResId)
-
-        // below line is use to set bounds to our vector drawable.
-        vectorDrawable!!.setBounds(
-            0,
-            0,
-            vectorDrawable.intrinsicWidth,
-            vectorDrawable.intrinsicHeight
-        )
-
-        // below line is use to create a bitmap for our
-        // drawable which we have added.
-        val bitmap = Bitmap.createBitmap(
-            vectorDrawable.intrinsicWidth,
-            vectorDrawable.intrinsicHeight,
-            Bitmap.Config.ARGB_8888
-        )
-
-        // below line is use to add bitmap in our canvas.
-        val canvas = Canvas(bitmap)
-
-        // below line is use to draw our
-        // vector drawable in canvas.
-        vectorDrawable.draw(canvas)
-
-        // after generating our bitmap we are returning our bitmap.
-        return BitmapDescriptorFactory.fromBitmap(bitmap)
-    }
-    private fun setupMap() {
-        // Get the Firestore instance
         val db = FirebaseFirestore.getInstance()
 
         // Get a reference to the "billboards" collection
         val billboardsCollection = db.collection("billboards")
-
+        val adapter = BillboardAdapter(this)
         // Retrieve billboards from Firebase Firestore
         billboardsCollection.addSnapshotListener { snapshot, error ->
             if (error != null) {
@@ -207,18 +155,21 @@ class MainActivity : AppCompatActivity() {
                             }
 
                             // Create a new Billboard object and set the available months HashMap
-                            val billboard = Billboard(geoPoint, id, price, location, size, surface, type, availableMonths)
+                            val billboard = BillboardBuilder()
+                                .setGeoPoint(geoPoint)
+                                .setId(id)
+                                .setPrice(price)
+                                .setLocation(location)
+                                .setSize(size)
+                                .setSurface(surface)
+                                .setType(type)
+                                .setAvailableMonths(availableMonths)
+                                .build()
 
-                            // Create a marker and add it to the map
-                            val marker = map.addMarker(
-                                MarkerOptions().position(LatLng(billboard.geoPoint!!.latitude, billboard.geoPoint.longitude))
-                                    .title(billboard.location)
-                                    .icon(bitmapFromVector(applicationContext, R.drawable.billboard_marker)
-                                    )
-                            )
-
-                            // Associate the Billboard object with the marker
+                            // Create a Marker object using the adapter
+                            val marker = map.addMarker(adapter.getMarkerOptions(billboard))
                             marker.tag = billboard
+
                         } else {
                             Log.e(
                                 TAG,
@@ -230,7 +181,16 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+        map.setOnMarkerClickListener { marker ->
+            val billboard = marker.tag as Billboard
+            Toast.makeText(this, billboard.location, Toast.LENGTH_SHORT).show()
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+            showBillboardDetails(billboard)
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+            true
+        }
     }
+
 
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -238,7 +198,7 @@ class MainActivity : AppCompatActivity() {
         return true
     }
     private fun showBillboardDetails(billboard: Billboard) {
-        binding.billboardDescription.billboardLocation.text = billboard.location
+        binding.billboardDescription.location.text = billboard.location
         val billboardDescriptionBottomSheet = billboardDescriptionBottomSheetCreator.createBottomSheet(binding.billboardDescription.bottomSheet)
         bottomSheetBehavior = billboardDescriptionBottomSheet
     }
@@ -253,4 +213,3 @@ class MainActivity : AppCompatActivity() {
         menuItem.title = coloredMenuItemTitle
     }
 }
-

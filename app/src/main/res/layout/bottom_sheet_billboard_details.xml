@@ -17,17 +17,8 @@
 
 
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-
-            android:id="@+id/constraintLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
 
 
-
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/imageView2"
@@ -44,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:fontFamily="@font/poppinsbold"
+                android:textStyle="bold"
                 android:text="Billboard"
 
 
@@ -52,134 +43,155 @@
                 app:layout_constraintTop_toTopOf="parent"></TextView>
 
 
-            <TextView
-                android:id="@+id/billboard_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppinsregular"
-                android:text="location"
 
-                android:textSize="20dp"
-                app:layout_constraintStart_toStartOf="@+id/billboard"
-                app:layout_constraintTop_toBottomOf="@+id/billboard"></TextView>
 
             <TextView
                 android:id="@+id/billboard_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/poppinsbold"
-                android:text="256$"
+                android:text="@string/billboard_price"
                 android:textSize="32dp"
-                app:layout_constraintBottom_toBottomOf="@+id/select_month"
-                app:layout_constraintStart_toStartOf="@+id/billboard"
-                app:layout_constraintTop_toTopOf="@+id/select_month"></TextView>
+
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/textView10"
+                app:layout_constraintStart_toEndOf="@+id/textView10"
+                app:layout_constraintTop_toTopOf="@+id/textView10"
+                app:layout_constraintVertical_bias="0.0"></TextView>
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="USD"
+            android:textColor="#D5D5D5"
+            android:textSize="32dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/select_month"
+
+            app:layout_constraintStart_toStartOf="@+id/billboard"
+            app:layout_constraintTop_toTopOf="@+id/select_month">
+
+        </TextView>
+
+        <LinearLayout
+            android:id="@+id/select_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:background="@drawable/rounded_button"
+            android:backgroundTint="#009688"
+            android:gravity="center"
+            android:padding="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+
+            app:layout_constraintTop_toBottomOf="@+id/billboard">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/calendar_add_svgrepo_com"
+                app:tint="#FFFFFF">
+
+            </ImageView>
+
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/line"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/select_month"></View>
+
+        <LinearLayout
+
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+
+
+            android:layout_height="wrap_content"
+            android:padding="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/pin_vector"
+
+                app:tint="#000000">
+
+            </ImageView>
 
             <TextView
-                android:id="@+id/textView10"
+                android:id="@+id/location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="USD"
-                android:textColor="#D5D5D5"
-                android:textSize="32dp"
-                app:layout_constraintBottom_toBottomOf="@+id/select_month"
-                app:layout_constraintStart_toEndOf="@+id/billboard_price"
-                app:layout_constraintTop_toTopOf="@+id/select_month">
-
-            </TextView>
-
-            <LinearLayout
-                android:id="@+id/select_month"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:backgroundTint="#009688"
-                android:background="@drawable/background_rounded_blue"
-                android:gravity="center"
-                android:padding="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-
-                app:layout_constraintTop_toBottomOf="@+id/billboard_location">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/calendar_svgrepo_com">
-
-                </ImageView>
+                android:layout_marginLeft="8dp"
+                android:text="@string/billboard_location"></TextView>
 
 
-            </LinearLayout>
+        </LinearLayout>
 
-
-            <androidx.constraintlayout.helper.widget.Flow
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                app:constraint_referenced_ids="item_1,item_2,item_3,item_5"
-                app:flow_horizontalGap="8dp"
-                app:flow_horizontalStyle="packed"
-                app:flow_verticalGap="8dp"
-                app:flow_wrapMode="chain"
-
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/billboard_price"
-                tools:ignore="MissingConstraints" />
-            <TextView
-                android:id="@+id/item_5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#F2F3F4"
-                android:background="@drawable/background_rounded_blue"
-                android:paddingLeft="16dp"
-                android:paddingTop="8dp"
-                android:paddingRight="16dp"
-                android:paddingBottom="8dp"
-                android:text="Type of displau2-sided"
-                android:textColor="#454545"/>
+        <View
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/line"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"></View>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:padding="16dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
             <TextView
-                android:layout_marginLeft="16dp"
                 android:id="@+id/item_1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#F2F3F4"
-                android:background="@drawable/background_rounded_blue"
+
+                android:background="@drawable/background_rounded"
+
                 android:paddingLeft="16dp"
                 android:paddingTop="8dp"
                 android:paddingRight="16dp"
                 android:paddingBottom="8dp"
-                android:text="Type of displau2-sided"
-                android:textColor="#454545"
-            />
+                android:text="@string/billboard_size"
+                android:textColor="#454545" />
             <TextView
-                android:id="@+id/item_2"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#F2F3F4"
-                android:background="@drawable/background_rounded_blue"
+          android:layout_marginTop="16dp"
+                android:background="@drawable/background_rounded"
                 android:paddingLeft="16dp"
                 android:paddingTop="8dp"
                 android:paddingRight="16dp"
                 android:paddingBottom="8dp"
-                android:text="Size: 500x400"
-                android:textColor="#454545"/>
+                android:text="@string/billboard_type"
+                android:textColor="#454545" />
             <TextView
-                android:id="@+id/item_3"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#F2F3F4"
-                android:background="@drawable/background_rounded_blue"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/background_rounded"
                 android:paddingLeft="16dp"
                 android:paddingTop="8dp"
                 android:paddingRight="16dp"
                 android:paddingBottom="8dp"
-                android:text="Surface: LED"
-                android:textColor="#454545"/>
-
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                android:text="@string/billboard_surface"
+                android:textColor="#454545" />
+        </LinearLayout>
 
 
 
