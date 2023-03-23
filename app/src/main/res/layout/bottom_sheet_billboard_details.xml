@@ -122,9 +122,9 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/pin_vector"
+                android:src="@drawable/location_svgrepo_com"
 
-                app:tint="#000000">
+                app:tint="#009688">
 
             </ImageView>
 

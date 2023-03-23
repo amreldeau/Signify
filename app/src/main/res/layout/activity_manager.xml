@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:text="Name Surname"
             android:textSize="20dp"
-            android:fontFamily="@font/poppinsbold"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/textView2"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
@@ -74,7 +74,7 @@
                 android:layout_columnWeight="1"
                 android:layout_gravity="fill"
                 android:layout_margin="5sp"
-                android:background="@drawable/background_rounded_white"
+                android:background="@drawable/background_rounded"
 
                 android:backgroundTint="#F7F7F8"
                 android:padding="16dp"
@@ -120,7 +120,7 @@
                 android:layout_columnWeight="1"
                 android:layout_gravity="fill"
                 android:layout_margin="5sp"
-                android:background="@drawable/background_rounded_white"
+                android:background="@drawable/background_rounded"
                 android:backgroundTint="#F7F7F8"
                 android:padding="16dp"
                 android:textSize="18sp">
