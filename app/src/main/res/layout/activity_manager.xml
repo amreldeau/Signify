@@ -44,61 +44,40 @@
             app:layout_constraintStart_toStartOf="@+id/textView2"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
+
         <TextView
-            android:id="@+id/textView18"
+            android:id="@+id/textView13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Dashboard"
-            android:textSize="16dp"
-            android:textStyle="bold"
             android:layout_marginTop="16dp"
-            app:layout_constraintStart_toStartOf="@+id/textView"
-            app:layout_constraintTop_toBottomOf="@+id/textView"></TextView>
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/add"
+            app:layout_constraintTop_toBottomOf="@+id/textView">
 
-        <LinearLayout
-            android:id="@+id/add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-       android:padding="8dp"
-            android:background="@drawable/rounded_button"
-            app:layout_constraintBottom_toBottomOf="@+id/textView18"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView18">
-
-            <ImageView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/plus_svgrepo_com"></ImageView>
-
-            <TextView
-                android:textColor="@color/white"
-           android:layout_marginLeft="8dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Add client"></TextView>
-        </LinearLayout>
+        </TextView>
 
         <GridLayout
             android:id="@+id/gridLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:columnCount="2"
-            android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView18">
+            app:layout_constraintTop_toBottomOf="@+id/textView13">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/button1"
+                android:layout_width="187dp"
+                android:layout_height="wrap_content"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
                 android:layout_gravity="fill"
                 android:layout_margin="5sp"
                 android:background="@drawable/background_rounded_white"
+
                 android:backgroundTint="#F7F7F8"
                 android:padding="16dp"
-
                 android:textSize="18sp">
 
                 <ImageView
@@ -154,10 +133,10 @@
                     android:backgroundTint="#00FFEB3B"
                     android:padding="8dp"
                     android:src="@drawable/users_svgrepo_com__1_"
-                    app:tint="#343541"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"></ImageView>
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="#343541"></ImageView>
 
                 <TextView
                     android:id="@+id/textView3"
@@ -165,8 +144,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:text="0"
-                    android:textSize="32dp"
                     android:textColor="#343541"
+                    android:textSize="32dp"
 
                     app:layout_constraintStart_toEndOf="@+id/imageView6"
                     app:layout_constraintTop_toTopOf="parent"></TextView>
@@ -185,17 +164,42 @@
 
         </GridLayout>
 
+        <LinearLayout
+            android:layout_marginTop="16dp"
+            android:id="@+id/add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_rounded"
+            android:padding="16dp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/gridLayout2">
+
+            <ImageView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/plus_svgrepo_com"
+                app:tint="@color/black"></ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:text="Add client"></TextView>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/textView19"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:text="Recent orders"
             android:textSize="16dp"
+            android:layout_marginTop="16dp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/gridLayout2">
+            app:layout_constraintTop_toBottomOf="@+id/add">
 
         </TextView>
 

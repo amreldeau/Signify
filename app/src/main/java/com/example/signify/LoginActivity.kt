@@ -32,7 +32,7 @@ class LoginActivity : AppCompatActivity() {
                     if (task.isSuccessful) {
                         val user = auth.currentUser
                         user?.let {
-                            db.collection("authentication")
+                            db.collection("authorization")
                                 .document(user.uid)
                                 .get()
                                 .addOnSuccessListener { document ->

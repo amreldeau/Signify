@@ -5,6 +5,7 @@
         android:icon="@drawable/order"
         android:title="Orders"></item>
     <item
+        android:id="@+id/signout"
         android:icon="@drawable/exit_svgrepo_com"
         android:titleTextColor="#c62928"
         android:title="Sign Out"></item>

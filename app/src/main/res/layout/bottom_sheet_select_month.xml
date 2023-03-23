@@ -52,25 +52,16 @@
                 android:id="@+id/billboard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:fontFamily="@font/poppinsbold"
-                android:text="Billboard"
 
-                android:textSize="16dp"
-
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/back" />
+                android:textStyle="bold"
+                android:text="@string/billboard_id"
+                android:layout_marginLeft="16dp"
 
 
-            <TextView
-                android:id="@+id/billboard_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppinsregular"
-                android:text="location"
-                android:textSize="16dp"
-                app:layout_constraintStart_toStartOf="@+id/billboard"
-                app:layout_constraintTop_toBottomOf="@+id/billboard"></TextView>
+                app:layout_constraintBottom_toBottomOf="@+id/back"
+                app:layout_constraintStart_toEndOf="@+id/back"
+                app:layout_constraintTop_toTopOf="@+id/back" />
+
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -78,17 +69,17 @@
 
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/billboard_location">
+                app:layout_constraintTop_toBottomOf="@+id/billboard">
 
                 <TextView
                     android:id="@+id/textView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-                    android:textStyle="bold"
                     android:text="Select months"
-
                     android:textSize="32dp"
+
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"></TextView>
@@ -105,123 +96,122 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView4">
 
                     <TextView
-                        android:id="@+id/one"
+                        android:id="@+id/month1"
                         android:layout_width="52dp"
-                        android:clickable="false"
                         android:layout_height="52dp"
                         android:layout_margin="8dp"
-                        android:background="@drawable/background_circle_gray"
+                        android:background="@drawable/background_not_available"
+                        android:clickable="false"
                         android:gravity="center"
                         android:text="1"></TextView>
 
                     <TextView
-                        android:id="@+id/two"
+                        android:id="@+id/month2"
                         android:layout_width="52dp"
                         android:layout_height="52dp"
                         android:layout_margin="8dp"
+                        android:background="@drawable/background_not_available"
                         android:clickable="false"
-                        android:background="@drawable/background_circle_gray"
                         android:gravity="center"
                         android:text="2"></TextView>
 
                     <TextView
-                        android:id="@+id/three"
+                        android:id="@+id/month3"
                         android:layout_width="52dp"
                         android:layout_height="52dp"
-                        android:clickable="false"
                         android:layout_margin="8dp"
-                        android:background="@drawable/background_circle_gray"
+                        android:background="@drawable/background_not_available"
+                        android:clickable="false"
                         android:gravity="center"
-                        android:text="3"
-        ></TextView>
+                        android:text="3"></TextView>
 
                     <TextView
-                        android:id="@+id/four"
+                        android:id="@+id/month4"
                         android:layout_width="52dp"
                         android:layout_height="52dp"
                         android:layout_margin="8dp"
-                        android:background="@drawable/background_circle_gray"
-                        android:gravity="center"
+                        android:background="@drawable/background_not_available"
                         android:clickable="false"
+                        android:gravity="center"
                         android:text="4"></TextView>
 
                     <TextView
-                        android:id="@+id/five"
+                        android:id="@+id/month5"
                         android:layout_width="52dp"
                         android:layout_height="52dp"
-                        android:clickable="false"
                         android:layout_margin="8dp"
-                        android:background="@drawable/background_circle_gray"
+                        android:background="@drawable/background_not_available"
+                        android:clickable="false"
                         android:gravity="center"
                         android:text="5"></TextView>
 
                     <TextView
-                        android:id="@+id/six"
+                        android:id="@+id/month6"
                         android:layout_width="52dp"
                         android:layout_height="52dp"
                         android:layout_margin="8dp"
+                        android:background="@drawable/background_not_available"
                         android:clickable="false"
-                        android:background="@drawable/background_circle_gray"
                         android:gravity="center"
                         android:text="6"></TextView>
 
                     <TextView
-                        android:id="@+id/seven"
+                        android:id="@+id/month7"
                         android:layout_width="52dp"
                         android:layout_height="52dp"
-                        android:clickable="false"
                         android:layout_margin="8dp"
-                        android:background="@drawable/background_circle_gray"
+                        android:background="@drawable/background_not_available"
+                        android:clickable="false"
                         android:gravity="center"
                         android:text="7"></TextView>
 
                     <TextView
-                        android:id="@+id/eight"
+                        android:id="@+id/month8"
                         android:layout_width="52dp"
                         android:layout_height="52dp"
-                        android:clickable="false"
                         android:layout_margin="8dp"
-                        android:background="@drawable/background_circle_gray"
+                        android:background="@drawable/background_not_available"
+                        android:clickable="false"
                         android:gravity="center"
                         android:text="8"></TextView>
 
                     <TextView
-                        android:id="@+id/nine"
+                        android:id="@+id/month9"
                         android:layout_width="52dp"
-                        android:clickable="false"
                         android:layout_height="52dp"
                         android:layout_margin="8dp"
-                        android:background="@drawable/background_circle_gray"
+                        android:background="@drawable/background_not_available"
+                        android:clickable="false"
                         android:gravity="center"
                         android:text="9"></TextView>
 
                     <TextView
-                        android:id="@+id/ten"
+                        android:id="@+id/month10"
                         android:layout_width="52dp"
                         android:layout_height="52dp"
                         android:layout_margin="8dp"
+                        android:background="@drawable/background_not_available"
                         android:clickable="false"
-                        android:background="@drawable/background_circle_gray"
                         android:gravity="center"
                         android:text="10"></TextView>
 
                     <TextView
-                        android:id="@+id/eleven"
+                        android:id="@+id/month11"
                         android:layout_width="52dp"
                         android:layout_height="52dp"
                         android:layout_margin="8dp"
+                        android:background="@drawable/background_not_available"
                         android:clickable="false"
-                        android:background="@drawable/background_circle_gray"
                         android:gravity="center"
                         android:text="11"></TextView>
 
                     <TextView
-                        android:id="@+id/twelve"
+                        android:id="@+id/month12"
                         android:layout_width="52dp"
-                        android:clickable="false"
                         android:layout_height="52dp"
                         android:layout_margin="8dp"
-                        android:background="@drawable/background_circle_gray"
+                        android:background="@drawable/background_not_available"
+                        android:clickable="false"
                         android:gravity="center"
                         android:text="12"></TextView>
                 </GridLayout>
@@ -238,20 +228,40 @@
                     app:layout_constraintEnd_toEndOf="@+id/gridLayout"
                     app:layout_constraintStart_toStartOf="@+id/gridLayout"
                     app:layout_constraintTop_toBottomOf="@+id/gridLayout">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:gravity="end"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:layout_height="wrap_content">
 
-                    <TextView
-                        android:id="@+id/textView5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Estimated price:"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_gravity="left"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/gridLayout"></TextView>
+    <TextView
+        android:id="@+id/billboard_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:gravity="start"
+        android:textStyle="bold"
+        android:text="@string/billboard_order_price"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
+    <TextView
+
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:gravity="start"
+        android:text="Estimated price:"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+                    <Button
+                        android:id="@+id/order"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_margin="16dp"
@@ -264,7 +274,7 @@
                         android:textColor="@color/white"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView5"></TextView>
+                        app:layout_constraintTop_toBottomOf="@+id/textView5"></Button>
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
