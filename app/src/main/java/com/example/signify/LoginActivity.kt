@@ -11,43 +11,31 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class LoginActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityLoginBinding
-    private lateinit var auth: FirebaseAuth
-    private lateinit var db: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
-        auth = FirebaseAuth.getInstance()
-        db = FirebaseFirestore.getInstance()
+
+        val authFacade = AuthFacade()
 
         binding.login.setOnClickListener {
             val email = binding.loginEmail.text.toString()
             val password = binding.loginPassword.text.toString()
 
-            auth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this) { task ->
-                    if (task.isSuccessful) {
-                        val user = auth.currentUser
-                        user?.let {
-                            db.collection("authorization")
-                                .document(user.uid)
-                                .get()
-                                .addOnSuccessListener { document ->
-                                    val status = document.getString("status")
-                                    if (status == "manager") {
-                                        startActivity(Intent(this, ManagerActivity::class.java))
-                                    } else {
-                                        startActivity(Intent(this, MainActivity::class.java))
-                                    }
-                                }
-                        }
+            authFacade.signInWithEmailAndPassword(
+                email,
+                password,
+                { userType ->
+                    if (userType == "manager") {
+                        startActivity(Intent(this, ManagerActivity::class.java))
                     } else {
-                        Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(this, MainActivity::class.java))
                     }
-                }
+                },
+                { Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show() }
+            )
         }
     }
 }

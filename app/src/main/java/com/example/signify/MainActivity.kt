@@ -1,6 +1,7 @@
 package com.example.signify
 
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -39,8 +40,7 @@ class MainActivity : AppCompatActivity() {
     // Define the fragments
     private lateinit var mapFragment: SupportMapFragment
     private var billboard: Billboard? = null
-    private val billboardDescriptionBottomSheetCreator = BillboardDescriptionBottomSheetCreator()
-    private val billboardSelectMonthBottomSheetCreator = BillboardSelectMonthBottomSheetCreator()
+
     private val currentUser = FirebaseAuth.getInstance().currentUser
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,18 +67,14 @@ class MainActivity : AppCompatActivity() {
 
         binding.billboardDescription.selectMonth.setOnClickListener {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-            val billboardSelectMonthBottomSheet =
-                billboardSelectMonthBottomSheetCreator.createBottomSheet(binding.billboardSelectMonth.bottomSheet)
-            bottomSheetBehavior = billboardSelectMonthBottomSheet
+            bottomSheetBehavior = BottomSheetBehavior.from(binding.billboardSelectMonth.bottomSheet)
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
 
             updateSelectMonthBottomSheet(billboard!!)
         }
         binding.billboardSelectMonth.back.setOnClickListener {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-            val billboardDescriptionBottomSheet =
-                billboardDescriptionBottomSheetCreator.createBottomSheet(binding.billboardDescription.bottomSheet)
-            bottomSheetBehavior = billboardDescriptionBottomSheet
+            bottomSheetBehavior = BottomSheetBehavior.from(binding.billboardDescription.bottomSheet)
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
 
@@ -188,17 +184,7 @@ class MainActivity : AppCompatActivity() {
                                 }
                             }
 
-                            // Create a new Billboard object and set the available months HashMap
-                            val billboard = BillboardBuilder()
-                                .setGeoPoint(geoPoint)
-                                .setId(id)
-                                .setPrice(price)
-                                .setLocation(location)
-                                .setSize(size)
-                                .setSurface(surface)
-                                .setType(type)
-                                .setAvailableMonths(availableMonths)
-                                .build()
+                            val billboard = Billboard(geoPoint!!, id, price, location, size, surface, type, availableMonths)
 
                             // Create a Marker object using the adapter
                             val marker = map.addMarker(adapter.getMarkerOptions(billboard))
@@ -246,9 +232,8 @@ class MainActivity : AppCompatActivity() {
             getString(R.string.billboard_surface, billboard.surface)
         binding.billboardDescription.billboardType.text =
             getString(R.string.billboard_type, billboard.type)
-        val billboardDescriptionBottomSheet =
-            billboardDescriptionBottomSheetCreator.createBottomSheet(binding.billboardDescription.bottomSheet)
-        bottomSheetBehavior = billboardDescriptionBottomSheet
+
+        bottomSheetBehavior = BottomSheetBehavior.from(binding.billboardDescription.bottomSheet)
     }
 
     private fun changeMenuItemColor(menuItem: MenuItem, @ColorInt color: Int) {
