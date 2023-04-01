@@ -123,7 +123,7 @@
                         android:background="@drawable/background_not_available"
                         android:clickable="false"
                         android:gravity="center"
-                        android:text="3"></TextView>
+                        android:text="3"></TextView>c
 
                     <TextView
                         android:id="@+id/month4"
@@ -270,7 +270,7 @@
 
                         android:gravity="center"
 
-                        android:text="Order"
+                        android:text="Continue"
                         android:textColor="@color/white"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

@@ -5,55 +5,44 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
+import com.example.signify.databinding.FragmentAddClientBinding
+import com.example.signify.databinding.FragmentCheckoutBinding
+import com.google.firebase.auth.FirebaseAuth
+import java.time.LocalDate
+import java.util.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [CheckoutFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class CheckoutFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
-
+    private lateinit var binding: FragmentCheckoutBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_checkout, container, false)
-    }
+    ): View {
+        binding = FragmentCheckoutBinding.inflate(inflater, container, false)
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment CheckoutFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            CheckoutFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+        // In one fragment, allow the user to select a basic billboard product and save it to the Singleton
+        val order = OrderSingleton.getInstance().order
+        val items = listOf("Card", "PayPal")
+        val adapter = ArrayAdapter(requireContext(), R.layout.list_item, items)
+        binding.textField.setAdapter(adapter)
+        binding.textField.setOnItemClickListener { parent: AdapterView<*>?, view: View?, position: Int, id: Long ->
+            // Respond to list popup window item click.
+            if(position == 0){
+                order?.setPaymentStrategy(CardPayment("", "", Date(345356)))
             }
+            if(position == 1){
+                order?.setPaymentStrategy(PayPal("", "", Date(345356)))
+            }
+        }
+        binding.pay.setOnClickListener {
+            order?.executePaymentStrategy()
+        }
+        binding.orderID.text = "Order ID " +order?.getID().toString()
+
+        return binding.root
     }
 }

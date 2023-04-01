@@ -12,14 +12,15 @@ import com.google.firebase.ktx.Firebase
 class ManagerActivity : AppCompatActivity() {
     private lateinit var binding: ActivityManagerBinding
     private val auth = Firebase.auth
-
+    private val invoker = Invoker()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityManagerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.signout.setOnClickListener {
-            auth.signOut()
+            val command = SignOutCommand(auth)
+            invoker.executeCommand(command)
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }

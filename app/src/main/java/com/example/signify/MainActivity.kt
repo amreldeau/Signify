@@ -14,6 +14,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
@@ -36,7 +37,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var toggle: ActionBarDrawerToggle
     private val almaty = LatLng(43.24, 76.88)
     private lateinit var map: GoogleMap
-
+    private val invoker = Invoker()
     // Define the fragments
     private lateinit var mapFragment: SupportMapFragment
     private var billboard: Billboard? = null
@@ -100,7 +101,8 @@ class MainActivity : AppCompatActivity() {
                 // Handle other menu items here
                 R.id.signout -> {
                     // Sign out the current user
-                    FirebaseAuth.getInstance().signOut()
+                    val command = SignOutCommand(FirebaseAuth.getInstance())
+                    invoker.executeCommand(command)
                     // Start the sign-in activity (or any other activity as appropriate)
                     val intent = Intent(this, LoginActivity::class.java)
                     startActivity(intent)
@@ -287,51 +289,18 @@ class MainActivity : AppCompatActivity() {
             }
         }
         binding.billboardSelectMonth.order.setOnClickListener {
-            if(price != 0.00){
-                val db = FirebaseFirestore.getInstance()
-                val ordersRef = db.collection("orders")
-                val uid = FirebaseAuth.getInstance().currentUser?.uid ?: ""
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
 
+            val order = Order()
+            order.generateID()
+            order.setPrice(100.0) // set the price to 100
+            OrderSingleton.getInstance().order = order
 
-                // add logic to populate selectedMonthslist with selected months
-
-                val availableMonthsData = hashMapOf<String, Any>()
-                for (i in 1..12) {
-                    if (selectedMonthsList[i - 1]) {
-                        availableMonthsData[i.toString()] = false
-                    }
-                }
-
-                val data = hashMapOf(
-                    "billboard_id" to billboard.id,
-                    "client_id" to uid,
-                    "order_status" to "pending",
-                    "months" to selectedMonthsList
-                )
-
-                val batch = db.batch()
-
-                // Update the `available_month` collection for the specified billboard
-                val availableMonthsRef = db.collection("available_months").document(billboard.id)
-                batch.update(availableMonthsRef, availableMonthsData)
-
-                // Use the `add()` method of the orders collection reference to create a new document with the specified data
-                val orderDocRef = ordersRef.document()
-                batch.set(orderDocRef, data)
-
-                // Add the document ID to the `orders` array field in the authorization -> uid document
-                val userDocRef = db.collection("authorization").document(uid)
-                batch.update(userDocRef, "orders", FieldValue.arrayUnion(orderDocRef.id))
-
-                batch.commit()
-                    .addOnSuccessListener {
-                        Log.d(TAG, "Batch write successful")
-                        recreate()
-                    }
-                    .addOnFailureListener { e ->
-                        Log.w(TAG, "Error performing batch write", e)
-                    }
-            }
+            val fragment = CheckoutFragment() // create a new instance of your fragment
+            val transaction = supportFragmentManager.beginTransaction()
+            transaction.add(R.id.fragment_container, fragment)
+            transaction.addToBackStack(null) // add the transaction to the back stack so the user can navigate back to the previous fragment
+            transaction.commit() // commit the transaction
         }
     }
 }
