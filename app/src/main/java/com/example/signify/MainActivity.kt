@@ -23,6 +23,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentReference
@@ -67,62 +68,22 @@ class MainActivity : AppCompatActivity() {
         /** end setup GoogleMap */
 
         binding.billboardDescription.selectMonth.setOnClickListener {
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
-            bottomSheetBehavior = BottomSheetBehavior.from(binding.billboardSelectMonth.bottomSheet)
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+            val bundle = Bundle()
+            bundle.putString("key", billboard?.id)
 
-            updateSelectMonthBottomSheet(billboard!!)
+            val fragment = SelectMonthFragment()
+            fragment.arguments = bundle
+            val transaction = supportFragmentManager.beginTransaction()
+            transaction.add(R.id.fragment_container, fragment)
+            transaction.addToBackStack(null) // add the transaction to the back stack so the user can navigate back to the previous fragment
+            transaction.commit() // commit the transaction
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
         }
         binding.billboardSelectMonth.back.setOnClickListener {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
             bottomSheetBehavior = BottomSheetBehavior.from(binding.billboardDescription.bottomSheet)
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
-
-        /** setup toolbar */
-        setSupportActionBar(binding.myToolbar)
-        supportActionBar?.title = ""
-        supportActionBar?.setHomeButtonEnabled(true)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.menu_burger_horizontal_svgrepo_com__2_)
-        /** end setup toolbar */
-
-        /** setup navigation drawer */
-        val navigationView = binding.nav
-        navigationView.itemIconTintList = null
-        val headerView = navigationView.getHeaderView(0)
-        val headerText = headerView.findViewById<TextView>(R.id.user)
-        headerText.text = currentUser?.email
-        val menuItem = navigationView.menu.getItem(1)
-        changeMenuItemColor(menuItem, Color.parseColor("#c62928"))
-        navigationView.setNavigationItemSelectedListener {
-            // Handle navigation view item clicks here.
-            when (menuItem.itemId) {
-                // Handle other menu items here
-                R.id.signout -> {
-                    // Sign out the current user
-                    val command = SignOutCommand(FirebaseAuth.getInstance())
-                    invoker.executeCommand(command)
-                    // Start the sign-in activity (or any other activity as appropriate)
-                    val intent = Intent(this, LoginActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                }
-            }
-            // Close the navigation drawer
-            binding.drawerLayout.closeDrawer(GravityCompat.START)
-            true
-        }
-        toggle = ActionBarDrawerToggle(
-            this,
-            binding.drawerLayout,
-            binding.myToolbar,
-            R.string.app_name,
-            R.string.app_name
-        )
-        toggle.setHomeAsUpIndicator(R.drawable.billboard_marker)
-        toggle.syncState()
-        /** end setup navigation drawer */
 
         /** setup bottom sheet */
         bottomSheetBehavior = BottomSheetBehavior.from(binding.test1.bottomSheet)
@@ -138,6 +99,28 @@ class MainActivity : AppCompatActivity() {
             }
         })
         /** end setup bottom sheet */
+        binding.navbar.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.home -> {
+
+                    true
+                }
+                R.id.order -> {
+
+                    true
+                }
+                R.id.account -> {
+                    val fragment = AccountFragment()
+                    val transaction = supportFragmentManager.beginTransaction()
+                    transaction.replace(R.id.fragment_container, fragment)
+                    true
+                }
+                else -> {
+                    true
+                }
+            }
+        }
+
     }
 
 
@@ -214,10 +197,6 @@ class MainActivity : AppCompatActivity() {
     /**end Adds marker representations of the places list on the provided GoogleMap object*/
 
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.account_menu, menu)
-        return true
-    }
 
     private fun showBillboardDetails(billboard: Billboard) {
         binding.billboardDescription.billboard.text = getString(R.string.billboard_id, billboard.id)
@@ -296,11 +275,7 @@ class MainActivity : AppCompatActivity() {
             order.setPrice(100.0) // set the price to 100
             OrderSingleton.getInstance().order = order
 
-            val fragment = CheckoutFragment() // create a new instance of your fragment
-            val transaction = supportFragmentManager.beginTransaction()
-            transaction.add(R.id.fragment_container, fragment)
-            transaction.addToBackStack(null) // add the transaction to the back stack so the user can navigate back to the previous fragment
-            transaction.commit() // commit the transaction
+
         }
     }
 }
