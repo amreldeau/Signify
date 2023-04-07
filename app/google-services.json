@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "1009675358780",
-    "project_id": "signify-690eb",
-    "storage_bucket": "signify-690eb.appspot.com"
+    "project_number": "603372159988",
+    "project_id": "signifymine-d5565",
+    "storage_bucket": "signifymine-d5565.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1009675358780:android:70e1c435ba6e54e60e2939",
+        "mobilesdk_app_id": "1:603372159988:android:262a7e9bbfa709f90d6fa1",
         "android_client_info": {
           "package_name": "com.example.signify"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1009675358780-o71quqdb8bf0ptn1aniphmnpoeramirn.apps.googleusercontent.com",
+          "client_id": "603372159988-ki05c5qq8v32lloj8nqcbdnhqskln305.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCw_TexdhrBaowUtomwKNAkq_g9zLy6VOk"
+          "current_key": "AIzaSyC87LiLLY8wJr5xtZcONF0j6a6IlmhzbgU"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1009675358780-o71quqdb8bf0ptn1aniphmnpoeramirn.apps.googleusercontent.com",
+              "client_id": "603372159988-ki05c5qq8v32lloj8nqcbdnhqskln305.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
