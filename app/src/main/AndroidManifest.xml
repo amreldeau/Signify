@@ -11,25 +11,30 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Signify"
         tools:targetApi="31">
+        <activity
+            android:name=".MyOrders"
+            android:exported="false"
+            android:label="@string/title_activity_my_orders"
+            android:theme="@style/Theme.Signify.NoActionBar" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="${GOOGLE_MAPS_API_KEY}" />
+
         <activity
             android:name=".LoginActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:exported="true">
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <!-- Declare the ManagerActivity -->
-        <activity android:name=".ManagerActivity" android:windowSoftInputMode="adjustResize"/>
-
-        <!-- Declare the MainActivity -->
+        </activity> <!-- Declare the ManagerActivity -->
+        <activity
+            android:name=".ManagerActivity"
+            android:windowSoftInputMode="adjustResize" /> <!-- Declare the MainActivity -->
         <activity android:name=".MainActivity" />
-
     </application>
 
 </manifest>
