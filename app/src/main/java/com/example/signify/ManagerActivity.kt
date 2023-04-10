@@ -2,9 +2,7 @@ package com.example.signify
 
 import android.content.Intent
 import android.os.Bundle
-
 import androidx.appcompat.app.AppCompatActivity
-
 import com.example.signify.databinding.ActivityManagerBinding
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase

@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import org.checkerframework.checker.units.qual.g
 
 class OrderViewAdapter(private val orderList: ArrayList<Orders>): RecyclerView.Adapter<OrderViewAdapter.ViewHolder>() {
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
@@ -19,10 +20,12 @@ class OrderViewAdapter(private val orderList: ArrayList<Orders>): RecyclerView.A
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return orderList.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder
+        holder.orderID.text = orderList[position].orders_id
+        holder.billboardID.text = orderList[position].billboard_id
+        holder.orderStatus.text = orderList[position].order_status
     }
 }

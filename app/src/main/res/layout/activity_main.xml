@@ -27,22 +27,16 @@
         android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-
-android:background="#FFFFFF"
-
-
+        android:background="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
     </com.google.android.material.appbar.MaterialToolbar>
 
             <include layout="@layout/bottom_sheet_persistent" android:id="@+id/test1" />
             <include layout="@layout/bottom_sheet_billboard_details" android:id="@+id/billboard_description"/>
             <include layout="@layout/bottom_sheet_select_month" android:id="@+id/billboard_select_month"/>
-
-
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
