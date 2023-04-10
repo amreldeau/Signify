@@ -1,41 +1,49 @@
 package com.example.signify
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import com.example.signify.databinding.FragmentSelectMonthBinding
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import com.example.signify.databinding.FragmentDescriptionBinding
+import com.example.signify.databinding.FragmentOrderBinding
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import java.util.*
 
-
-class SelectMonthFragment : Fragment(), MyPagerAdapter.OnTextViewClickListener {
-    private lateinit var binding: FragmentSelectMonthBinding
+class OrderFragment : Fragment() {
+    private lateinit var binding: FragmentOrderBinding
     private val textViewIds = hashMapOf<String, Boolean>()
     private val id = Firebase.auth.uid
     private var notAvailableDays = hashMapOf<String, Boolean>()
     private lateinit var billboard_id: String
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentSelectMonthBinding.inflate(inflater, container, false)
+        binding = FragmentOrderBinding.inflate(inflater, container, false)
+
+// Enable the "Up" button in the toolbar
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+
+
         billboard_id = arguments?.getString("key")!!
         val db = FirebaseFirestore.getInstance()
 
         val availableDaysRef = db.collection("available_days").document(billboard_id)
         availableDaysRef.get().addOnSuccessListener { documentSnapshot ->
             if (documentSnapshot.exists()) {
-                notAvailableDays = documentSnapshot.get("not_available_days") as HashMap<String, Boolean>
-                val viewPager = binding.viewpager
-                val adapter = MyPagerAdapter(requireContext(), this, notAvailableDays)
-                viewPager.adapter = adapter
+                notAvailableDays =
+                    documentSnapshot.get("not_available_days") as HashMap<String, Boolean>
+                months()
+
             } else {
                 // handle case where B1 document doesn't exist
             }
@@ -82,10 +90,28 @@ class SelectMonthFragment : Fragment(), MyPagerAdapter.OnTextViewClickListener {
         }
         return binding.root
     }
-    override fun onTextViewClick(textViewId: Int) {
-        textViewIds[textViewId.toString()] = true
-        binding.total.text = textViewIds.size.toString()
+
+    fun months() {
+        // Find the GridLayout inside the view
+        val gridLayout = binding.grid
+        val inflater = LayoutInflater.from(context)
+        // Create 30 TextViews and add them to the GridLayout with different ids
+        for (i in 1 until 13) {
+            val textView = inflater.inflate(R.layout.textview_item, gridLayout, false) as TextView
+            val textViewId = i
+            textView.id = textViewId
+            textView.text = "$textViewId"
+            if (!notAvailableDays.getOrDefault(textViewId.toString(), false)) {
+                textView.setOnClickListener {
+                    // Change the background drawable of the TextView when it's clicked
+                    textViewIds[textViewId.toString()] = true
+                    binding.total.text = textViewIds.size.toString()
+                    textView.setBackgroundResource(R.drawable.background_selected_month)
+                }
+            } else {
+                textView.setBackgroundResource(R.drawable.background_not_available)
+            }
+            gridLayout.addView(textView)
+        }
     }
-
 }
-

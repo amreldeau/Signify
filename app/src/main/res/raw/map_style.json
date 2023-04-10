@@ -1,10 +1,22 @@
 [
   {
     "featureType": "poi",
-    "elementType": "labels",
     "stylers": [
       {
         "visibility": "off"
+      }
+    ]
+  },
+  {
+    "stylers": [
+      {
+        "saturation": -70
+      },
+      {
+        "lightness": 37
+      },
+      {
+        "gamma": 1.15
       }
     ]
   }

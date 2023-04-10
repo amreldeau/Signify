@@ -15,10 +15,9 @@
     <string name="billboard_type">"Type of display: %s"</string>
     <string name="billboard_size">"Size: %s"</string>
     <string name="billboard_surface">"Surface: %s"</string>
-    <string name="billboard_price">"$%.2f/mo"</string>
+    <string name="billboard_price">"$%.2f/day"</string>
     <string name="billboard_order_price">"%.2f$"</string>
-    <string name="billboard_location">"%f, %f"</string>
-    <string name="title_activity_my_orders">MyOrders</string>
+    <string name="title_activity_desctiption">DesctiptionActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
@@ -27,4 +26,6 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="title_activity_description">DescriptionActivity</string>
+
 </resources>

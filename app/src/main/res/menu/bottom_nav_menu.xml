@@ -3,14 +3,14 @@
 
     <item
         android:id="@+id/home"
-        android:icon="@drawable/map_svgrepo_com"
+        android:icon="@drawable/explore_svgrepo_com__2_"
         android:title="Home"></item>
     <item
-        android:id="@+id/orders"
+        android:id="@+id/order"
         android:icon="@drawable/orders_vector"
         android:title="Orders"></item>
     <item
         android:id="@+id/account"
-        android:icon="@drawable/user_svgrepo_com"
+        android:icon="@drawable/user_svgrepo_com__1_"
         android:title="Account"></item>
 </menu>
