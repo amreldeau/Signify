@@ -1,33 +1,63 @@
 {
   "project_info": {
+<<<<<<< HEAD
     "project_number": "603372159988",
     "project_id": "signifymine-d5565",
     "storage_bucket": "signifymine-d5565.appspot.com"
+=======
+    "project_number": "285207651189",
+    "project_id": "signify-8f8d9",
+    "storage_bucket": "signify-8f8d9.appspot.com"
+>>>>>>> Nurzhan
   },
   "client": [
     {
       "client_info": {
+<<<<<<< HEAD
         "mobilesdk_app_id": "1:603372159988:android:262a7e9bbfa709f90d6fa1",
+=======
+        "mobilesdk_app_id": "1:285207651189:android:dca420f3da238476fc293c",
+>>>>>>> Nurzhan
         "android_client_info": {
           "package_name": "com.example.signify"
         }
       },
       "oauth_client": [
         {
+<<<<<<< HEAD
           "client_id": "603372159988-ki05c5qq8v32lloj8nqcbdnhqskln305.apps.googleusercontent.com",
+=======
+          "client_id": "285207651189-s04qjtdjjajj04193h9p2lbucbtj4nsk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.signify",
+            "certificate_hash": "96add6686e61a9e80612b4901d7821d1fb00c15b"
+          }
+        },
+        {
+          "client_id": "285207651189-eqnrjjr6uojfhqoibtajbhtihtrf11qd.apps.googleusercontent.com",
+>>>>>>> Nurzhan
           "client_type": 3
         }
       ],
       "api_key": [
         {
+<<<<<<< HEAD
           "current_key": "AIzaSyC87LiLLY8wJr5xtZcONF0j6a6IlmhzbgU"
+=======
+          "current_key": "AIzaSyCoFZiAwvDtqPbHZo0x30PUdGIFn32llBc"
+>>>>>>> Nurzhan
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
+<<<<<<< HEAD
               "client_id": "603372159988-ki05c5qq8v32lloj8nqcbdnhqskln305.apps.googleusercontent.com",
+=======
+              "client_id": "285207651189-eqnrjjr6uojfhqoibtajbhtihtrf11qd.apps.googleusercontent.com",
+>>>>>>> Nurzhan
               "client_type": 3
             }
           ]
