@@ -38,28 +38,34 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         // Inflate the content view (replacing `setContentView`)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        setSupportActionBar(binding.materialToolbar)
+
 
         val mapFragment = com.example.signify.MapFragment()
         supportFragmentManager.beginTransaction()
             .replace(R.id.container, mapFragment)
             .commit()
-        binding.materialToolbar.setNavigationOnClickListener {
-            // Navigate to the previous fragment
-            supportFragmentManager.popBackStack()
-        }
+
 
         /** end setup bottom sheet */
         binding.navbar.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.home -> {
-
+                    val mapFragment = com.example.signify.MapFragment()
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, mapFragment)
+                        .commit()
                 }
                 R.id.order -> {
-
+                    val r = RentalFragment()
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, r)
+                        .commit()
                 }
                 R.id.account -> {
-
+                    val accountFragment = AccountFragment()
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.container, accountFragment)
+                        .commit()
                 }
                 else -> {
 
