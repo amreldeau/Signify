@@ -36,7 +36,7 @@
 
 
                 <TextView
-                    android:id="@+id/textView14"
+                    android:id="@+id/billboardName"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
@@ -47,20 +47,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/imageView5"></TextView>
 
-                <TextView
-                    android:id="@+id/billboard_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:layout_marginRight="16dp"
-                    android:text="@string/billboard_price"
-                    android:textSize="20dp"
-                    android:textStyle="bold"
-
-                    app:layout_constraintBottom_toBottomOf="@+id/textView14"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/textView14"></TextView>
-
 
                 <TextView
                     android:id="@+id/location"
@@ -68,8 +54,8 @@
                     android:layout_height="wrap_content"
                     android:text="location"
                     android:textSize="16dp"
-                    app:layout_constraintStart_toStartOf="@+id/textView14"
-                    app:layout_constraintTop_toBottomOf="@+id/textView14"></TextView>
+                    app:layout_constraintStart_toStartOf="@+id/billboardName"
+                    app:layout_constraintTop_toBottomOf="@+id/billboardName"></TextView>
 
 
                 <TextView
@@ -250,15 +236,55 @@
 
                 </GridLayout>
 
-
-                <CalendarView
-                    android:id="@+id/calendarView"
-                    android:layout_width="wrap_content"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="300dp"
                     android:layout_height="wrap_content"
-                    android:firstDayOfWeek="4"
+                    android:layout_margin="42dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/gridLayout2" />
+                    app:layout_constraintTop_toBottomOf="@+id/gridLayout2">
+
+
+                    <ImageView
+                        android:id="@+id/left"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/left_svgrepo_com"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"></ImageView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="April 2023"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/right"
+                        app:layout_constraintStart_toEndOf="@+id/left"
+                        app:layout_constraintTop_toTopOf="parent"></TextView>
+                    <ImageView
+                        android:id="@+id/right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:rotation="180"
+                        android:src="@drawable/left_svgrepo_com"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"></ImageView>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/viewpager"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+
+                    android:layout_margin="16dp"
+                    android:background="#FFFFFF"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
 
 
@@ -272,6 +298,15 @@
             app:layout_constraintBottom_toBottomOf="@id/main"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
+            <View
+                android:id="@+id/view3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E1E1E1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"></View>
+
 
             <LinearLayout
                 android:id="@+id/refe"
@@ -286,9 +321,10 @@ android:layout_marginStart="16dp"
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-android:id="@+id/startTextView"
-
-                    android:text="erger"></TextView>
+android:id="@+id/billboard_price"
+                    android:textSize="22dp"
+                    android:textStyle="bold"
+                    android:text="$10 "/>
 
                 <TextView
                     android:id="@+id/endTextView"
@@ -296,7 +332,7 @@ android:id="@+id/startTextView"
                     android:layout_height="wrap_content"
 
 
-                    android:text="erger"></TextView>
+                    android:text="day"/>
             </LinearLayout>
 
             <Button

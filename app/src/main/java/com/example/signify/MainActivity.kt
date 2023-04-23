@@ -56,9 +56,9 @@ class MainActivity : AppCompatActivity() {
                         .commit()
                 }
                 R.id.order -> {
-                    val r = RentalFragment()
+                    val ordersFragment = OrdersFragment()
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.container, r)
+                        .replace(R.id.container, ordersFragment)
                         .commit()
                 }
                 R.id.account -> {

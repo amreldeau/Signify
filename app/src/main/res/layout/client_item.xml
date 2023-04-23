@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+
+
+        android:layout_marginTop="16dp"
+
+        android:layout_height="wrap_content">
+
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imageView7"
+            android:layout_width="80dp"
+            app:shapeAppearanceOverlay="@style/circleImageView"
+            android:background="#E1E1E1"
+            android:layout_height="80dp"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></com.google.android.material.imageview.ShapeableImageView>
+
+        <TextView
+            android:id="@+id/clientName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name Surname"
+            android:textStyle="bold"
+            android:layout_marginLeft="16dp"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            app:layout_constraintStart_toEndOf="@+id/imageView7"
+            app:layout_constraintTop_toTopOf="@+id/imageView7" />
+
+        <TextView
+            android:id="@+id/clientCountryCity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Almaty, Kazakhstan"
+
+            app:layout_constraintStart_toStartOf="@+id/clientName"
+            app:layout_constraintTop_toBottomOf="@+id/clientName" />
+
+        <TextView
+            android:id="@+id/clientRegDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="On Adwise since 2023"
+
+            app:layout_constraintStart_toStartOf="@+id/clientCountryCity"
+            app:layout_constraintTop_toBottomOf="@+id/clientCountryCity" />
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

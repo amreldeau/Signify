@@ -67,21 +67,22 @@
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
+            <View
+                android:layout_width="match_parent"
+                android:background="#E1E1E1"
+                android:layout_height="1dp"></View>
             <ImageView
                 android:id="@+id/icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/rounded_button"
-                android:backgroundTint="#EFEFEF"
-                android:padding="8dp"
+                android:padding="16dp"
                 android:src="@drawable/location_point_svgrepo_com"></ImageView>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="16dp"
+
                 android:layout_toEndOf="@id/icon"
                 android:text="Almaty"></TextView>
 
@@ -100,22 +101,24 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp">
-
+          >
+<View
+    android:layout_width="match_parent"
+    android:background="#E1E1E1"
+    android:layout_height="1dp"></View>
             <ImageView
                 android:id="@+id/icon2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/rounded_button"
-                android:backgroundTint="#EFEFEF"
-                android:padding="8dp"
+
+                android:padding="16dp"
                 android:src="@drawable/credit_card_svgrepo_com"></ImageView>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="16dp"
+
                 android:layout_toEndOf="@id/icon2"
                 android:text="Payment"></TextView>
 

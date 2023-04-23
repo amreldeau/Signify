@@ -11,6 +11,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 import com.example.signify.databinding.FragmentOrdersBinding
 import com.google.firebase.firestore.FieldPath
+import java.text.SimpleDateFormat
 import java.util.*
 
 class OrdersFragment : Fragment() {
@@ -46,15 +47,31 @@ class OrdersFragment : Fragment() {
     private fun getOrderDetails(orderIds: List<String>) {
         val ordersRef = firestore.collection("orders")
         val query = ordersRef.whereIn(FieldPath.documentId(), orderIds)
-        query.get()
-            .addOnSuccessListener { querySnapshot ->
+        query.get().addOnSuccessListener { querySnapshot ->
                 val orders = mutableListOf<Order>()
                 for (document in querySnapshot.documents) {
                     val billboardId = document.getString("billboard_id") ?: ""
-                    val orderStatus = document.getString("order_status") ?: ""
-                    val date = document.getString("date") ?: ""
-                    val order = Order(billboardId, orderStatus, date)
-                    orders.add(order)
+                    val ordersStatusMap = document.get("order_status") as? HashMap<String, Any>
+                    var newestDate: Date? = null
+                    var newestStatus: String? = null
+
+                    val dateFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                    for ((dateStr, status) in ordersStatusMap!!) {
+                        val date = dateFormatter.parse(dateStr.toString())
+                        if (newestDate == null || date.after(newestDate)) {
+                            newestDate = date
+                            newestStatus = status.toString()
+                        }
+                    }
+                    // Get the location field from the billboards collection
+                    val billboardRef = firestore.collection("billboards").document(billboardId)
+                    billboardRef.get().addOnSuccessListener { billboardSnapshot ->
+                        val location = billboardSnapshot.getString("location") ?: ""
+                        val orderId = document.id
+                        val order = Order(billboardId, newestStatus!!, location, orderId)
+                        orders.add(order)
+                        displayOrders(orders)
+                    }
                 }
                 displayOrders(orders)
             }

@@ -62,19 +62,22 @@
 
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/gray"
+        android:layout_height="1dp"></View>
     <ImageView
         android:id="@+id/icon"
         android:layout_width="wrap_content"
-        android:padding="8dp"
-        android:backgroundTint="#EFEFEF"
-        android:background="@drawable/rounded_button"
+        android:padding="16dp"
+
         android:src="@drawable/users_vector"
         android:layout_height="wrap_content"></ImageView>
     <TextView
         android:layout_centerVertical="true"
         android:layout_width="wrap_content"
         android:text="Clients"
-        android:layout_marginStart="16dp"
+
         android:layout_toEndOf="@id/icon"
         android:layout_height="wrap_content">
     </TextView>
@@ -98,22 +101,24 @@
 </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/orders"
-android:layout_marginTop="16dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+                <View
+                    android:layout_width="match_parent"
+                    android:background="@color/gray"
+                    android:layout_height="1dp"></View>
                 <ImageView
                     android:id="@+id/icon2"
                     android:layout_width="wrap_content"
-                    android:padding="8dp"
-                    android:backgroundTint="#EFEFEF"
-                    android:background="@drawable/rounded_button"
+                    android:padding="16dp"
+
                     android:src="@drawable/orders_vector"
                     android:layout_height="wrap_content"></ImageView>
                 <TextView
                     android:layout_centerVertical="true"
                     android:layout_width="wrap_content"
                     android:text="Orders"
-                    android:layout_marginStart="16dp"
+
                     android:layout_toEndOf="@id/icon2"
                     android:layout_height="wrap_content">
                 </TextView>
