@@ -11,8 +11,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 import com.example.signify.databinding.FragmentManagerOrdersBinding
 import com.google.firebase.firestore.FieldPath
-import java.text.SimpleDateFormat
-import java.util.*
 
 class ManagerOrdersFragment : Fragment() {
 
@@ -44,14 +42,14 @@ class ManagerOrdersFragment : Fragment() {
     }
 
     private fun getOrderDetailsForClients(clientIds: List<String>) {
-        val orders = mutableListOf<Order>()
+        val orders = mutableListOf<PendingOrder>()
         for (clientId in clientIds) {
             firestore.collection("authorization")
                 .document(clientId)
                 .get()
                 .addOnSuccessListener { document ->
                     val orderIds = document["orders"] as List<String>
-                    getOrderDetails(orderIds, orders)
+                    getOrderDetails(orderIds)
                 }
                 .addOnFailureListener { exception ->
                     // handle error
@@ -60,36 +58,22 @@ class ManagerOrdersFragment : Fragment() {
         displayOrders(orders)
     }
 
-    private fun getOrderDetails(orderIds: List<String>, orders: MutableList<Order>) {
+    private fun getOrderDetails(orderIds: List<String>) {
         val ordersRef = firestore.collection("orders")
         val query = ordersRef.whereIn(FieldPath.documentId(), orderIds)
-        query.get()
-            .addOnSuccessListener { querySnapshot ->
-                val orders = mutableListOf<Order>()
+        query.get().addOnSuccessListener { querySnapshot ->
+                val orders = mutableListOf<PendingOrder>()
                 for (document in querySnapshot.documents) {
+                    val client_id = document.getString("client_name") ?: ""
                     val billboardId = document.getString("billboard_id") ?: ""
-                    val ordersStatusMap = document.get("order_status") as? HashMap<String, Any>
-                    var newestDate: Date? = null
-                    var newestStatus: String? = null
+                    val orderStatus = document.get("order_status") as Map<*, *>
+                    val orderDates = orderStatus.keys.map { it.toString() }.sortedDescending()
 
-                    val dateFormatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-                    for ((dateStr, status) in ordersStatusMap!!) {
-                        val date = dateFormatter.parse(dateStr.toString())
-                        if (newestDate == null || date.after(newestDate)) {
-                            newestDate = date
-                            newestStatus = status.toString()
-                        }
-                    }
-                    val billboardRef = firestore.collection("billboards").document(billboardId)
-                    billboardRef.get().addOnSuccessListener { billboardSnapshot ->
-                        val location = billboardSnapshot.getString("location") ?: ""
-                        val orderId = document.id
-                        val order = Order(billboardId, newestStatus!!, location, orderId)
+                    if (orderDates.isNotEmpty() && orderStatus[orderDates[0]] == "Pending") {
+                        val order = PendingOrder(client_id, billboardId, document.id)
                         orders.add(order)
-                        displayOrders(orders)
                     }
                 }
-
                 displayOrders(orders)
             }
             .addOnFailureListener { exception ->
@@ -97,9 +81,11 @@ class ManagerOrdersFragment : Fragment() {
             }
     }
 
-    private fun displayOrders(orders: List<Order>) {
-        val adapter = OrdersAdapter(orders)
+    private fun displayOrders(orders: List<PendingOrder>) {
+        val adapter = PendingOrdersAdapter(orders)
         binding.ordersRecyclerView.adapter = adapter
         binding.ordersRecyclerView.layoutManager = LinearLayoutManager(context)
     }
 }
+
+

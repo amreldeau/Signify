@@ -16,12 +16,14 @@ import com.example.signify.databinding.FragmentMapBinding
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DayViewDecorator
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -33,6 +35,8 @@ class DescriptionFragment : Fragment(), MyPagerAdapter.OnTextViewClickListener {
     private var notAvailableDays = hashMapOf<String, Boolean>()
     private var startDate: Date? = null
     private var endDate: Date? = null
+    var orderId =""
+    var clientName = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,16 +71,50 @@ class DescriptionFragment : Fragment(), MyPagerAdapter.OnTextViewClickListener {
         }
 
 
+        val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
+
+// Check if the current user is authenticated
+        if (currentUserUid != null) {
+
+            // Get a reference to the document with the user's uid
+            val authorizationDocRef = db.collection("authorization").document(currentUserUid)
+
+            // Retrieve the data from the document
+            authorizationDocRef.get()
+                .addOnSuccessListener { document ->
+                    if (document != null) {
+                        // Get the value of the "name" field
+                        clientName = document.getString("name")!!
+                        if (clientName != null) {
+                            // The value of the "name" field was retrieved successfully
+                            // Use the clientName variable as needed
+                        } else {
+                            // The "name" field doesn't exist or its value is null
+                        }
+                    } else {
+                        // The document doesn't exist
+                    }
+                }
+                .addOnFailureListener { e ->
+                    // Handle the exception if the data couldn't be retrieved
+                }
+        } else {
+            // The current user is not authenticated
+        }
+
         binding.order.setOnClickListener {
             val db = Firebase.firestore
+            val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+            val orderStatus = HashMap<String, String>()
+            orderStatus[currentDate] = "Pending"
 
 // Define the document data for the "orders" collection
             val ordersData = hashMapOf(
                 "client_id" to id.toString(),  // replace with code to get current user ID
                 "billboard_id" to billboard_id,
-                "date" to "18.04.2023",
+                "client_name" to clientName,
                 "ordered_days" to textViewIds.keys.toList(),
-                "order_status" to "Created"
+                "order_status" to orderStatus
             )
 
 // Add the new document to the "orders" collection
@@ -84,7 +122,7 @@ class DescriptionFragment : Fragment(), MyPagerAdapter.OnTextViewClickListener {
                 .add(ordersData)
                 .addOnSuccessListener { documentReference ->
                     // Get the ID of the newly created document
-                    val orderId = documentReference.id
+                    orderId = documentReference.id
 
                     // Define the data to add to the "available_month/B1" document
                     val availableMonthData = hashMapOf(
@@ -103,6 +141,7 @@ class DescriptionFragment : Fragment(), MyPagerAdapter.OnTextViewClickListener {
                                 .update("orders", FieldValue.arrayUnion(orderId))
                         }
                 }
+
         }
         return binding.root
     }
