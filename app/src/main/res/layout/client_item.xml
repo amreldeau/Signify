@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+
+
+
+        android:layout_height="wrap_content">
+
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imageView7"
+            android:layout_width="80dp"
+            app:shapeAppearanceOverlay="@style/circleImageView"
+            android:background="#E1E1E1"
+            android:layout_height="80dp"
+            android:layout_margin="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></com.google.android.material.imageview.ShapeableImageView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#C1C1C1"
+            app:layout_constraintEnd_toEndOf="parent"
+android:layout_margin="16dp"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/info"></View>
+
+        <TextView
+            android:id="@+id/clientName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:text="Name Surname"
+            android:textColor="#DD5226"
+            android:textSize="16dp"
+            android:layout_margin="16dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/imageView7"
+            app:layout_constraintTop_toTopOf="@+id/imageView7" />
+
+        <TextView
+            android:id="@+id/expireDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Almaty, Kazakhstan"
+
+            app:layout_constraintStart_toStartOf="@+id/clientName"
+            app:layout_constraintTop_toBottomOf="@+id/clientName" />
+
+        <TextView
+            android:id="@+id/info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="On Adwise since 2023"
+
+            android:textColor="@color/grey"
+            app:layout_constraintStart_toStartOf="@+id/expireDate"
+            app:layout_constraintTop_toBottomOf="@+id/expireDate" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Respond"
+            android:textColor="@color/main"
+            android:layout_margin="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/clientName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/clientName"></TextView>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

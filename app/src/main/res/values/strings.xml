@@ -15,7 +15,7 @@
     <string name="billboard_type">"Type of display: %s"</string>
     <string name="billboard_size">"Size: %s"</string>
     <string name="billboard_surface">"Surface: %s"</string>
-    <string name="billboard_price">"$%.2f/day"</string>
+    <string name="billboard_price">"$%.2f"</string>
     <string name="billboard_order_price">"%.2f$"</string>
     <string name="title_activity_desctiption">DesctiptionActivity</string>
     <!-- Strings used for fragments for navigation -->

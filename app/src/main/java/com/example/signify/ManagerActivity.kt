@@ -24,21 +24,11 @@ class ManagerActivity : AppCompatActivity() {
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }
-        binding.add.setOnClickListener {
-// Create a new instance of the MyFragment fragment
-            val myFragment = AddClientFragment()
-
-            // Use the FragmentManager to begin a new transaction
-            val transaction = supportFragmentManager.beginTransaction()
-
-            // Add the new fragment to the back stack
-            transaction.addToBackStack(null)
-
-            // Add the new fragment to the container view
-            transaction.add(R.id.fragment_container, myFragment)
-
-            // Commit the transaction
-            transaction.commit()
+        binding.orders.setOnClickListener {
+            val ordersFragment = ManagerOrdersFragment()
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, ordersFragment)
+                .commit()
         }
     }
 

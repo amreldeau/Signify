@@ -10,169 +10,346 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:background="@color/white"
+        android:id="@+id/main"
         android:layout_height="match_parent"
         tools:context=".DescriptionFragment">
 
 
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/imageView5"
+        <ScrollView
+            android:id="@+id/scrollView2"
             android:layout_width="match_parent"
-            android:layout_height="360dp"
-            android:background="@drawable/placeholder"
+            android:layout_height="match_parent">
 
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"></com.google.android.material.imageview.ShapeableImageView>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/linearLayout2"
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    android:background="@drawable/place_holder"
+
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"></com.google.android.material.imageview.ShapeableImageView>
+
+
+                <TextView
+                    android:id="@+id/billboardName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:layout_weight="1"
+                    android:text="@string/billboard_id"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView5"></TextView>
+
+
+                <TextView
+                    android:id="@+id/location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="location"
+                    android:textSize="16dp"
+                    app:layout_constraintStart_toStartOf="@+id/billboardName"
+                    app:layout_constraintTop_toBottomOf="@+id/billboardName"></TextView>
+
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="What this billboard offers"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/location"
+                    app:layout_constraintTop_toBottomOf="@+id/location"></TextView>
+
+                <GridLayout
+                    android:id="@+id/gridLayout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:columnCount="3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView3">
+
+                    <LinearLayout
+                        android:id="@+id/offer1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="5sp"
+
+                        android:background="@drawable/background_rounded"
+
+
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        android:textSize="18sp">
+
+                        <ImageView
+                            android:id="@+id/offer1icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="#535353"
+
+                            android:src="@drawable/view_svgrepo_com"
+
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:tint="#343541"></ImageView>
+
+                        <TextView
+
+                            android:id="@+id/offer1text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:text="100m"
+                            android:textColor="#343541"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="@+id/imageView4"
+                            app:layout_constraintStart_toStartOf="@+id/imageView4"
+                            app:layout_constraintTop_toBottomOf="@+id/imageView4"></TextView>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Total sales"
+
+                            app:layout_constraintEnd_toEndOf="@+id/textView7"
+                            app:layout_constraintStart_toStartOf="@+id/textView7"
+                            app:layout_constraintTop_toBottomOf="@+id/textView7"></TextView>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/offer2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="5sp"
+                        android:background="@drawable/background_rounded"
+
+
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        android:textSize="18sp">
+
+                        <ImageView
+                            android:id="@+id/offer2icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="#00F47236"
+
+
+                            android:src="@drawable/expand_svgrepo_com"
+
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:tint="#343541"></ImageView>
+
+                        <TextView
+
+                            android:id="@+id/offer2text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:text="500x400"
+                            android:textColor="#343541"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="@+id/imageView4"
+                            app:layout_constraintStart_toStartOf="@+id/imageView4"
+                            app:layout_constraintTop_toBottomOf="@+id/imageView4"></TextView>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Size"
+                            android:textColor="#343541"
+                            app:layout_constraintEnd_toEndOf="@+id/textView7"
+                            app:layout_constraintStart_toStartOf="@+id/textView7"
+                            app:layout_constraintTop_toBottomOf="@+id/textView7"></TextView>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/offer3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_row="0"
+                        android:layout_rowWeight="1"
+                        android:layout_column="2"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="5sp"
+                        android:background="@drawable/background_rounded"
+
+
+                        android:orientation="vertical"
+                        android:padding="16dp"
+                        android:textSize="18sp">
+
+                        <ImageView
+                            android:id="@+id/offer3icon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="#00F47236"
+
+
+                            android:src="@drawable/roller_brush_tool_svgrepo_com"
+
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:tint="#343541"></ImageView>
+
+                        <TextView
+
+                            android:id="@+id/offer3text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:text="free"
+                            android:textColor="#343541"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="@+id/imageView4"
+                            app:layout_constraintStart_toStartOf="@+id/imageView4"
+                            app:layout_constraintTop_toBottomOf="@+id/imageView4"></TextView>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Installation"
+                            android:textColor="#343541"
+                            app:layout_constraintEnd_toEndOf="@+id/textView7"
+                            app:layout_constraintStart_toStartOf="@+id/textView7"
+                            app:layout_constraintTop_toBottomOf="@+id/textView7"></TextView>
+                    </LinearLayout>
+
+                </GridLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="42dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/gridLayout2">
+
+
+                    <ImageView
+                        android:id="@+id/left"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/left_svgrepo_com"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"></ImageView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="April 2023"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/right"
+                        app:layout_constraintStart_toEndOf="@+id/left"
+                        app:layout_constraintTop_toTopOf="parent"></TextView>
+                    <ImageView
+                        android:id="@+id/right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:rotation="180"
+                        android:src="@drawable/left_svgrepo_com"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"></ImageView>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/viewpager"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+
+                    android:layout_margin="16dp"
+                    android:background="#FFFFFF"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-16dp"
-            android:background="@drawable/bottom_sheet_background"
-            android:paddingLeft="16dp"
-            android:paddingTop="16dp"
-
+            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/main"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView5">
-
-            <TextView
-                android:id="@+id/textView14"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-
-                android:text="@string/billboard_id"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView5"></TextView>
-
-            <TextView
-                android:id="@+id/billboard_price"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:layout_marginRight="16dp"
-                android:text="@string/billboard_price"
-                android:textSize="20dp"
-                android:textStyle="bold"
-
-                app:layout_constraintBottom_toBottomOf="@+id/textView14"
+            app:layout_constraintStart_toStartOf="parent">
+            <View
+                android:id="@+id/view3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E1E1E1"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView14"></TextView>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"></View>
 
-        </LinearLayout>
-
-        <LinearLayout
-
-            android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:paddingLeft="16dp"
-
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/location_point_svgrepo_com"
-
-                app:tint="#009688">
-
-            </ImageView>
-
-            <TextView
-                android:id="@+id/location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:text="location"></TextView>
-
-
-        </LinearLayout>
-
-
-
-        <HorizontalScrollView
-            android:id="@+id/horizontalScrollView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:id="@+id/refe"
+android:layout_marginStart="16dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-                app:layout_constraintEnd_toEndOf="parent"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/billboard_size"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+android:id="@+id/billboard_price"
+                    android:textSize="22dp"
+                    android:textStyle="bold"
+                    android:text="$10 "/>
+
+                <TextView
+                    android:id="@+id/endTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
-                    android:background="@drawable/background_rounded"
 
-                    android:paddingLeft="16dp"
-                    android:paddingTop="8dp"
-                    android:paddingRight="16dp"
-                    android:paddingBottom="8dp"
-                    android:text="@string/billboard_size"
-                    android:textColor="#454545" />
-
-                <TextView
-                    android:id="@+id/billboard_type"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:background="@drawable/background_rounded"
-                    android:paddingLeft="16dp"
-                    android:paddingTop="8dp"
-                    android:paddingRight="16dp"
-                    android:paddingBottom="8dp"
-                    android:text="@string/billboard_type"
-                    android:textColor="#454545" />
-
-                <TextView
-                    android:id="@+id/billboard_surface"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:background="@drawable/background_rounded"
-                    android:paddingLeft="16dp"
-                    android:paddingTop="8dp"
-                    android:paddingRight="16dp"
-                    android:paddingBottom="8dp"
-                    android:text="@string/billboard_surface"
-                    android:textColor="#454545" />
+                    android:text="day"/>
             </LinearLayout>
-        </HorizontalScrollView>
 
+            <Button
+                android:id="@+id/order"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="16dp"
 
-        <Button
-            android:id="@+id/order"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:background="@drawable/rounded_button"
-            android:text="Book now"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"></Button>
+                android:background="@drawable/rounded_button"
+                android:text="Book now"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
 
-
+                app:layout_constraintTop_toTopOf="parent"></Button>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
