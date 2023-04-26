@@ -1,21 +1,11 @@
 package com.example.signify
 
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CalendarView
-import android.widget.GridLayout
-import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.example.signify.databinding.FragmentDescriptionBinding
-import com.example.signify.databinding.FragmentMapBinding
-import com.google.android.material.datepicker.CalendarConstraints
-import com.google.android.material.datepicker.DayViewDecorator
-import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
@@ -25,7 +15,6 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.concurrent.TimeUnit
 
 class DescriptionFragment : Fragment(), MyPagerAdapter.OnTextViewClickListener {
     private lateinit var binding: FragmentDescriptionBinding
@@ -33,11 +22,10 @@ class DescriptionFragment : Fragment(), MyPagerAdapter.OnTextViewClickListener {
     private val textViewIds = hashMapOf<String, Boolean>()
     private val id = Firebase.auth.uid
     private var notAvailableDays = hashMapOf<String, Boolean>()
-    private var startDate: Date? = null
-    private var endDate: Date? = null
+
     var orderId =""
     var clientName = ""
-
+    var price = 0.0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -50,7 +38,7 @@ class DescriptionFragment : Fragment(), MyPagerAdapter.OnTextViewClickListener {
         billboardsRef.document(billboard_id).get().addOnSuccessListener { billboardSnapshot ->
             val billboardData = billboardSnapshot.data ?: return@addOnSuccessListener
             val location = billboardData["location"] as? String ?: ""
-            val price = billboardSnapshot.getDouble("price")
+            price = billboardSnapshot.getDouble("price")!!
             binding.billboardName.text = getString(R.string.billboard_id, billboard_id)
             binding.location.text = location
             binding.billboardPrice.text = getString(R.string.billboard_price, price)
@@ -61,8 +49,11 @@ class DescriptionFragment : Fragment(), MyPagerAdapter.OnTextViewClickListener {
             if (documentSnapshot.exists()) {
                 notAvailableDays = documentSnapshot.get("not_available_days") as HashMap<String, Boolean>
                 val viewPager = binding.viewpager
-                val adapter = MyPagerAdapter(requireContext(), this, notAvailableDays)
+                val adapter = MyPagerAdapter(requireContext(), this, notAvailableDays,  binding.dates)
                 viewPager.adapter = adapter
+                binding.clearButton.setOnClickListener {
+
+                }
             } else {
                 // handle case where B1 document doesn't exist
             }
@@ -145,9 +136,8 @@ class DescriptionFragment : Fragment(), MyPagerAdapter.OnTextViewClickListener {
         }
         return binding.root
     }
-    override fun onTextViewClick(textViewId: Int) {
-        textViewIds[textViewId.toString()] = true
-
+    override fun onTextViewClick(days: MutableList<Int>) {
+        binding.billboardPrice.text = (days.size * price).toString()
     }
 
 }
