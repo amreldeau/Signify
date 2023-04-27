@@ -17,7 +17,7 @@
             android:value="${GOOGLE_MAPS_API_KEY}" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
@@ -27,9 +27,9 @@
             </intent-filter>
         </activity> <!-- Declare the ManagerActivity -->
         <activity
-            android:name=".ManagerActivity"
+            android:name=".MainActivity"
             android:windowSoftInputMode="adjustResize" /> <!-- Declare the MainActivity -->
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".ManagerActivity" />
     </application>
 
 </manifest>

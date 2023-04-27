@@ -18,18 +18,10 @@ class ManagerActivity : AppCompatActivity() {
         binding = ActivityManagerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.signout.setOnClickListener {
-            val command = SignOutCommand(auth)
-            invoker.executeCommand(command)
-            startActivity(Intent(this, LoginActivity::class.java))
-            finish()
-        }
-        binding.orders.setOnClickListener {
-            val ordersFragment = ManagerOrdersFragment()
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment_container, ordersFragment)
-                .commit()
-        }
+        val mapFragment = DashboardFragment()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.container, mapFragment)
+            .commit()
     }
 
     // ...

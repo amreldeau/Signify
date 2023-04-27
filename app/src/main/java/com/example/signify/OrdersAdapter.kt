@@ -20,7 +20,7 @@ class OrdersAdapter(private val orders: List<Order>) :
         val order = orders[position]
         holder.binding.billboardName.text = order.billboardId
         holder.binding.orderDate.text = order.status
-        holder.binding.adress.text = order.location
+        holder.binding.address.text = order.location
 
 
         holder.itemView.setOnClickListener {

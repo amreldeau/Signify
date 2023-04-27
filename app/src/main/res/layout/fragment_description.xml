@@ -238,11 +238,11 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/linearLayout"
-                    android:layout_width="300dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="42dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
+android:layout_marginTop="16dp"
+                    app:layout_constraintEnd_toEndOf="@+id/gridLayout"
+                    app:layout_constraintStart_toStartOf="@+id/gridLayout"
                     app:layout_constraintTop_toBottomOf="@+id/gridLayout2">
 
 
@@ -251,6 +251,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/left_svgrepo_com"
+                        android:layout_marginLeft="16dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"></ImageView>
@@ -258,50 +259,179 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="April 2023"
+                        android:text="2023"
+                        android:id="@+id/year"
                         android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/right"
                         app:layout_constraintStart_toEndOf="@+id/left"
                         app:layout_constraintTop_toTopOf="parent"></TextView>
+
                     <ImageView
                         android:id="@+id/right"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:rotation="180"
+                        android:layout_marginRight="16dp"
                         android:src="@drawable/left_svgrepo_com"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"></ImageView>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <androidx.viewpager.widget.ViewPager
-                    android:id="@+id/viewpager"
-                    android:layout_width="match_parent"
-                    android:layout_height="400dp"
-
-                    android:layout_margin="16dp"
-                    android:background="#FFFFFF"
+                <GridLayout
+                    android:id="@+id/gridLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:columnCount="4"
+                    android:rowCount="3"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+                    <TextView
+                        android:id="@+id/month1"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginTop="16dp"
+                        android:clickable="false"
+                        android:gravity="center"
+                        android:text="1"></TextView>
+
+                    <TextView
+                        android:id="@+id/month2"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginTop="16dp"
+                        android:clickable="false"
+                        android:gravity="center"
+                        android:text="2"></TextView>
+
+                    <TextView
+                        android:id="@+id/month3"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginTop="16dp"
+                        android:clickable="false"
+                        android:gravity="center"
+                        android:text="3"></TextView>
+
+                    <TextView
+                        android:id="@+id/month4"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginTop="16dp"
+                        android:clickable="false"
+                        android:gravity="center"
+                        android:text="4"></TextView>
+
+                    <TextView
+                        android:id="@+id/month5"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginTop="8dp"
+                        android:clickable="false"
+                        android:gravity="center"
+                        android:text="5"></TextView>
+
+                    <TextView
+                        android:id="@+id/month6"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginTop="8dp"
+                        android:clickable="false"
+                        android:gravity="center"
+                        android:text="6"></TextView>
+
+                    <TextView
+                        android:id="@+id/month7"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginTop="8dp"
+                        android:clickable="false"
+                        android:gravity="center"
+                        android:text="7"></TextView>
+
+                    <TextView
+                        android:id="@+id/month8"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginTop="8dp"
+                        android:clickable="false"
+                        android:gravity="center"
+                        android:text="8"></TextView>
+
+                    <TextView
+                        android:id="@+id/month9"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginTop="8dp"
+                        android:clickable="false"
+                        android:gravity="center"
+                        android:text="9"></TextView>
+
+                    <TextView
+                        android:id="@+id/month10"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginTop="8dp"
+                        android:clickable="false"
+                        android:gravity="center"
+                        android:text="10"></TextView>
+
+                    <TextView
+                        android:id="@+id/month11"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginLeft="16dp"
+android:layout_marginRight="16dp"
+                        android:layout_marginTop="8dp"
+                        android:clickable="false"
+                        android:gravity="center"
+                        android:text="11"></TextView>
+
+                    <TextView
+                        android:id="@+id/month12"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginTop="8dp"
+                        android:clickable="false"
+                        android:gravity="center"
+                        android:text="12"></TextView>
+                </GridLayout>
+
+
 
                 <TextView
-                    android:id="@+id/clear_button"
+                    android:id="@+id/textView15"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Clear dates"
-                    android:layout_marginTop="16dp"
-                    android:textStyle="bold"
-                    app:layout_constraintStart_toStartOf="@+id/viewpager"
-                    app:layout_constraintTop_toBottomOf="@+id/viewpager"></TextView>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Clear dates"
-                    android:layout_marginTop="1000dp"
-                    app:layout_constraintStart_toStartOf="@+id/viewpager"
-                    app:layout_constraintTop_toBottomOf="@+id/viewpager"></TextView>
+                    android:layout_marginTop="1656dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout"></TextView>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
@@ -338,12 +468,12 @@ android:layout_marginStart="16dp"
 android:id="@+id/billboard_price"
                     android:textSize="22dp"
                     android:textStyle="bold"
-                    android:text="$10 day"/>
+                    android:text="$10 month"/>
 
                 <TextView
                     android:id="@+id/dates"
                     android:layout_width="wrap_content"
-                    android:text="Month day-day"
+                    android:text="Months"
                     android:layout_height="wrap_content"></TextView>
             </LinearLayout>
 
