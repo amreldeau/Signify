@@ -42,79 +42,82 @@
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
 
 
             android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView7">
 
             <TextView
                 android:id="@+id/billboardName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:layout_margin="8dp"
                 android:text="Billboard name"
                 android:textColor="@color/black"
                 android:textSize="22dp"
                 android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="16dp"
+                android:textColor="#474850"
+                android:text="address"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/billboardName">
+                app:layout_constraintTop_toBottomOf="@+id/billboardName"></TextView>
 
-                <View
-                    android:id="@+id/view"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="#E1E1E1"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"></View>
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#575757"
+                android:text="date"
+          
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/address"></TextView>
 
-                <TextView
-                    android:id="@+id/date1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:text="Date1"
-                    android:textSize="18dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"></TextView>
-
-                <View
-                    android:id="@+id/view2"
-                    android:layout_width="1dp"
-                    android:layout_height="0dp"
-                    android:layout_marginLeft="8dp"
-                    android:background="@color/gray"
-                    app:layout_constraintBottom_toBottomOf="@+id/date1"
-                    app:layout_constraintStart_toEndOf="@+id/date1"
-                    app:layout_constraintTop_toTopOf="@+id/date1"></View>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/date">
 
                 <TextView
-                    android:id="@+id/adress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_margin="16dp"
-                    android:text="Address"
+                    android:textStyle="bold"
+                    android:textColor="#DD4B1D"
                     android:textSize="18dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-
-                    app:layout_constraintStart_toEndOf="@+id/view2"
-                    app:layout_constraintTop_toTopOf="parent"></TextView>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:text="months"></TextView>
+<TextView
+    android:layout_width="wrap_content"
+    android:text="•"
+    android:textSize="18dp"
+    android:layout_marginLeft="8dp"
+    android:textColor="#DD4B1D"
+    android:textStyle="bold"
+    android:layout_marginRight="8dp"
+    android:layout_height="wrap_content"></TextView>
+                <TextView
+                    android:textColor="#DD4B1D"
+                    android:textStyle="bold"
+                    android:textSize="18dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="price"></TextView>
+            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

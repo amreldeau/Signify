@@ -30,54 +30,46 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:background="#C1C1C1"
             app:layout_constraintEnd_toEndOf="parent"
-android:layout_margin="16dp"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/info"></View>
+            app:layout_constraintTop_toTopOf="parent"></View>
 
         <TextView
-            android:id="@+id/clientName"
+            android:id="@+id/requestType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
+            android:layout_margin="16dp"
+            android:text="type"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView7"
+            app:layout_constraintStart_toEndOf="@+id/imageView7"
+            app:layout_constraintTop_toBottomOf="@+id/orderId"></TextView>
+
+        <TextView
+            android:id="@+id/orderId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
             android:text="Name Surname"
             android:textColor="#DD5226"
             android:textSize="16dp"
-            android:layout_margin="16dp"
             android:textStyle="bold"
+
             app:layout_constraintStart_toEndOf="@+id/imageView7"
             app:layout_constraintTop_toTopOf="@+id/imageView7" />
 
-        <TextView
-            android:id="@+id/expireDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Almaty, Kazakhstan"
-
-            app:layout_constraintStart_toStartOf="@+id/clientName"
-            app:layout_constraintTop_toBottomOf="@+id/clientName" />
-
-        <TextView
-            android:id="@+id/info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="On Adwise since 2023"
-
-            android:textColor="@color/grey"
-            app:layout_constraintStart_toStartOf="@+id/expireDate"
-            app:layout_constraintTop_toBottomOf="@+id/expireDate" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="16dp"
             android:text="Respond"
             android:textColor="@color/main"
-            android:layout_margin="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/clientName"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/clientName"></TextView>
+            app:layout_constraintTop_toTopOf="parent"></TextView>
 
 
 
