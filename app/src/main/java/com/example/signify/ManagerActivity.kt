@@ -13,6 +13,8 @@ class ManagerActivity : AppCompatActivity() {
     private lateinit var binding: ActivityManagerBinding
     private val auth = Firebase.auth
     private val invoker = Invoker()
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityManagerBinding.inflate(layoutInflater)
@@ -23,6 +25,4 @@ class ManagerActivity : AppCompatActivity() {
             .replace(R.id.container, mapFragment)
             .commit()
     }
-
-    // ...
 }
