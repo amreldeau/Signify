@@ -8,9 +8,11 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.signify.repository.FirestoreRepository
 import com.google.firebase.firestore.FirebaseFirestore
 
 class DescriptionViewModel : ViewModel() {
+    private val repository = FirestoreRepository()
     var billboardId: String = ""
     var orderId: String = ""
     var price: Double = 0.0
@@ -26,6 +28,9 @@ class DescriptionViewModel : ViewModel() {
         }
 
         return availability
+    }
+    fun getDescription(billboardId: String): LiveData<Description> {
+        return repository.getDescription(billboardId)
     }
 
     fun getPrice(billboardId: String): LiveData<Double> {

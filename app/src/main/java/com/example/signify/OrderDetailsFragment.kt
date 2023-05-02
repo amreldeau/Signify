@@ -1,40 +1,45 @@
-
 package com.example.signify
 
-import android.content.ContentValues.TAG
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.signify.databinding.FragmentOrderDetailsBinding
-import com.google.firebase.Timestamp
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.util.*
 
 class OrderDetailsFragment : Fragment() {
 
     private lateinit var binding: FragmentOrderDetailsBinding
-    private lateinit var firestore: FirebaseFirestore
-    private lateinit var auth: FirebaseAuth
+    private lateinit var viewModel: OrderDetailsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentOrderDetailsBinding.inflate(inflater, container, false)
-        firestore = FirebaseFirestore.getInstance()
-        auth = FirebaseAuth.getInstance()
+        viewModel = ViewModelProvider(this).get(OrderDetailsViewModel::class.java)
 
         val orderId = arguments?.getString("orderId")!!
+
+        viewModel.getOrderDetails(orderId)
+
+        viewModel.getOrderDetails(orderId).observe(viewLifecycleOwner) { orderDetails ->
+            // Update the UI with the order details
+            binding.more.text = "Price: ${orderDetails.price}"
+            binding.billboardName.text = getString(R.string.billboard_id, orderDetails.billboardId)
+            binding.location.text = "Billboard location: ${orderDetails.location}"
+            binding.date1.text = "Occupied: ${orderDetails.occupied}"
+            checkStatus(orderDetails.status)
+        }
+
+        binding.backButtonDetails.setOnClickListener {
+            // get the FragmentManager and remove the current fragment from the back stack
+            val fragmentManager = requireActivity().supportFragmentManager
+
+            fragmentManager.popBackStack()
+
+        }
 
         binding.cancelOrder.setOnClickListener {
             val bundle = Bundle()
@@ -57,5 +62,9 @@ class OrderDetailsFragment : Fragment() {
                 .commit()
         }
         return binding.root
+    }
+
+    fun checkStatus(status: String) {
+        if (status.equals("Cancelled")) binding.orderManager.visibility = View.GONE
     }
 }
