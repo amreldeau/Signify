@@ -4,7 +4,9 @@ import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.signify.Description
 import com.example.signify.Order
+import com.example.signify.OrderDetails
 import com.example.signify.Request
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
@@ -23,7 +25,7 @@ class FirestoreRepository {
 
         val ordersCollection = firestore.collection("orders")
         val query =
-            ordersCollection.whereEqualTo("ClientID", firestore.document("clients/$clientId"))
+            ordersCollection.whereEqualTo("clientID", firestore.document("clients/$clientId"))
 
         query.addSnapshotListener { querySnapshot, exception ->
             if (exception != null) {
@@ -34,12 +36,12 @@ class FirestoreRepository {
             val orders = querySnapshot?.documents?.mapNotNull { document ->
                 try {
                     val orderId = document.id
-                    val billboardId = document.getDocumentReference("BillboardID")!!.id
+                    val billboardId = document.getDocumentReference("billboardID")!!.id
                     val occupied =
-                        document.get("Occupied") as? HashMap<String, Boolean> ?: emptyMap()
-                    val orderDate = document.getTimestamp("OrderDate")?.toDate() ?: Date()
-                    val status = document.getString("Status") ?: ""
-                    val totalCost = document.getDouble("TotalCost") ?: 0.0
+                        document.get("occupied") as? HashMap<String, Boolean> ?: emptyMap()
+                    val orderDate = document.getTimestamp("orderDate")?.toDate() ?: Date()
+                    val status = document.getString("status") ?: ""
+                    val totalCost = document.getDouble("totalCost") ?: 0.0
 
                     Order(orderId, billboardId, clientId, occupied, orderDate, status, totalCost)
                 } catch (e: Exception) {
@@ -58,7 +60,7 @@ class FirestoreRepository {
         val ordersCollection = firestore.collection("orders")
         val orderDocument = ordersCollection.document(orderId)
 
-        orderDocument.update("Status", status)
+        orderDocument.update("status", status)
             .addOnSuccessListener {
                 Log.d(TAG, "Order $orderId status updated to $status")
             }
@@ -74,12 +76,12 @@ class FirestoreRepository {
         selected: MutableMap<String, Boolean>
     ) {
         val orderMap = hashMapOf(
-            "ClientID" to db.document("clients/$clientId"),
-            "BillboardID" to db.document("billboards/$billboardId"),
-            "TotalCost" to price,
-            "OrderDate" to FieldValue.serverTimestamp(),
-            "Status" to "Pending",
-            "Occupied" to selected
+            "clientID" to db.document("clients/$clientId"),
+            "billboardID" to db.document("billboards/$billboardId"),
+            "totalCost" to price,
+            "orderDate" to FieldValue.serverTimestamp(),
+            "status" to "Pending",
+            "occupied" to selected
         )
 
         db.collection("orders")
@@ -141,12 +143,12 @@ class FirestoreRepository {
             .get()
             .addOnSuccessListener { document ->
                 if (document != null && document.exists()) {
-                    val billboardId = document.getDocumentReference("BillboardID")!!.id
+                    val billboardId = document.getDocumentReference("billboardID")!!.id
                     val occupied =
-                        document.get("Occupied") as? HashMap<String, Boolean> ?: emptyMap()
-                    val orderDate = document.getTimestamp("OrderDate")?.toDate() ?: Date()
-                    val status = document.getString("Status") ?: ""
-                    val totalCost = document.getDouble("TotalCost") ?: 0.0
+                        document.get("occupied") as? HashMap<String, Boolean> ?: emptyMap()
+                    val orderDate = document.getTimestamp("orderDate")?.toDate() ?: Date()
+                    val status = document.getString("status") ?: ""
+                    val totalCost = document.getDouble("totalCost") ?: 0.0
                     val order = Order(
                         orderId,
                         billboardId,
@@ -302,6 +304,54 @@ class FirestoreRepository {
 
         return request
     }
+    fun getOrderDetails(orderId: String): LiveData<OrderDetails> {
+        val orderDetailsLiveData = MutableLiveData<OrderDetails>()
+        firestore.collection("orders").document(orderId).get()
+            .addOnSuccessListener { document ->
+                val price = document.getDouble("totalCost") ?: 0.0
+                val status = document.getString("status") ?: ""
+                val billboardRef = document.getDocumentReference("billboardID")
+                val occupied = document.get("occupied") as? Map<String, Boolean> ?: emptyMap()
+                val orderDate = document.getTimestamp("orderDate")?.toDate() ?: Date()
+                billboardRef?.get()?.addOnSuccessListener { billboardDocument ->
+                    val billboardId = billboardDocument.getString("id") ?: ""
+                    val billboardLocation = billboardDocument.getString("location") ?: ""
+                    val orderDetails = OrderDetails(billboardId, price, billboardLocation, occupied, status, orderDate)
+                    orderDetailsLiveData.value = orderDetails
+                }
+            }
+        return orderDetailsLiveData
+    }
+    fun getDescription(billboardId: String): LiveData<Description> {
+        val descriptionLiveData = MutableLiveData<Description>()
+
+        // Get the reference to the Firestore collection
+        val collectionRef = FirebaseFirestore.getInstance().collection("billboards")
+
+        // Query the collection to get the document with the given billboardId
+        collectionRef.whereEqualTo("id", billboardId).get()
+            .addOnSuccessListener { documents ->
+                // If a document is found, create a Description object and set its properties
+                if (documents.size() > 0) {
+                    val document = documents.documents[0]
+                    val description = Description(
+                        document.getString("id") ?: "",
+                        document.getDouble("price") ?: 0.0,
+                        document.getString("location") ?: "",
+                        document.getString("size") ?: "",
+                        document.getString("surface") ?: "",
+                        document.getString("type") ?: ""
+                    )
+                    descriptionLiveData.postValue(description)
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.d(TAG, "Error getting document: ", exception)
+            }
+
+        return descriptionLiveData
+    }
+
 
 
 }

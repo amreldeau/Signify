@@ -42,6 +42,9 @@ class DescriptionFragment : Fragment() {
         viewModel.getPrice(viewModel.billboardId).observe(viewLifecycleOwner) { p ->
             price=p
         }
+        viewModel.getDescription(billboardId!!).observe(viewLifecycleOwner){
+            binding.billboardName.text = it.billboardId
+        }
         viewModel.getBillboardAvailability(viewModel.billboardId).observe(viewLifecycleOwner) { availabilityMap ->
             year = 2023
             map = availabilityMap

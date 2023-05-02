@@ -32,8 +32,18 @@
 
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"></com.google.android.material.imageview.ShapeableImageView>
+                    app:layout_constraintTop_toTopOf="parent"/>
 
+                <ImageView
+                    android:id="@+id/backButtonDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:background="@drawable/circle"
+                    android:padding="8dp"
+                    android:src="@drawable/left_svgrepo_com"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
 
                 <TextView
                     android:id="@+id/billboardName"
@@ -113,7 +123,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
-                            android:text="100m"
+                            android:text="Surface"
                             android:textColor="#343541"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="@+id/imageView4"
@@ -123,8 +133,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Total sales"
-
+                            android:text="LED"
                             app:layout_constraintEnd_toEndOf="@+id/textView7"
                             app:layout_constraintStart_toStartOf="@+id/textView7"
                             app:layout_constraintTop_toBottomOf="@+id/textView7"></TextView>
@@ -217,7 +226,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="16dp"
-                            android:text="free"
+                            android:text="Type"
                             android:textColor="#343541"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="@+id/imageView4"
@@ -227,7 +236,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Installation"
+                            android:text="1 sided"
                             android:textColor="#343541"
                             app:layout_constraintEnd_toEndOf="@+id/textView7"
                             app:layout_constraintStart_toStartOf="@+id/textView7"
