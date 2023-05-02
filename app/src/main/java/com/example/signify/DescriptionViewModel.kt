@@ -22,7 +22,7 @@ class DescriptionViewModel : ViewModel() {
 
         billboardsRef.document(billboardId).get().addOnSuccessListener { billboardSnapshot ->
             val billboardData = billboardSnapshot.data ?: return@addOnSuccessListener
-            availability.value = ((billboardData["availability"] as? HashMap<String, Boolean> ?: emptyMap()) as HashMap<String, Boolean>?)
+            availability.value = ((billboardData["NotAvailable"] as? HashMap<String, Boolean> ?: emptyMap()) as HashMap<String, Boolean>?)
         }
 
         return availability
