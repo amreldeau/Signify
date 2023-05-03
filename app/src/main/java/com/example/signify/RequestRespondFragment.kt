@@ -1,5 +1,6 @@
 package com.example.signify
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -27,12 +28,43 @@ class RequestRespondFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         val requestId = arguments?.getString("requestId")!!
         viewModel = ViewModelProvider(this)[RequestRespondViewModel::class.java]
+        var checkedRadioButtonId: Int? = null
         viewModel.getRequestById(requestId).observe(viewLifecycleOwner) { request ->
             binding.name.text = request.clientName
             binding.payFull.text = getString(R.string.pay_full, request.payoutDifference)
+            binding.dates.text = request.requestedChanges.toString()
+            binding.radioGroup.setOnCheckedChangeListener { group, checkedId ->
+                checkedRadioButtonId = checkedId
+            }
+            binding.continueBtn.setOnClickListener {
+                when (checkedRadioButtonId) {
+                    R.id.pay_full -> {
 
+                        viewModel.updateRequestStatus(requestId)
+                        viewModel.updateOccupiedMap(request.orderID.id,
+                            request.requestedChanges as MutableMap<String, Boolean>
+                        )
+                        showSuccessDialog()
+                    }
+
+                    R.id.decline -> {
+                        viewModel.updateRequestStatus(requestId)
+                        showSuccessDialog()
+                    }
+                }
+            }
         }
-
         return binding.root
+    }
+    private fun showSuccessDialog() {
+        val dialog = AlertDialog.Builder(requireActivity())
+            .setTitle("Success")
+            .setMessage("Request responded")
+            .setPositiveButton("OK") { _, _ ->
+                requireActivity().onBackPressed()
+            }
+            .create()
+
+        dialog.show()
     }
 }

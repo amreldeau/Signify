@@ -1,5 +1,6 @@
 package com.example.signify
 
+import android.app.AlertDialog
 import android.graphics.Paint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -84,9 +85,21 @@ class ChangeBookingFragment : Fragment() {
         }
         binding.continueBtn.setOnClickListener {
             viewModel.placeRequest(clientId, orderId, (newpayout - originalpayout), selected, "ScheduleChange")
+            showSuccessDialog()
         }
 
         return binding.root
+    }
+    private fun showSuccessDialog() {
+        val dialog = AlertDialog.Builder(requireActivity())
+            .setTitle("Success")
+            .setMessage("Request sent.")
+            .setPositiveButton("OK") { _, _ ->
+                requireActivity().onBackPressed()
+            }
+            .create()
+
+        dialog.show()
     }
     fun getSelectedMonthsText(selected: Map<String, Boolean>): String {
         val monthNames = arrayOf(
@@ -123,16 +136,22 @@ class ChangeBookingFragment : Fragment() {
             if (child is TextView) {
                 val textViewId = child.resources.getResourceEntryName(child.id)
                 val e = "$year$textViewId"
-                val available = availabilityMap[e] ?: false
+                val reserved = availabilityMap[e] ?: false
 
-                if (available) {
-                    child.setOnClickListener(null)
-                    child.paintFlags = child.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-                    child.setTextColor(color)
-                    child.setBackgroundResource(0)
+                if (reserved) {
+                    if(selected[e] == true){
+                        child.setBackgroundResource(R.drawable.background_selected_month)
+                        child.setTextColor(whitecolor)
+                    }
+                    else {
+                        child.setOnClickListener(null)
+                        child.paintFlags = child.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                        child.setTextColor(color)
+                        child.setBackgroundResource(0)
+                    }
                 }
                 else {
-                    child.setPaintFlags(child.getPaintFlags() and Paint.STRIKE_THRU_TEXT_FLAG.inv())
+                    child.paintFlags = child.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
                     if(selected["$year$textViewId"] == true){
                         child.setBackgroundResource(R.drawable.background_selected_month)
                         child.setTextColor(whitecolor)

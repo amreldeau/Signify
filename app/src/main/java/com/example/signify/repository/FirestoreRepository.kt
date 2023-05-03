@@ -19,7 +19,7 @@ class FirestoreRepository {
 
     private val firestore = FirebaseFirestore.getInstance()
     private val db = FirebaseFirestore.getInstance()
-
+    private val auth = FirebaseAuth.getInstance()
     fun getOrdersForClient(clientId: String): LiveData<List<Order>> {
         val ordersLiveData = MutableLiveData<List<Order>>()
 
@@ -205,7 +205,7 @@ class FirestoreRepository {
                     date = Timestamp.now(),
                     payoutDifference = payoutDifference,
                     requestedChanges = selected,
-                    status = "pending",
+                    status = "Pending",
                     type = type
                 )
 
@@ -235,6 +235,7 @@ class FirestoreRepository {
 
             FirebaseFirestore.getInstance().collection("requests")
                 .whereEqualTo("responsableManagerID", managerId)
+                .whereEqualTo("status", "Pending")
                 .get()
                 .addOnSuccessListener { documents ->
                     for (document in documents) {
@@ -351,7 +352,86 @@ class FirestoreRepository {
 
         return descriptionLiveData
     }
+    fun updateRequestStatus(requestId: String) {
+        val requestRef = firestore.collection("requests").document(requestId)
 
+        requestRef.update("status", "Accepted")
+            .addOnSuccessListener {
+                Log.d(TAG, "Request status updated to Accepted")
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error updating request status", e)
+            }
+    }
+    fun updateOccupiedMap(orderId: String, requestedChanges: MutableMap<String, Boolean>) {
+        val orderRef = firestore.collection("orders").document(orderId)
+        orderRef.update("occupied", requestedChanges)
+            .addOnSuccessListener {
+                Log.d(TAG, "Occupied map updated for order $orderId")
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error updating occupied map for order $orderId", e)
+            }
+    }
+
+    fun signOut() {
+        auth.signOut()
+    }
+    fun getUserName(currentUserUid: String): LiveData<String> {
+        val result = MutableLiveData<String>()
+        val userDocRef = firestore.collection("clients").document(currentUserUid)
+
+        userDocRef.get().addOnSuccessListener { documentSnapshot ->
+            if (documentSnapshot.exists()) {
+                val userName = documentSnapshot.getString("Name")
+                result.value = userName!!
+            } else {
+                Log.d(TAG, "No such document")
+            }
+        }.addOnFailureListener { exception ->
+            Log.d(TAG, "getUserName failed with exception:", exception)
+        }
+
+        return result
+    }
+    fun addNewClient(email: String, password: String, managerUid: String, name: String) {
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnSuccessListener { authResult ->
+                // Return the user UID when the account is created successfully
+                val newClientUid = authResult.user!!.uid
+                // Save the new user UID to an authorization collection
+                val authorizationCollectionRef = db.collection("authorization")
+                val authorizationDocumentRef = authorizationCollectionRef.document(newClientUid)
+                val authorizationData = mapOf(
+                    "status" to "client"
+                )
+                authorizationDocumentRef.set(authorizationData)
+                    .addOnSuccessListener {
+                        // Create a new document in the clients collection with the required fields
+                        val clientsCollectionRef = db.collection("clients")
+                        val newClientDocumentRef = clientsCollectionRef.document(newClientUid)
+                        val newClientData = mapOf(
+                            "AttachedManager" to managerUid,
+                            "Email" to email,
+                            "Name" to name,
+                            "UID" to newClientUid
+                        )
+                        newClientDocumentRef.set(newClientData)
+                            .addOnSuccessListener {
+                                Log.d(TAG, "New client added successfully")
+                            }
+                            .addOnFailureListener { exception ->
+                                Log.e(TAG, "Failed to add new client", exception)
+                            }
+                    }
+                    .addOnFailureListener { exception ->
+                        Log.e(TAG, "Failed to add authorization status", exception)
+                    }
+            }
+            .addOnFailureListener { exception ->
+                Log.e(TAG, "Failed to create user account", exception)
+            }
+    }
 
 
 }

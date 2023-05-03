@@ -1,5 +1,6 @@
 package com.example.signify
 
+import android.app.AlertDialog
 import android.graphics.Paint
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -54,6 +55,7 @@ class DescriptionFragment : Fragment() {
         binding.order.setOnClickListener {
             repository.createOrder(clientId, billboardId!!, price, selected)
             repository.appendSelectedToNotAvailable(billboardId!!, selected)
+            showSuccessDialog()
         }
         binding.right.setOnClickListener {
             year++
@@ -68,6 +70,17 @@ class DescriptionFragment : Fragment() {
             }
         }
         return binding.root
+    }
+    private fun showSuccessDialog() {
+        val dialog = AlertDialog.Builder(requireActivity())
+            .setTitle("Success")
+            .setMessage("Order placed.")
+            .setPositiveButton("OK") { _, _ ->
+                requireActivity().onBackPressed()
+            }
+            .create()
+
+        dialog.show()
     }
 
     private fun setAvailabilityForYear(year: Int, availabilityMap: HashMap<String, Boolean>, gridLayout: GridLayout) {
