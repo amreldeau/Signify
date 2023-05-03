@@ -1,134 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:background="@color/white"
-    android:layout_height="match_parent"
-    tools:context=".AccountFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="match_parent"
+        tools:context=".AccountFragment">
+
+
+
+            <ImageView
+                android:id="@+id/signOutButton"
+                android:layout_width="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/exit_svgrepo_com"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </ImageView>
+
 
         <TextView
-            android:id="@+id/signout"
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="16dp"
 
-            android:layout_marginRight="8dp"
-            android:text="Log out"
-            android:textColor="@color/red"
-            app:layout_constraintBottom_toBottomOf="@+id/signouticon"
-            app:layout_constraintEnd_toStartOf="@+id/signouticon"
-            app:layout_constraintTop_toTopOf="@+id/signouticon">
-
-        </TextView>
-
-        <ImageView
-            android:id="@+id/signouticon"
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/exit_svgrepo_com"
+            android:text="Welcome back!"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="name"
+            android:textSize="20dp"
+            android:textStyle="bold"
 
-        </ImageView>
-    </LinearLayout>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/signOutButton"></TextView>
 
-    <TextView
-        android:id="@+id/textView16"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="name"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3"></TextView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:orientation="vertical"
-
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView16">
-
-        <RelativeLayout
-
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <View
-                android:layout_width="match_parent"
-                android:background="#E1E1E1"
-                android:layout_height="1dp"></View>
-            <ImageView
-                android:id="@+id/icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:src="@drawable/location_point_svgrepo_com"></ImageView>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-
-                android:layout_toEndOf="@id/icon"
-                android:text="Almaty"></TextView>
-
-
-
-            <ImageView
-                android:id="@+id/more"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:rotation="180"
-                android:src="@drawable/left_svgrepo_com"></ImageView>
-        </RelativeLayout>
-
-        <RelativeLayout
+        <LinearLayout
+            android:id="@+id/linearLayout4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-          >
-<View
-    android:layout_width="match_parent"
-    android:background="#E1E1E1"
-    android:layout_height="1dp"></View>
-            <ImageView
-                android:id="@+id/icon2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            android:layout_margin="16dp"
 
-                android:padding="16dp"
-                android:src="@drawable/credit_card_svgrepo_com"></ImageView>
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/userName">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
+            <RelativeLayout
 
-                android:layout_toEndOf="@id/icon2"
-                android:text="Payment"></TextView>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:rotation="180"
-                android:src="@drawable/left_svgrepo_com"></ImageView>
-        </RelativeLayout>
-    </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#E1E1E1"></View>
+
+                <ImageView
+                    android:id="@+id/icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp"
+                    android:src="@drawable/location_point_svgrepo_com"></ImageView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+
+                    android:layout_toEndOf="@id/icon"
+                    android:text="Almaty"></TextView>
+
+
+                <ImageView
+                    android:id="@+id/more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:rotation="180"
+                    android:src="@drawable/left_svgrepo_com"></ImageView>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#E1E1E1"></View>
+
+                <ImageView
+                    android:id="@+id/icon2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:padding="16dp"
+                    android:src="@drawable/credit_card_svgrepo_com"></ImageView>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+
+                    android:layout_toEndOf="@id/icon2"
+                    android:text="Payment"></TextView>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:rotation="180"
+                    android:src="@drawable/left_svgrepo_com"></ImageView>
+            </RelativeLayout>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

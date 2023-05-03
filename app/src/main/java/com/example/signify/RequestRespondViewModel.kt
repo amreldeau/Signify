@@ -13,4 +13,11 @@ class RequestRespondViewModel : ViewModel() {
     fun getRequestById(requestId: String): LiveData<Request> {
         return repository.getRequestById(requestId)
     }
+
+    fun updateRequestStatus(requestId: String) {
+        repository.updateRequestStatus(requestId)
+    }
+    fun updateOccupiedMap(orderId: String, requestedChanges: MutableMap<String, Boolean>) {
+        repository.updateOccupiedMap(orderId, requestedChanges)
+    }
 }

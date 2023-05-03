@@ -23,7 +23,13 @@ class ClientsFragment : Fragment() {
         binding = FragmentClientsBinding.inflate(inflater, container, false)
         firestore = FirebaseFirestore.getInstance()
         auth = FirebaseAuth.getInstance()
-
+        binding.add.setOnClickListener{
+            val fragment = AddClientFragment()
+            requireActivity().supportFragmentManager.beginTransaction()
+                .add(R.id.container, fragment)
+                .addToBackStack(null)
+                .commit()
+        }
 
 
         return binding.root
