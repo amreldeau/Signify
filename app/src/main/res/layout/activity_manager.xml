@@ -19,7 +19,7 @@
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            tools:layout="@layout/fragment_manager_clients"
+            tools:layout="@layout/fragment_clients"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

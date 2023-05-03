@@ -28,7 +28,7 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_description">DescriptionActivity</string>
     <string name="phone_number">Phone Number:</string>
-    <string name="client_email">Email:</string>
-    <string name="client_name">Name:</string>
+    <string name="client_email_field">Email:</string>
+    <string name="client_name_field">Name:</string>
 
 </resources>
