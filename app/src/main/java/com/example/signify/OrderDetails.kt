@@ -2,12 +2,11 @@ package com.example.signify
 
 import java.util.*
 
-data class Order(
-    val orderId: String,
+data class OrderDetails(
     val billboardId: String,
-    val clientId: String,
+    val price: Double,
+    val location: String,
     val occupied: Map<String, Boolean>,
-    val orderDate: Date,
     val status: String,
-    val totalCost: Double
+    val orderDate: Date
 )

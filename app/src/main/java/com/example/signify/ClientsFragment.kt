@@ -24,6 +24,7 @@ class ClientsFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private val db = Firebase.firestore
 
+//<<<<<<< HEAD
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         getClients()
@@ -61,7 +62,28 @@ class ClientsFragment : Fragment() {
                 Log.d(ContentValues.TAG, "Error getting documents: ", exception)
             }
     }
+/*
 
+=======
+
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentClientsBinding.inflate(inflater, container, false)
+        firestore = FirebaseFirestore.getInstance()
+        auth = FirebaseAuth.getInstance()
+        binding.add.setOnClickListener{
+            val fragment = AddClientFragment()
+            requireActivity().supportFragmentManager.beginTransaction()
+                .add(R.id.container, fragment)
+                .addToBackStack(null)
+                .commit()
+        }
+>>>>>>> 0eac1abcccfbb9e7a96eb83159be5c45350fbd23
+
+*/
 
     // Implement the showClients function to display the list of clients in the RecyclerView:
     private fun showClients(clients: List<Clients>) {

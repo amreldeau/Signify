@@ -12,8 +12,6 @@ import com.google.firebase.ktx.Firebase
 class ManagerActivity : AppCompatActivity() {
     private lateinit var binding: ActivityManagerBinding
     private val auth = Firebase.auth
-    private val invoker = Invoker()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

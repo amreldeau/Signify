@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 import com.example.signify.databinding.OrderLayoutBinding
 
-class OrdersAdapter(private val orders: List<Order>) :
+class OrdersAdapter(var orders: List<Order>) :
     RecyclerView.Adapter<OrdersAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -20,7 +20,7 @@ class OrdersAdapter(private val orders: List<Order>) :
         val order = orders[position]
         holder.binding.billboardName.text = order.billboardId
         holder.binding.orderDate.text = order.status
-        holder.binding.address.text = order.location
+
 
 
         holder.itemView.setOnClickListener {

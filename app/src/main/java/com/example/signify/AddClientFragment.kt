@@ -1,6 +1,7 @@
 package com.example.signify
 
 import AddClientViewModel
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -24,16 +25,26 @@ class AddClientFragment : Fragment() {
         val auth = FirebaseAuth.getInstance()
         val currentUserUid = auth.currentUser?.uid
         viewModel = ViewModelProvider(this).get(AddClientViewModel::class.java)
-        viewModel.message.observe(viewLifecycleOwner) { message ->
-            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-        }
+
         binding.btnRegister.setOnClickListener {
             val email = binding.etRegisterEmail.text.toString()
             val password = binding.etRegisterPassword.text.toString()
-
-            viewModel.addNewClient(email, password, currentUserUid!!)
+            val name = binding.etRegisterName.text.toString()
+            viewModel.addNewClient(email, password, currentUserUid!!, name)
+            showSuccessDialog()
         }
 
         return binding.root
+    }
+    private fun showSuccessDialog() {
+        val dialog = AlertDialog.Builder(requireActivity())
+            .setTitle("Success")
+            .setMessage("Client registered.")
+            .setPositiveButton("OK") { _, _ ->
+                requireActivity().onBackPressed()
+            }
+            .create()
+
+        dialog.show()
     }
 }

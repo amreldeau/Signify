@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 
-import com.example.signify.databinding.OrderLayoutBinding
 import com.example.signify.databinding.RequestItemBinding
 
 class RequestListAdapter(private val requests: List<Request>) :
@@ -19,26 +18,25 @@ class RequestListAdapter(private val requests: List<Request>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val request = requests[position]
-        holder.binding.requestType.text = request.type
-
-
+        holder.binding.name.text = request.clientName
 
         holder.itemView.setOnClickListener {
-            // Create a new instance of the OrderDetailsFragment
-            val fragment = RequestCancelFragment()
+            // Create a new instance of the RequestRespondFragment
+            val fragment = RequestRespondFragment()
 
-            // Create a bundle to pass the orderId to the fragment
+            // Create a bundle to pass the Request object to the fragment
             val args = Bundle()
-            args.putString("requestId", request.requestId)
+            args.putString("requestId", request.requestID) // assuming request is the Request object you want to pass
             fragment.arguments = args
 
-            // Open the OrderDetailsFragment
+            // Open the RequestRespondFragment
             val fragmentManager = (holder.itemView.context as FragmentActivity).supportFragmentManager
             fragmentManager.beginTransaction()
                 .replace(R.id.container, fragment)
                 .addToBackStack(null)
                 .commit()
         }
+
     }
 
     override fun getItemCount(): Int {

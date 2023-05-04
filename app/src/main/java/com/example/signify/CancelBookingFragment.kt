@@ -1,15 +1,19 @@
 package com.example.signify
 
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import com.example.signify.databinding.FragmentCancelBookingBinding
+import com.example.signify.repository.FirestoreRepository
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import java.util.*
 
 import java.util.concurrent.TimeUnit
 
@@ -17,73 +21,50 @@ import java.util.concurrent.TimeUnit
 class CancelBookingFragment : Fragment() {
 
     private lateinit var binding: FragmentCancelBookingBinding
-    private lateinit var firestore: FirebaseFirestore
-    private lateinit var auth: FirebaseAuth
-
+    private val repository = FirestoreRepository()
+    private lateinit var viewModel: CancelBookingViewModel
+    var penalty = 0.0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentCancelBookingBinding.inflate(inflater, container, false)
-        firestore = FirebaseFirestore.getInstance()
-        auth = FirebaseAuth.getInstance()
-        val orderId = arguments?.getString("orderId")!!
-        calculatePriceAfterPenalty(orderId)
+
+        val orderId = requireArguments().getString("orderId")!!
         binding.continueBtn.setOnClickListener {
-            val message = binding.message.editText?.text.toString()
-            val refundPrice = binding.refund.text.toString().toDouble()
-            createNewRequest(orderId, refundPrice, message)
+            repository.updateOrderStatus(orderId, "Cancelled")
+
+            showSuccessDialog()
+        }
+        viewModel = ViewModelProvider(this).get(CancelBookingViewModel::class.java)
+        viewModel.getOrderDetails(orderId).observe(viewLifecycleOwner) { order ->
+            binding.originalPrice.text = order.price.toString()
+            calculatePenalty(order.orderDate)
+            binding.refund.text = (order.price * penalty).toString()
         }
 
         return binding.root
     }
-    private fun createNewRequest(orderId: String, refundPrice: Double, message: String) {
-        val db = FirebaseFirestore.getInstance()
-        val requestRef = db.collection("requests").document()
-
-        val request = hashMapOf(
-            "orderId" to orderId,
-            "refund_price" to refundPrice,
-            "message" to message,
-            "type" to "Cancellation request"
-        )
-
-        requestRef.set(request)
-            .addOnSuccessListener {
-                // Success
+    private fun showSuccessDialog() {
+        val dialog = AlertDialog.Builder(requireActivity())
+            .setTitle("Success")
+            .setMessage("Order status updated successfully.")
+            .setPositiveButton("OK") { _, _ ->
+                requireActivity().onBackPressed()
             }
-            .addOnFailureListener { e ->
-                // Error
-            }
+            .create()
+
+        dialog.show()
     }
+    fun calculatePenalty(orderDate: Date) {
+        val currentDate = Date()
+        val diffInMs = currentDate.time - orderDate.time
+        val diffInHours = diffInMs / (1000 * 60 * 60)
 
-    private fun calculatePriceAfterPenalty(orderId: String) {
-        val db = FirebaseFirestore.getInstance()
-        val orderRef = db.collection("orders").document(orderId)
-
-        orderRef.get().addOnSuccessListener { documentSnapshot ->
-            if (documentSnapshot.exists()) {
-                val orderData = documentSnapshot.data
-                val orderStatus = orderData?.get("order_status") as? Map<String, Timestamp>
-                val lowestTimestamp = orderStatus?.values?.minOrNull()?.toDate()?.time ?: 0
-                val originalPrice = orderData?.get("price") as? Double ?: 0.0
-                binding.originalPrice.text = originalPrice.toString()
-                val timePassedMillis = System.currentTimeMillis() - lowestTimestamp
-                val hoursPassed = TimeUnit.MILLISECONDS.toHours(timePassedMillis)
-
-                val refundPercentage = when {
-                    hoursPassed < 24 -> 0.8
-                    hoursPassed < 48 -> 0.5
-                    else -> 0.1
-                }
-
-                val refundAmount = originalPrice * refundPercentage
-                binding.refund.text = refundAmount.toString()
-            } else {
-
-            }
-        }.addOnFailureListener { e ->
-
+        penalty = when {
+            diffInHours < 24 -> 1.0
+            diffInHours < 48 -> 0.5
+            else -> 1.0
         }
     }
 }

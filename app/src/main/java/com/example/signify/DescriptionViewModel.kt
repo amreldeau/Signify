@@ -8,9 +8,11 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.signify.repository.FirestoreRepository
 import com.google.firebase.firestore.FirebaseFirestore
 
 class DescriptionViewModel : ViewModel() {
+    private val repository = FirestoreRepository()
     var billboardId: String = ""
     var orderId: String = ""
     var price: Double = 0.0
@@ -22,10 +24,13 @@ class DescriptionViewModel : ViewModel() {
 
         billboardsRef.document(billboardId).get().addOnSuccessListener { billboardSnapshot ->
             val billboardData = billboardSnapshot.data ?: return@addOnSuccessListener
-            availability.value = ((billboardData["availability"] as? HashMap<String, Boolean> ?: emptyMap()) as HashMap<String, Boolean>?)
+            availability.value = ((billboardData["NotAvailable"] as? HashMap<String, Boolean> ?: emptyMap()) as HashMap<String, Boolean>?)
         }
 
         return availability
+    }
+    fun getDescription(billboardId: String): LiveData<Description> {
+        return repository.getDescription(billboardId)
     }
 
     fun getPrice(billboardId: String): LiveData<Double> {
