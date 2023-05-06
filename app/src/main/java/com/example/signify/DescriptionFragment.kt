@@ -44,7 +44,19 @@ class DescriptionFragment : Fragment() {
             price=p
         }
         viewModel.getDescription(billboardId!!).observe(viewLifecycleOwner){
-            binding.billboardName.text = it.billboardId
+            binding.billboardName.text = getString(R.string.billboard_id, it.billboardId)
+            binding.billboardPrice.text = "Price: ${it.price}$"
+            binding.location.text = it.location
+            binding.desSurface.text = it.surface
+            binding.desSize.text = it.size
+            binding.desType.text = it.type
+        }
+        binding.backButtonDescription.setOnClickListener {
+            // get the FragmentManager and remove the current fragment from the back stack
+            val fragmentManager = requireActivity().supportFragmentManager
+
+            fragmentManager.popBackStack()
+
         }
         viewModel.getBillboardAvailability(viewModel.billboardId).observe(viewLifecycleOwner) { availabilityMap ->
             year = 2023
