@@ -42,6 +42,13 @@ class CancelBookingFragment : Fragment() {
             calculatePenalty(order.orderDate)
             binding.refund.text = (order.price * penalty).toString()
         }
+        binding.backButtonCancel.setOnClickListener {
+            // get the FragmentManager and remove the current fragment from the back stack
+            val fragmentManager = requireActivity().supportFragmentManager
+
+            fragmentManager.popBackStack()
+
+        }
 
         return binding.root
     }
