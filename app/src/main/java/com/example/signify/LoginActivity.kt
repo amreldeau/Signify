@@ -30,7 +30,9 @@ class LoginActivity : AppCompatActivity() {
                         startActivity(Intent(this, MainActivity::class.java))
                     }
                 },
-                { Toast.makeText(this, "Authentication failed.", Toast.LENGTH_SHORT).show() }
+                {
+                    binding.textInputLayout2.error = "Wrong email or password"
+                }
             )
         }
     }
