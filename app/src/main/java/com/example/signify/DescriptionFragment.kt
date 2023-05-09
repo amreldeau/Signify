@@ -22,7 +22,7 @@ class DescriptionFragment : Fragment() {
     private val selected: MutableMap<String, Boolean> = mutableMapOf()
     private var price: Double = 0.0
     private var billboardId: String? = null
-    private lateinit var repository: FirestoreRepository
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,7 +30,7 @@ class DescriptionFragment : Fragment() {
     ): View {
         binding = FragmentDescriptionBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get(DescriptionViewModel::class.java)
-        repository = FirestoreRepository()
+        auth = FirebaseAuth.getInstance()
 
         var year = 2023
         lateinit var map: HashMap<String, Boolean>
@@ -44,19 +44,39 @@ class DescriptionFragment : Fragment() {
             price=p
         }
         viewModel.getDescription(billboardId!!).observe(viewLifecycleOwner){
-            binding.billboardName.text = it.billboardId
+            binding.billboardName.text = getString(R.string.billboard_id, it.billboardId)
+            binding.billboardPrice.text = "Price: ${it.price}$"
+            binding.location.text = it.location
+            binding.desSurface.text = it.surface
+            binding.desSize.text = it.size
+            binding.desType.text = it.type
+        }
+        binding.backButtonDescription.setOnClickListener {
+            // get the FragmentManager and remove the current fragment from the back stack
+            val fragmentManager = requireActivity().supportFragmentManager
+
+            fragmentManager.popBackStack()
+
         }
         viewModel.getBillboardAvailability(viewModel.billboardId).observe(viewLifecycleOwner) { availabilityMap ->
             year = 2023
             map = availabilityMap
             setAvailabilityForYear(year, availabilityMap, gridLayout)
         }
+        viewModel.getUserName(auth.currentUser!!.uid).observe(viewLifecycleOwner){
+            binding.name.text = it
+        }
 
         binding.order.setOnClickListener {
-            repository.createOrder(clientId, billboardId!!, price, selected)
-            repository.appendSelectedToNotAvailable(billboardId!!, selected)
+            viewModel.generateID().observe(viewLifecycleOwner){
+                viewModel.createOrder(clientId, billboardId!!, price, selected, it)
+                viewModel.createPayment(it, price)
+                viewModel.updateOrderStatus(it, "Pending")
+                viewModel.appendSelectedToNotAvailable(billboardId!!, selected)
+            }
             showSuccessDialog()
         }
+
         binding.right.setOnClickListener {
             year++
             binding.year.text = year.toString()

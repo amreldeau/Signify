@@ -1,8 +1,10 @@
 package com.example.signify
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 
@@ -10,6 +12,8 @@ import com.example.signify.databinding.OrderLayoutBinding
 
 class OrdersAdapter(var orders: List<Order>) :
     RecyclerView.Adapter<OrdersAdapter.ViewHolder>() {
+
+    private var lastClickedPosition: Int = RecyclerView.NO_POSITION
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = OrderLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -21,9 +25,20 @@ class OrdersAdapter(var orders: List<Order>) :
         holder.binding.billboardName.text = order.billboardId
         holder.binding.orderDate.text = order.status
 
-
+        // Highlight the last clicked item
+        if (holder.adapterPosition == lastClickedPosition) {
+            holder.itemView.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.highlight_color))
+        } else {
+            holder.itemView.setBackgroundColor(Color.TRANSPARENT)
+        }
 
         holder.itemView.setOnClickListener {
+            // Update the last clicked position and notify the adapter of the change
+            val previousPosition = lastClickedPosition
+            lastClickedPosition = holder.adapterPosition
+            notifyItemChanged(previousPosition)
+            notifyItemChanged(lastClickedPosition)
+
             // Create a new instance of the OrderDetailsFragment
             val fragment = OrderDetailsFragment()
 

@@ -10,6 +10,7 @@ import com.example.signify.OrderDetails
 import com.example.signify.Request
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
@@ -20,12 +21,20 @@ class FirestoreRepository {
     private val firestore = FirebaseFirestore.getInstance()
     private val db = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
+    fun generateID() : LiveData<String>{
+        val uniqueId = MutableLiveData<String>()
+        val db = FirebaseFirestore.getInstance()
+        val docRef = db.collection("orders").document()
+        uniqueId.value = docRef.id
+        return uniqueId
+    }
     fun getOrdersForClient(clientId: String): LiveData<List<Order>> {
         val ordersLiveData = MutableLiveData<List<Order>>()
 
         val ordersCollection = firestore.collection("orders")
-        val query =
-            ordersCollection.whereEqualTo("clientID", firestore.document("clients/$clientId"))
+        val query = ordersCollection
+            .whereEqualTo("clientID", firestore.document("clients/$clientId"))
+            .whereNotEqualTo("status", "Require payment") // add this filter to exclude orders with status "Require payment"
 
         query.addSnapshotListener { querySnapshot, exception ->
             if (exception != null) {
@@ -37,8 +46,7 @@ class FirestoreRepository {
                 try {
                     val orderId = document.id
                     val billboardId = document.getDocumentReference("billboardID")!!.id
-                    val occupied =
-                        document.get("occupied") as? HashMap<String, Boolean> ?: emptyMap()
+                    val occupied = document.get("occupied") as? HashMap<String, Boolean> ?: emptyMap()
                     val orderDate = document.getTimestamp("orderDate")?.toDate() ?: Date()
                     val status = document.getString("status") ?: ""
                     val totalCost = document.getDouble("totalCost") ?: 0.0
@@ -56,6 +64,7 @@ class FirestoreRepository {
         return ordersLiveData
     }
 
+
     fun updateOrderStatus(orderId: String, status: String) {
         val ordersCollection = firestore.collection("orders")
         val orderDocument = ordersCollection.document(orderId)
@@ -69,25 +78,21 @@ class FirestoreRepository {
             }
     }
 
-    fun createOrder(
-        clientId: String,
-        billboardId: String,
-        price: Double,
-        selected: MutableMap<String, Boolean>
-    ) {
+    fun createOrder(clientId: String, billboardId: String, price: Double, selected: MutableMap<String, Boolean>, orderId: String){
         val orderMap = hashMapOf(
             "clientID" to db.document("clients/$clientId"),
             "billboardID" to db.document("billboards/$billboardId"),
             "totalCost" to price,
             "orderDate" to FieldValue.serverTimestamp(),
-            "status" to "Pending",
+            "status" to "Require payment",
             "occupied" to selected
         )
 
         db.collection("orders")
-            .add(orderMap)
-            .addOnSuccessListener { documentReference ->
-                Log.d(TAG, "Order added with ID: ${documentReference.id}")
+            .document(orderId) // set the document name to orderId
+            .set(orderMap) // use set() instead of add()
+            .addOnSuccessListener {
+                Log.d(TAG, "Order added with ID: $orderId")
             }
             .addOnFailureListener { e ->
                 Log.w(TAG, "Error adding order", e)
@@ -431,6 +436,67 @@ class FirestoreRepository {
             .addOnFailureListener { exception ->
                 Log.e(TAG, "Failed to create user account", exception)
             }
+    }
+    fun createPayment(orderId: String, amount: Double) {
+        val paymentMap = hashMapOf(
+            "amount" to amount,
+            "orderID" to db.document("orders/$orderId"),
+            "paymentDate" to FieldValue.serverTimestamp(),
+            "paymentID" to "",
+            "paymentMethod" to "Card"
+        )
+
+        db.collection("payments")
+            .add(paymentMap)
+            .addOnSuccessListener { documentReference ->
+                val paymentId = documentReference.id
+                db.collection("payments")
+                    .document(paymentId)
+                    .update("paymentID", paymentId)
+                Log.d(TAG, "Payment added with ID: $paymentId")
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error adding payment", e)
+            }
+    }
+    fun getTotalSales(uid: String): LiveData<Double> {
+        val totalSalesLiveData = MutableLiveData<Double>()
+        // Get clients assigned to current user from managers collection
+        val clientsAssignedRef = db.collection("managers").document(uid)
+        clientsAssignedRef.get().addOnSuccessListener { managerDocument ->
+            if (managerDocument != null && managerDocument.exists()) {
+                val clientsAssigned = managerDocument.get("ClientsAssigned") as ArrayList<String>
+
+                // Query payments collection to get total sales for clients assigned to current user
+                var totalSales = 0.0
+                db.collection("payments")
+                    .get()
+                    .addOnSuccessListener { paymentsQuerySnapshot ->
+                        for (paymentDocument in paymentsQuerySnapshot.documents) {
+                            val orderRef = paymentDocument.get("orderID") as DocumentReference
+                            orderRef.get().addOnSuccessListener { orderDoc ->
+                                val clientIdRef = orderDoc.get("clientID") as DocumentReference
+                                if (clientsAssigned.contains(clientIdRef.id)) {
+                                    val amount = paymentDocument.getDouble("amount")
+                                    if (amount != null) {
+                                        totalSales += amount
+                                    }
+                                }
+                                totalSalesLiveData.value = totalSales
+                            }
+                        }
+                    }
+
+            } else {
+                Log.d(TAG, "Manager document does not exist")
+                totalSalesLiveData.value = 0.0
+            }
+        }.addOnFailureListener { e ->
+            Log.w(TAG, "Error getting clients assigned to manager", e)
+            totalSalesLiveData.value = 0.0
+        }
+
+        return totalSalesLiveData
     }
 
 

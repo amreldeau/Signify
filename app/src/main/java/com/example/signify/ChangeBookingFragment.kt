@@ -3,20 +3,19 @@ package com.example.signify
 import android.app.AlertDialog
 import android.graphics.Paint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.GridLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.signify.databinding.FragmentChangeBookingBinding
 import com.example.signify.repository.FirestoreRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import java.util.Date
-import java.util.HashMap
+import java.util.*
 
 class ChangeBookingFragment : Fragment() {
 
@@ -60,16 +59,18 @@ class ChangeBookingFragment : Fragment() {
                 calculatePenalty(orderDate)
             }
 
-            viewModel.getBillboardAvailability(billboardId).observe(viewLifecycleOwner) { availabilityMap ->
-                map = availabilityMap
-            }
+            viewModel.getBillboardAvailability(billboardId)
+                .observe(viewLifecycleOwner) { availabilityMap ->
+                    map = availabilityMap
+                }
             viewModel.getPrice(billboardId).observe(viewLifecycleOwner) { price ->
                 pricePerMonth = price
                 setAvailabilityForYear(year, map, gridLayout)
             }
             binding.originalPayout.text = getString(R.string.price, originalpayout)
             binding.newPayout.text = getString(R.string.price, newpayout)
-            binding.originalDates.text = getString(R.string.original_dates, getSelectedMonthsText(occupied))
+            binding.originalDates.text =
+                getString(R.string.original_dates, getSelectedMonthsText(occupied))
         }
         binding.right.setOnClickListener {
             year++
@@ -77,19 +78,30 @@ class ChangeBookingFragment : Fragment() {
             setAvailabilityForYear(year, map, gridLayout)
         }
         binding.left.setOnClickListener {
-            if(year >2023) {
+            if (year > 2023) {
                 year--
                 binding.year.text = year.toString()
                 setAvailabilityForYear(year, map, gridLayout)
             }
         }
         binding.continueBtn.setOnClickListener {
-            viewModel.placeRequest(clientId, orderId, (newpayout - originalpayout), selected, "ScheduleChange")
+            viewModel.placeRequest(
+                clientId,
+                orderId,
+                (newpayout - originalpayout),
+                selected,
+                "ScheduleChange"
+            )
             showSuccessDialog()
+        }
+        binding.backButtonChange.setOnClickListener {
+            val fragmentManager = requireActivity().supportFragmentManager
+            fragmentManager.popBackStack()
         }
 
         return binding.root
     }
+
     private fun showSuccessDialog() {
         val dialog = AlertDialog.Builder(requireActivity())
             .setTitle("Success")
@@ -101,6 +113,7 @@ class ChangeBookingFragment : Fragment() {
 
         dialog.show()
     }
+
     fun getSelectedMonthsText(selected: Map<String, Boolean>): String {
         val monthNames = arrayOf(
             "January", "February", "March", "April",
@@ -111,10 +124,11 @@ class ChangeBookingFragment : Fragment() {
         val selectedByYear = selected.keys.groupBy { it.substring(0, 4) }
 
         return selectedByYear.map { (year, monthKeys) ->
-            val months = monthKeys.map { monthNames[it.substring(9).toInt()-1] }
+            val months = monthKeys.map { monthNames[it.substring(9).toInt() - 1] }
             "$year: ${months.joinToString(", ")}"
         }.joinToString(", ")
     }
+
     fun calculatePenalty(orderDate: Date) {
         val currentDate = Date()
         val diffInMs = currentDate.time - orderDate.time
@@ -126,7 +140,12 @@ class ChangeBookingFragment : Fragment() {
             else -> 1.0
         }
     }
-    private fun setAvailabilityForYear(year: Int, availabilityMap: HashMap<String, Boolean>, gridLayout: GridLayout) {
+
+    private fun setAvailabilityForYear(
+        year: Int,
+        availabilityMap: HashMap<String, Boolean>,
+        gridLayout: GridLayout
+    ) {
         val color = ContextCompat.getColor(requireContext(), R.color.gray)
         val whitecolor = ContextCompat.getColor(requireContext(), R.color.white)
         val blackcolor = ContextCompat.getColor(requireContext(), R.color.black)
@@ -139,31 +158,28 @@ class ChangeBookingFragment : Fragment() {
                 val reserved = availabilityMap[e] ?: false
 
                 if (reserved) {
-                    if(selected[e] == true){
+                    if (selected[e] == true) {
                         child.setBackgroundResource(R.drawable.background_selected_month)
                         child.setTextColor(whitecolor)
-                    }
-                    else {
+                    } else {
                         child.setOnClickListener(null)
                         child.paintFlags = child.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
                         child.setTextColor(color)
                         child.setBackgroundResource(0)
                     }
-                }
-                else {
+                } else {
                     child.paintFlags = child.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
-                    if(selected["$year$textViewId"] == true){
+                    if (selected["$year$textViewId"] == true) {
                         child.setBackgroundResource(R.drawable.background_selected_month)
                         child.setTextColor(whitecolor)
 
                         child.setOnClickListener {
                             val e = "$year$textViewId"
                             val a = selected[e] ?: false
-                            if(!a){
-                                if(occupied["$year$textViewId"] == true){
+                            if (!a) {
+                                if (occupied["$year$textViewId"] == true) {
                                     newpayout += (pricePerMonth * penalty)
-                                }
-                                else{
+                                } else {
                                     newpayout += pricePerMonth
                                 }
                                 selected["$year$textViewId"] = true
@@ -171,12 +187,11 @@ class ChangeBookingFragment : Fragment() {
                                 child.setTextColor(whitecolor)
 
                             }
-                            if(a){
-                                if(occupied["$year$textViewId"] == true){
+                            if (a) {
+                                if (occupied["$year$textViewId"] == true) {
                                     newpayout -= (pricePerMonth * penalty)
 
-                                }
-                                else{
+                                } else {
                                     newpayout -= pricePerMonth
 
                                 }
@@ -185,23 +200,23 @@ class ChangeBookingFragment : Fragment() {
                                 child.setTextColor(blackcolor)
                             }
                             binding.newPayout.text = getString(R.string.price, newpayout)
-                            binding.payoutDifference.text = getString(R.string.price, (newpayout - originalpayout))
+                            binding.payoutDifference.text =
+                                getString(R.string.price, (newpayout - originalpayout))
                             binding.newDates.text = getSelectedMonthsText(selected)
-                            binding.info.text = getString(R.string.change_payout_info, (newpayout - originalpayout))
+                            binding.info.text =
+                                getString(R.string.change_payout_info, (newpayout - originalpayout))
                         }
-                    }
-                    else {
+                    } else {
                         child.setTextColor(blackcolor)
                         child.setBackgroundResource(0)
                         child.setOnClickListener {
                             val e = "$year$textViewId"
                             val a = selected[e] ?: false
-                            if(!a){
-                                if(occupied["$year$textViewId"] == true){
+                            if (!a) {
+                                if (occupied["$year$textViewId"] == true) {
                                     newpayout += (pricePerMonth * penalty)
 
-                                }
-                                else{
+                                } else {
                                     newpayout += pricePerMonth
 
                                 }
@@ -210,12 +225,11 @@ class ChangeBookingFragment : Fragment() {
                                 child.setTextColor(whitecolor)
 
                             }
-                            if(a){
-                                if(occupied["$year$textViewId"] == true){
+                            if (a) {
+                                if (occupied["$year$textViewId"] == true) {
                                     newpayout -= (pricePerMonth * penalty)
 
-                                }
-                                else{
+                                } else {
                                     newpayout -= pricePerMonth
 
                                 }
@@ -225,9 +239,11 @@ class ChangeBookingFragment : Fragment() {
 
                             }
                             binding.newPayout.text = getString(R.string.price, newpayout)
-                            binding.payoutDifference.text = getString(R.string.price, (newpayout - originalpayout))
+                            binding.payoutDifference.text =
+                                getString(R.string.price, (newpayout - originalpayout))
                             binding.newDates.text = getSelectedMonthsText(selected)
-                            binding.info.text = getString(R.string.change_payout_info, (newpayout - originalpayout))
+                            binding.info.text =
+                                getString(R.string.change_payout_info, (newpayout - originalpayout))
                         }
                     }
                 }

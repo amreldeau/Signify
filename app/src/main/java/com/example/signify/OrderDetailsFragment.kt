@@ -12,6 +12,7 @@ class OrderDetailsFragment : Fragment() {
 
     private lateinit var binding: FragmentOrderDetailsBinding
     private lateinit var viewModel: OrderDetailsViewModel
+    //private var billboardId: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,18 +22,23 @@ class OrderDetailsFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(OrderDetailsViewModel::class.java)
 
         val orderId = arguments?.getString("orderId")!!
-
-        viewModel.getOrderDetails(orderId)
+//        billboardId = arguments?.getString("key")!!
+//        viewModel.billboardId = billboardId as String
 
         viewModel.getOrderDetails(orderId).observe(viewLifecycleOwner) { orderDetails ->
             // Update the UI with the order details
             binding.more.text = "Price: ${orderDetails.price}"
+            binding.status.text = orderDetails.status
             binding.billboardName.text = getString(R.string.billboard_id, orderDetails.billboardId)
             binding.location.text = "Billboard location: ${orderDetails.location}"
             binding.date1.text = "Occupied: ${orderDetails.occupied}"
             checkStatus(orderDetails.status)
         }
-
+//        viewModel.getDescription(billboardId!!).observe(viewLifecycleOwner){
+//            binding.orderSurface.text = it.surface
+//            binding.orderSize.text = it.size
+//            binding.orderType.text = it.type
+//        }
         binding.backButtonDetails.setOnClickListener {
             // get the FragmentManager and remove the current fragment from the back stack
             val fragmentManager = requireActivity().supportFragmentManager

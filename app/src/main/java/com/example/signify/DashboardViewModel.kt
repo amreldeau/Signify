@@ -12,4 +12,7 @@ class DashboardViewModel: ViewModel() {
     fun getUserName(currentUserUid: String): LiveData<String> {
         return repository.getUserName(currentUserUid)
     }
+    fun getTotalSales(uid: String) : LiveData<Double>{
+        return repository.getTotalSales(uid)
+    }
 }

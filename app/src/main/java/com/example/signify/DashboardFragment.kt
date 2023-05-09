@@ -48,6 +48,12 @@ class DashboardFragment : Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
+        viewModel.getTotalSales(auth.currentUser!!.uid).observe(viewLifecycleOwner){
+            binding.totalSalesValue.text = getString(R.string.price, it)
+        }
+        viewModel.getUserName(auth.currentUser!!.uid).observe(viewLifecycleOwner){
+            binding.name.text = it
+        }
 
         return binding.root
     }
