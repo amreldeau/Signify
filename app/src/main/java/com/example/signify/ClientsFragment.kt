@@ -31,6 +31,11 @@ class ClientsFragment : Fragment() {
                 .commit()
         }
 
+        binding.backButtonClients.setOnClickListener {
+            // get the FragmentManager and remove the current fragment from the back stack
+            val fragmentManager = requireActivity().supportFragmentManager
+            fragmentManager.popBackStack()
+        }
 
         return binding.root
     }

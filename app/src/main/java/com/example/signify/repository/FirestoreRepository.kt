@@ -399,6 +399,22 @@ class FirestoreRepository {
 
         return result
     }
+    fun getManagerName(currentManagerUid: String): LiveData<String> {
+        val res = MutableLiveData<String>()
+        val managerDocRef = firestore.collection("managers").document(currentManagerUid)
+
+        managerDocRef.get().addOnSuccessListener {  documentSnapshot ->
+            if (documentSnapshot.exists()) {
+                val managerName = documentSnapshot.getString("Name")
+                res.value = managerName!!
+            } else {
+                Log.d(TAG, "No such document")
+            }
+        }.addOnFailureListener { exception ->
+            Log.d(TAG, "getManagerName failed with exception:", exception)
+        }
+        return res
+    }
     fun addNewClient(email: String, password: String, managerUid: String, name: String) {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnSuccessListener { authResult ->
@@ -498,6 +514,4 @@ class FirestoreRepository {
 
         return totalSalesLiveData
     }
-
-
 }

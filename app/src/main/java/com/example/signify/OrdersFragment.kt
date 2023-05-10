@@ -1,16 +1,13 @@
 package com.example.signify
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.signify.databinding.FragmentOrdersBinding
-import com.example.signify.repository.FirestoreRepository
 import com.google.firebase.auth.FirebaseAuth
 
 class OrdersFragment : Fragment() {

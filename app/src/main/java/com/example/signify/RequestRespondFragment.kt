@@ -54,6 +54,11 @@ class RequestRespondFragment : Fragment() {
                 }
             }
         }
+        binding.backButtonRespond.setOnClickListener {
+            // get the FragmentManager and remove the current fragment from the back stack
+            val fragmentManager = requireActivity().supportFragmentManager
+            fragmentManager.popBackStack()
+        }
         return binding.root
     }
     private fun showSuccessDialog() {

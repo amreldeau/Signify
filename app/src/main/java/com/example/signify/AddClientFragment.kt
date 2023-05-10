@@ -33,6 +33,11 @@ class AddClientFragment : Fragment() {
             viewModel.addNewClient(email, password, currentUserUid!!, name)
             showSuccessDialog()
         }
+        binding.backButtonRegister.setOnClickListener {
+            // get the FragmentManager and remove the current fragment from the back stack
+            val fragmentManager = requireActivity().supportFragmentManager
+            fragmentManager.popBackStack()
+        }
 
         return binding.root
     }

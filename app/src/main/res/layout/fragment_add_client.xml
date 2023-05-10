@@ -13,7 +13,15 @@
         android:background="#F6F6F6"
         android:padding="32dp"
         tools:context=".ManagerActivity">
-
+        <ImageView
+            android:id="@+id/backButtonRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/circle"
+            android:padding="8dp"
+            android:src="@drawable/left_svgrepo_com"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
         <LinearLayout
             android:gravity="center"
             android:layout_width="match_parent"
