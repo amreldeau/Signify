@@ -18,7 +18,6 @@ class ClientAdapter(private val clients: ArrayList<Clients>) : RecyclerView.Adap
         val client = clients[position]
         holder.clientName.text = client.name
         holder.clientEmail.text = client.email
-       // holder.amount.text = client.amount.toString() + "$"
     }
 
     override fun getItemCount(): Int {
@@ -28,6 +27,5 @@ class ClientAdapter(private val clients: ArrayList<Clients>) : RecyclerView.Adap
     class ClientViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val clientName: TextView = itemView.findViewById(R.id.client_name)
         val clientEmail: TextView = itemView.findViewById((R.id.client_email))
-        val amount: TextView = itemView.findViewById(R.id.amount)
     }
 }

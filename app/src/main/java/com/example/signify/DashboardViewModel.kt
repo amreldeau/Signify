@@ -18,4 +18,7 @@ class DashboardViewModel: ViewModel() {
     fun getTotalSales(uid: String) : LiveData<Double>{
         return repository.getTotalSales(uid)
     }
+    fun getManagerName(currentManagerUid: String): LiveData<String> {
+        return repository.getManagerName(currentManagerUid)
+    }
 }

@@ -46,31 +46,6 @@ class ClientsFragment : Fragment() {
         clients = arrayListOf()
         db = FirebaseFirestore.getInstance()
 
-        // trying to get sum of payment for each client
-        // Create a map to store the client IDs and their total cost
-        /*val clientTotalCosts = mutableMapOf<String, Double>()
-
-        // Query the orders collection to get all documents
-        db.collection("orders").get()
-            .addOnSuccessListener { documents ->
-                // Iterate over each document in the orders collection
-                for (document in documents) {
-                    // Get the client ID and total cost for the current order
-                    val clientID = document.getString("clientID")
-                    val totalCost = document.getDouble("totalCost") ?: 0.0
-
-                    // If the client ID is not null, update the total cost for that client
-                    if (clientID != null) {
-                        if (clientTotalCosts.containsKey(clientID)) {
-                            clientTotalCosts[clientID] = clientTotalCosts[clientID]!! + totalCost
-                        } else {
-                            clientTotalCosts[clientID] = totalCost
-                        }
-                    }
-                }
-            }
-*/
-
         // query the "Clients" collection to get a list of Client objects:
         db.collection("clients").get()
             .addOnSuccessListener {
@@ -97,6 +72,12 @@ class ClientsFragment : Fragment() {
             .addOnFailureListener {
                 Toast.makeText(context, it.toString(), Toast.LENGTH_SHORT).show()
             }
+
+        binding.backButtonClients.setOnClickListener {
+            // get the FragmentManager and remove the current fragment from the back stack
+            val fragmentManager = requireActivity().supportFragmentManager
+            fragmentManager.popBackStack()
+        }
 
         return binding.root
     }
