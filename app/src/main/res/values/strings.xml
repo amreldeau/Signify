@@ -23,10 +23,12 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_description">DescriptionActivity</string>
+    <string name="phone_number">Phone Number:</string>
+    <string name="client_email_field">Email:</string>
+    <string name="client_name_field">Name:</string>
     <string name="original_dates">Original:  %s</string>'
     <string name="price">$%.2f</string>
     <string name="change_payout_info">if manager agrees to the changes, your new total payout will be  $%.2f</string>

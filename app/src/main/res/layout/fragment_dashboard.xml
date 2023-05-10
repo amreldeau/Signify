@@ -70,124 +70,124 @@
 
         </LinearLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/button1"
-                android:layout_width="match_parent"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/button1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill"
+            android:layout_margin="5sp"
+            android:background="@drawable/background_rounded"
+            android:backgroundTint="#F7F7F8"
+            android:padding="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+            android:textSize="18sp">
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:background="@drawable/rounded_button"
+                android:backgroundTint="#00F47236"
+                android:padding="8dp"
+                android:src="@drawable/dollar_circle_svgrepo_com__2_"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="#343541"></ImageView>
+
+            <TextView
+
+                android:id="@+id/totalSalesValue"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="fill"
-                android:layout_margin="5sp"
-                android:background="@drawable/background_rounded"
-                android:backgroundTint="#F7F7F8"
-                android:padding="16dp"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-                android:textSize="18sp">
+                android:layout_marginLeft="16dp"
+                android:text="0$"
+                android:textColor="#343541"
+                android:textSize="24dp"
+                app:layout_constraintStart_toEndOf="@+id/imageView4"
+                app:layout_constraintTop_toTopOf="parent"></TextView>
 
-                <ImageView
-                    android:id="@+id/imageView4"
-                    android:layout_width="54dp"
-                    android:layout_height="54dp"
-                    android:background="@drawable/rounded_button"
-                    android:backgroundTint="#00F47236"
-                    android:padding="8dp"
-                    android:src="@drawable/dollar_circle_svgrepo_com__2_"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="#343541"></ImageView>
-
-                <TextView
-
-                    android:id="@+id/totalSalesValue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:text="0$"
-                    android:textColor="#343541"
-                    android:textSize="24dp"
-                    app:layout_constraintStart_toEndOf="@+id/imageView4"
-                    app:layout_constraintTop_toTopOf="parent"></TextView>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Total sales"
-
-                    android:textColor="#343541"
-                    app:layout_constraintStart_toStartOf="@+id/totalSalesValue"
-                    app:layout_constraintTop_toBottomOf="@+id/totalSalesValue"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/requests"
-                app:layout_constraintTop_toBottomOf="@+id/button1"
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="fill"
-                android:layout_margin="5sp"
-                android:background="@drawable/background_rounded"
-                android:backgroundTint="#F7F7F8"
-                android:padding="16dp"
+                android:text="Total sales"
 
-                android:textSize="18sp">
+                android:textColor="#343541"
+                app:layout_constraintStart_toStartOf="@+id/totalSalesValue"
+                app:layout_constraintTop_toBottomOf="@+id/totalSalesValue"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/requests"
+            app:layout_constraintTop_toBottomOf="@+id/button1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill"
+            android:layout_margin="5sp"
+            android:background="@drawable/background_rounded"
+            android:backgroundTint="#F7F7F8"
+            android:padding="16dp"
 
-                <ImageView
-                    android:id="@+id/imageView5"
-                    android:layout_width="54dp"
-                    android:layout_height="54dp"
-                    android:background="@drawable/rounded_button"
-                    android:backgroundTint="#00F47236"
-                    android:padding="8dp"
-                    android:src="@drawable/git_pull_request_svgrepo_com"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="#343541"></ImageView>
+            android:textSize="18sp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Requests"
-                    android:textSize="24dp"
-                    android:textColor="#343541"
-                    app:layout_constraintStart_toEndOf="@+id/imageView5"
-                    app:layout_constraintTop_toTopOf="@+id/requests"
-                    app:layout_constraintBottom_toBottomOf="@+id/requests"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clients"
-                android:layout_width="match_parent"
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:background="@drawable/rounded_button"
+                android:backgroundTint="#00F47236"
+                android:padding="8dp"
+                android:src="@drawable/git_pull_request_svgrepo_com"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="#343541"></ImageView>
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/requests"
-                android:layout_margin="5sp"
-                android:background="@drawable/background_rounded"
-                android:backgroundTint="#F7F7F8"
-                android:padding="16dp"
-                android:textSize="18sp">
+                android:text="Requests"
+                android:textSize="24dp"
+                android:textColor="#343541"
+                app:layout_constraintStart_toEndOf="@+id/imageView5"
+                app:layout_constraintTop_toTopOf="@+id/requests"
+                app:layout_constraintBottom_toBottomOf="@+id/requests"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clients"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/requests"
+            android:layout_margin="5sp"
+            android:background="@drawable/background_rounded"
+            android:backgroundTint="#F7F7F8"
+            android:padding="16dp"
+            android:textSize="18sp">
 
-                <ImageView
-                    android:id="@+id/imageView6"
-                    android:layout_width="54dp"
-                    android:layout_height="54dp"
-                    android:background="@drawable/rounded_button"
-                    android:backgroundTint="#00FFEB3B"
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:background="@drawable/rounded_button"
+                android:backgroundTint="#00FFEB3B"
 
-                    android:src="@drawable/users_svgrepo_com"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:tint="#343541"/>
+                android:src="@drawable/users_svgrepo_com"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="#343541"/>
 
-                <TextView
-                    android:id="@+id/textView8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Clients"
-                    android:textSize="24dp"
-                    android:textColor="#343541"
-                    app:layout_constraintStart_toEndOf="@+id/imageView6"
-                    app:layout_constraintTop_toTopOf="@+id/clients"
-                    app:layout_constraintBottom_toBottomOf="@+id/clients"/>
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Clients"
+                android:textSize="24dp"
+                android:textColor="#343541"
+                app:layout_constraintStart_toEndOf="@+id/imageView6"
+                app:layout_constraintTop_toTopOf="@+id/clients"
+                app:layout_constraintBottom_toBottomOf="@+id/clients"/>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <Button
             android:id="@+id/signout"
@@ -201,7 +201,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-      >
+            >
 
         </Button>
     </androidx.constraintlayout.widget.ConstraintLayout>

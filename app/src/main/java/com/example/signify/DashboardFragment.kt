@@ -18,6 +18,7 @@ class DashboardFragment : Fragment() {
     private lateinit var firestore: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
     private lateinit var viewModel: DashboardViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -55,7 +56,6 @@ class DashboardFragment : Fragment() {
         viewModel.getManagerName(auth.currentUser!!.uid).observe(viewLifecycleOwner){
             binding.name.text = it
         }
-
         return binding.root
     }
 }

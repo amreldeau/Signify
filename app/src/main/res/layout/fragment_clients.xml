@@ -23,6 +23,10 @@
             android:src="@drawable/left_svgrepo_com"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
+
+
+
+
         <LinearLayout
             android:id="@+id/add"
             android:layout_width="match_parent"
@@ -32,11 +36,9 @@
             android:layout_margin="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-
             app:layout_constraintTop_toBottomOf="@+id/backButtonClients">
 
             <ImageView
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/plus_svgrepo_com"
@@ -50,9 +52,12 @@
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/client_recycler_view"
             android:layout_width="match_parent"
             android:layout_margin="16dp"
             android:layout_height="0dp"
+            tools:listitem="@layout/item_client"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
