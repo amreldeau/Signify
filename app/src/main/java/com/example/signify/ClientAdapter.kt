@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.common.api.Api
 
-class ClientAdapter(private val clients: List<Clients>) : RecyclerView.Adapter<ClientAdapter.ClientViewHolder>() {
+class ClientAdapter(private val clients: ArrayList<Clients>) : RecyclerView.Adapter<ClientAdapter.ClientViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ClientViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_client, parent, false)
@@ -18,6 +18,7 @@ class ClientAdapter(private val clients: List<Clients>) : RecyclerView.Adapter<C
         val client = clients[position]
         holder.clientName.text = client.name
         holder.clientEmail.text = client.email
+       // holder.amount.text = client.amount.toString() + "$"
     }
 
     override fun getItemCount(): Int {
@@ -25,8 +26,8 @@ class ClientAdapter(private val clients: List<Clients>) : RecyclerView.Adapter<C
     }
 
     class ClientViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
         val clientName: TextView = itemView.findViewById(R.id.client_name)
         val clientEmail: TextView = itemView.findViewById((R.id.client_email))
+        val amount: TextView = itemView.findViewById(R.id.amount)
     }
 }

@@ -1,11 +1,14 @@
 package com.example.signify
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.signify.repository.FirestoreRepository
+import com.google.firebase.firestore.FirebaseFirestore
 
 class DashboardViewModel: ViewModel() {
     private val repository = FirestoreRepository()
+
     fun signOut() {
         repository.signOut()
     }
