@@ -33,6 +33,7 @@ class DashboardFragment : Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
+
         viewModel = ViewModelProvider(this)[DashboardViewModel::class.java]
         binding.signout.setOnClickListener {
             viewModel.signOut()
@@ -51,7 +52,7 @@ class DashboardFragment : Fragment() {
         viewModel.getTotalSales(auth.currentUser!!.uid).observe(viewLifecycleOwner){
             binding.totalSalesValue.text = getString(R.string.price, it)
         }
-        viewModel.getUserName(auth.currentUser!!.uid).observe(viewLifecycleOwner){
+        viewModel.getManagerName(auth.currentUser!!.uid).observe(viewLifecycleOwner){
             binding.name.text = it
         }
 

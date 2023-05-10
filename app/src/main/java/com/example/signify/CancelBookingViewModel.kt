@@ -10,5 +10,4 @@ class CancelBookingViewModel: ViewModel() {
     fun getOrderDetails(orderId: String): LiveData<OrderDetails> {
         return repository.getOrderDetails(orderId)
     }
-
 }
